@@ -1,6 +1,5 @@
-#!/usr/bin/env python
-
 """
+This file is a part of
 poproofread -- A podiff proofreader for the terminal
 Copyright (C) 2011 Kenneth Nielsen <k.nielsen81@gmail.com>
 
@@ -18,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import sys, os
+import os
 
 class FileIO():
     """ This class provides the file IO functionality 
