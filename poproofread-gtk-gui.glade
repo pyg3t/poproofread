@@ -300,6 +300,7 @@
                 <property name="can_focus">False</property>
                 <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
+                <accelerator key="Home" signal="clicked"/>
                 <signal name="clicked" handler="on_btn_first" swapped="no"/>
                 <child>
                   <object class="GtkImage" id="image1">
@@ -321,6 +322,7 @@
                 <property name="can_focus">False</property>
                 <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
+                <accelerator key="Page_Up" signal="clicked"/>
                 <signal name="clicked" handler="on_btn_previous" swapped="no"/>
                 <child>
                   <object class="GtkImage" id="image2">
@@ -342,6 +344,7 @@
                 <property name="can_focus">False</property>
                 <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
+                <accelerator key="Page_Down" signal="clicked"/>
                 <signal name="clicked" handler="on_btn_next" swapped="no"/>
                 <child>
                   <object class="GtkImage" id="image3">
@@ -363,6 +366,7 @@
                 <property name="can_focus">False</property>
                 <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
+                <accelerator key="End" signal="clicked"/>
                 <signal name="clicked" handler="on_btn_last" swapped="no"/>
                 <child>
                   <object class="GtkImage" id="image4">
