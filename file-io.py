@@ -105,11 +105,11 @@ class FileIO():
         return self.chunks
 
 
-    def write(self):
+    def write(self, content):
         """ Write all the comments to file, if there is something to write """
 
         # First check whether there is actually anything to write
-        if [e['comment'] for e in self.chunks].count('') == self.size:
+        if [e['comment'] for e in content].count('') == self.size:
             return
         
         if self.output_file_name:
@@ -117,7 +117,7 @@ class FileIO():
         
         # Write the comments
         first = True
-        for chunk in self.chunks:
+        for chunk in content:
             if chunk['comment'] != '':
                 if not first:
                     f.write('\n\n')
