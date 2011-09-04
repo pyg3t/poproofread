@@ -25,8 +25,10 @@ class FileIO():
 
     def __init__(self, input_file, output_extension='.proofread'):
         """ Initiate variables and file states """
-        self.outout_file = input_file + output_extension
+        self.input_file = input_file
         self.__check_input_file(self.input_file)
+
+        self.output_file = self.input_file + output_extension
         self.output_exists = False
         self.__check_output_file(self.output_file)
 
@@ -55,7 +57,7 @@ class FileIO():
     def read(self):
         """ Read files """
         
-        with open(input_file) as f:
+        with open(self.input_file) as f:
             content = str().join(f.readlines())
 
         # Make a list of dictionaries, taking the diff chunks by splitting
@@ -65,7 +67,7 @@ class FileIO():
         
         # If we are to continue old work
         if self.output_exists:
-            with open(self.output_file_name) as f:
+            with open(self.output_file) as f:
                 content = str().join(f.readlines())
             
             # Split the content at '\n\n'
@@ -109,11 +111,11 @@ class FileIO():
         """ Write all the comments to file, if there is something to write """
 
         # First check whether there is actually anything to write
-        if [e['comment'] for e in content].count('') == self.size:
+        if [e['comment'] for e in content].count('') == len(content):
+            print "no comment"
             return
         
-        if self.output_file_name:
-            f = open(self.output_file_name, 'w')
+        f = open(self.output_file, 'w')
         
         # Write the comments
         first = True
@@ -126,8 +128,8 @@ class FileIO():
                 f.write(chunk['diff_chunk'])
                 f.write('\n\n')
                 f.write(chunk['comment'])
+        f.write('\n')
 
-        if self.output_file_name:
-            f.close()
+        f.close()
 
         return True

@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from file-io import FileIO
+from fileio import FileIO
 
 class PoProofRead():
     """ Main functionality for poproofread """
@@ -25,6 +25,7 @@ class PoProofRead():
         active = False
         self.file = None
         self.current = None
+        self.content = None
 
     def open(self, filename):
         self.file = FileIO(filename)
@@ -47,10 +48,18 @@ class PoProofRead():
         return self.content[self.current]
 
     def get_status(self):
+        percentage = (self.current+1)*100.0/len(self.content)
+        print type(self.current), type(len(self.content))
         return {'current': self.current+1, 'total': len(self.content),
-                'percentage':
-                    '%.0f' % (self.current+1)*100.0/len(self.content),
-                'comments': 0}
+                'percentage': '%.0f' % percentage,
+                'comments': self.__count_comments()}
     
     def update_comment(self, new_comment):
         self.content[self.current]['comment'] = new_comment
+
+    def __count_comments(self):
+        number = 0
+        for element in self.content:
+            if element['comment'] != '':
+                number = number + 1
+        return number
