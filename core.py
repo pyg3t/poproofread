@@ -22,35 +22,44 @@ class PoProofRead():
     """ Main functionality for poproofread """
 
     def __init__(self):
-        active = False
-        self.file = None
+        self.active = False
         self.current = None
         self.content = None
 
     def open(self, filename):
         self.file = FileIO(filename)
-        self.content = self.file.read()
+        self.active = True
         self.current = 0
+        self.content = self.file.read()
 
     def save(self):
         self.file.write(self.content)
 
     def move(self, amount=None, goto=None):
-        if amount:
+        if amount != None:
+            print 'amount'
             self.current = self.current + amount
             # There has got to be a more pythonic way of doing this
             if self.current < 0:
                 self.current = 0
             if self.current >= len(self.content):
                 self.current = len(self.content)-1
+        elif goto != None:
+            print 'goto'
+            if goto < 0:
+                self.current = len(self.content)-1
+            elif goto >= len(self.content):
+                self.current = len(self.content)-1
+            else:
+                self.current = goto  
+        
 
     def get_current_content(self):
         return self.content[self.current]
 
     def get_status(self):
         percentage = (self.current+1)*100.0/len(self.content)
-        print type(self.current), type(len(self.content))
-        return {'current': self.current+1, 'total': len(self.content),
+        return {'current': self.current, 'total': len(self.content),
                 'percentage': '%.0f' % percentage,
                 'comments': self.__count_comments()}
     
