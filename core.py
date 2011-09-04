@@ -37,7 +37,6 @@ class PoProofRead():
 
     def move(self, amount=None, goto=None):
         if amount != None:
-            print 'amount'
             self.current = self.current + amount
             # There has got to be a more pythonic way of doing this
             if self.current < 0:
@@ -45,7 +44,6 @@ class PoProofRead():
             if self.current >= len(self.content):
                 self.current = len(self.content)-1
         elif goto != None:
-            print 'goto'
             if goto < 0:
                 self.current = len(self.content)-1
             elif goto >= len(self.content):

@@ -41,14 +41,12 @@ class PoProofReadGtkGUI:
 
     # GUI widgets
     def on_btn_set_bookmark(self, widget):
-        print widget.get_property("label")
-        print self.read_comment()
+        pass
     
     def on_btn_jump_to_bookmark(self, widget):
-        print widget.get_property("label")
+        pass
 
     def on_btn_first(self, widget):
-        print 'first'
         self.ppr.move(goto=0)
         self.update_gui()
     
@@ -65,7 +63,7 @@ class PoProofReadGtkGUI:
         self.update_gui()
 
     def on_btn_jump_to(self, widget):
-        print "jump to"
+        pass
 
     def on_mnu_open(self, widget):
         self.filech.show()
@@ -123,9 +121,10 @@ class PoProofReadGtkGUI:
         self.write_to_textbuffer(self.tb_comment, content['comment'])
 
         status = self.ppr.get_status()
+        print status
         if status['current'] == 0:
             self.set_sensitive_nav_buttons([False, False, True, True])
-        elif status['current'] == status['total']:
+        elif status['current'] == status['total']-1:
             self.set_sensitive_nav_buttons([True, True, False, False])
         else:
             self.set_sensitive_nav_buttons([True, True, True, True])
