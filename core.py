@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """
 poproofread -- A podiff proofreader for the terminal
 Copyright (C) 2011 Kenneth Nielsen <k.nielsen81@gmail.com>
@@ -18,26 +16,41 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+from file-io import FileIO
+
 class PoProofRead():
     """ Main functionality for poproofread """
 
     def __init__(self):
-        pass
+        active = False
+        self.file = None
+        self.current = None
 
-    def open(self):
-        pass
+    def open(self, filename):
+        self.file = FileIO(filename)
+        self.content = self.file.read()
+        self.current = 0
 
     def save(self):
-        pass
+        self.file.write(self.content)
 
-    def move(self, amount):
-        pass
+    def move(self, amount=None, goto=None):
+        if amount:
+            self.current = self.current + amount
+            # There has got to be a more pythonic way of doing this
+            if self.current < 0:
+                self.current = 0
+            if self.current >= len(self.content):
+                self.current = len(self.content)-1
 
     def get_current_content(self):
-        pass
+        return self.content[self.current]
 
-    def get_statue(self):
-        pass
+    def get_status(self):
+        return {'current': self.current+1, 'total': len(self.content),
+                'percentage':
+                    '%.0f' % (self.current+1)*100.0/len(self.content),
+                'comments': 0}
     
     def update_comment(self, new_comment):
-        pass
+        self.content[self.current]['comment'] = new_comment
