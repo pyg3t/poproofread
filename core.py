@@ -33,6 +33,7 @@ class PoProofRead():
         self.content = self.file.read()
 
     def save(self):
+        print "core save"
         self.file.write(self.content)
 
     def move(self, amount=None, goto=None):
@@ -58,7 +59,7 @@ class PoProofRead():
     def get_status(self):
         percentage = (self.current+1)*100.0/len(self.content)
         return {'current': self.current, 'total': len(self.content),
-                'percentage': '%.0f' % percentage,
+                'percentage': percentage,
                 'comments': self.__count_comments()}
     
     def update_comment(self, new_comment):

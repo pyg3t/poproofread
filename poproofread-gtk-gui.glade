@@ -94,7 +94,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem" id="imagemenuitem2">
+                      <object class="GtkImageMenuItem" id="mnu_open">
                         <property name="label">gtk-open</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -106,13 +106,14 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="imagemenuitem3">
+                      <object class="GtkImageMenuItem" id="mnu_save">
                         <property name="label">gtk-save</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_action_appearance">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
+                        <accelerator key="s" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="on_mnu_save" swapped="no"/>
                       </object>
                     </child>
@@ -124,7 +125,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="imagemenuitem5">
+                      <object class="GtkImageMenuItem" id="mnu_quit">
                         <property name="label">gtk-quit</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>

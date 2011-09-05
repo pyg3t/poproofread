@@ -47,18 +47,22 @@ class PoProofReadGtkGUI:
         pass
 
     def on_btn_first(self, widget):
+        self.check_for_new_comment_and_save_it()
         self.ppr.move(goto=0)
         self.update_gui()
     
     def on_btn_previous(self, widget):
+        self.check_for_new_comment_and_save_it()
         self.ppr.move(amount=-1)
         self.update_gui()
 
     def on_btn_next(self, widget):
+        self.check_for_new_comment_and_save_it()
         self.ppr.move(amount=1)
         self.update_gui()
 
     def on_btn_last(self, widget):
+        self.check_for_new_comment_and_save_it()
         self.ppr.move(goto=-1)
         self.update_gui()
 
@@ -70,15 +74,20 @@ class PoProofReadGtkGUI:
 
     def on_mnu_save(self, widget):
         print "save"
+        if not self.check_for_new_comment_and_save_it():
+            self.ppr.save()
 
     def on_mnu_quit(self, widget):
         # Quit code
+        self.ppr.save()
         gtk.main_quit()
 
     def on_mnu_about(self, widget):
         print "about"
 
     def on_filech_ok(self, widget):
+        if self.ppr.active:
+            self.ppr.save()
         file = self.filech.get_filename()
         self.ppr.open(file)
         self.filech.hide()
@@ -116,18 +125,40 @@ class PoProofReadGtkGUI:
         if not self.ppr.active:
             return
 
+        # Update text content
         content = self.ppr.get_current_content()
         self.write_to_textbuffer(self.tb_diff, content['diff_chunk'])
         self.write_to_textbuffer(self.tb_comment, content['comment'])
+        startiter, enditer = self.tb_comment.get_bounds()
+        self.builder.get_object('textview_comment').grab_focus()
+        self.tb_comment.place_cursor(enditer)
+        mark = self.tb_comment.create_mark(None, enditer)
+        self.builder.get_object('textview_comment').scroll_mark_onscreen(mark)
 
+        # Get status and update sensitivity of buttons and the statusline
         status = self.ppr.get_status()
-        print status
+        self.update_status_line(str(status['current']+1), str(status['total']),
+                                '%.0f%%' % status['percentage'],
+                                str(status['comments']))
         if status['current'] == 0:
             self.set_sensitive_nav_buttons([False, False, True, True])
         elif status['current'] == status['total']-1:
             self.set_sensitive_nav_buttons([True, True, False, False])
         else:
             self.set_sensitive_nav_buttons([True, True, True, True])
+
+        self.tb_comment.set_modified(False)
+
+    def update_status_line(self, position=None, total=None, percentage=None,
+                           comments=None):
+        if position is not None:
+            self.labels['lab_current_pos'].set_text(str(position))
+        if total is not None:
+            self.labels['lab_total'].set_text(str(total))
+        if percentage is not None:
+            self.labels['lab_percentage'].set_text(str(percentage))
+        if comments is not None:
+            self.labels['lab_comments'].set_text(str(comments))
             
     def set_sensitive_nav_buttons(self, btn_status):
         self.get_object('btn_first').set_sensitive(btn_status[0])
@@ -135,9 +166,17 @@ class PoProofReadGtkGUI:
         self.get_object('btn_next').set_sensitive(btn_status[2])
         self.get_object('btn_last').set_sensitive(btn_status[3])
         
-
-            
-    # Use tb.get_modified and tb.set_modified()
+    def check_for_new_comment_and_save_it(self):
+        """ Check if the comment text buffer has been modified and if it has
+        update the comment with the new content. The return value indicates
+        whether the file has been saved.
+        """
+        if self.tb_comment.get_modified():
+            self.ppr.update_comment(self.read_comment())
+            self.ppr.save()
+            self.tb_comment.set_modified(False)
+            return True
+        return False
     
 if __name__ == "__main__":
     poproofread = PoProofReadGtkGUI()
