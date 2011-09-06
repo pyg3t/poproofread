@@ -1,5 +1,5 @@
 """
-poproofread -- A podiff proofreader for the terminal
+poproofread -- A po-file and podiff proofreader
 Copyright (C) 2011 Kenneth Nielsen <k.nielsen81@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
