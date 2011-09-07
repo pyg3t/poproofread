@@ -3,3 +3,6 @@ file is the file ine
 filename.ppr contains the data, that will be reopened the next time
    the work is continued. Possible use json for this.
 filename.ppr.out or filename.ppr.exp is the human readable output
+
+Make sure we test if core is active (has a file loaded) before trying
+   to save it, e.g. when shutting down the program
