@@ -22,15 +22,20 @@ class PoProofRead():
     """ Main functionality for poproofread """
 
     def __init__(self):
+        self.file = None
         self.active = False
         self.current = None
         self.content = None
 
     def open(self, filename):
         self.file = FileIO(filename)
+        # The next three lines should only be executed if open was succesfull
         self.active = True
         self.current = 0
         self.content = self.file.read()
+
+    def close(self):
+        self
 
     def save(self):
         print "core save"
