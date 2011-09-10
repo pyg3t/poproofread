@@ -49,7 +49,7 @@ class PoProofReadGtkGUI:
         self.tb_diff, self.tb_comment = gtk.TextBuffer(), gtk.TextBuffer()
         self.builder.get_object('textview_diff').set_buffer(self.tb_diff)   
         self.builder.get_object('textview_comment').set_buffer(self.tb_comment)   
-        pangofont = pango.FontDescription('Monospace 12')
+        pangofont = pango.FontDescription('Monospace 10')
         self.builder.get_object('textview_diff').modify_font(pangofont)
         self.builder.get_object('textview_comment').modify_font(pangofont)
 
