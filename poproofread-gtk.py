@@ -61,10 +61,14 @@ class PoProofReadGtkGUI:
 
     # GUI widgets
     def on_btn_set_bookmark(self, widget):
-        pass
+        print "set_bookmark"
+        self.ppr.set_bookmark()
+        self.update_bookmark()
     
     def on_btn_jump_to_bookmark(self, widget):
-        pass
+        self.check_for_new_comment_and_save_it()
+        self.ppr.move(goto=self.ppr.get_bookmark())
+        self.update_gui()
 
     def on_btn_first(self, widget):
         self.check_for_new_comment_and_save_it()
@@ -87,19 +91,20 @@ class PoProofReadGtkGUI:
         self.update_gui()
 
     def on_btn_jump_to(self, widget):
-        pass
+        self.builder.get_object('dialog_jump_to').show()
+        self.builder.get_object('spinbtn_jump_to')\
+            .set_range(1, self.ppr.get_no_chunks())
 
     def on_mnu_open(self, widget):
         self.filech.show()
 
     def on_mnu_save(self, widget):
-        print "save"
         if not self.check_for_new_comment_and_save_it():
             self.ppr.save()
 
     def on_mnu_quit(self, widget):
-        # Quit code
-        self.ppr.save()
+        if self.ppr.active:
+            self.ppr.save()
         gtk.main_quit()
 
     def on_mnu_about(self, widget):
@@ -117,6 +122,17 @@ class PoProofReadGtkGUI:
 
     def on_filech_cancel(self, widget):
         self.filech.hide()
+
+    def on_jump_to_ok(self, widget):
+        value = self.builder.get_object('spinbtn_jump_to').get_value_as_int()
+        self.builder.get_object('dialog_jump_to').hide()
+        self.check_for_new_comment_and_save_it()
+        self.ppr.move(goto=value-1)
+        self.update_gui()
+
+    def on_jump_to_cancel(self, widget):
+        self.builder.get_object('dialog_jump_to').hide()
+
 
     # General functions
     def get_object(self, name):
@@ -168,6 +184,14 @@ class PoProofReadGtkGUI:
             self.set_sensitive_nav_buttons([True, True, True, True])
 
         self.tb_comment.set_modified(False)
+
+        self.update_bookmark()
+
+    def update_bookmark(self):
+        """ Update the book mark field """
+        bookmark = str(self.ppr.get_bookmark() + 1)\
+            if self.ppr.get_bookmark() is not None else 'N/A'
+        self.builder.get_object('lab_current_bookmark').set_text(bookmark)
 
     def update_status_line(self, position=None, total=None, percentage=None,
                            comments=None):

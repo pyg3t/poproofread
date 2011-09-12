@@ -79,15 +79,11 @@ class PoProofRead():
                 number = number + 1
         return number
 
-    def set_bookmark(self, bookmark):
-        if bookmark < 0:
-            bookmark = 0
-        elif bookmark >= self.content['no_chunks']:
-            bookmark = self.content['no_chunks'] - 1
-        self.content['bookmark'] = bookmark
+    def set_bookmark(self):
+        self.content['bookmark'] = self.content['current']
 
     def get_bookmark(self):
         return self.content['bookmark']
 
-    def jump_to_bookmark(self):
-        self.conten['current'] = self.content['bookmark']
+    def get_no_chunks(self):
+        return int(self.content['no_chunks'])
