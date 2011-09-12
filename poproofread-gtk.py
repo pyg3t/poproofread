@@ -19,9 +19,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+import os
 import sys
 import gtk
 import pango
+import argparse
 from core import PoProofRead
 	
 class PoProofReadGtkGUI:
@@ -61,7 +63,6 @@ class PoProofReadGtkGUI:
 
     # GUI widgets
     def on_btn_set_bookmark(self, widget):
-        print "set_bookmark"
         self.ppr.set_bookmark()
         self.update_bookmark()
     
@@ -108,7 +109,7 @@ class PoProofReadGtkGUI:
         gtk.main_quit()
 
     def on_mnu_about(self, widget):
-        print "about"
+        pass
 
     def on_filech_ok(self, widget):
         if self.ppr.active:
@@ -221,8 +222,25 @@ class PoProofReadGtkGUI:
             self.tb_comment.set_modified(False)
             return True
         return False
+
+    def open_file_from_commandline(self, filename):
+        if self.ppr.active:
+            self.ppr.save()
+        self.ppr.open(filename)
+        self.get_object('hbox_buttons').set_sensitive(True)
+        self.get_object('hbox_statusline').set_sensitive(True)
+        self.update_gui()
+
     
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=
+                                     'Proofread po and podiff files.')
+    parser.add_argument('filename', default=None, nargs='?',
+                        help='The file to open')
+    args = parser.parse_args()
+
     poproofread = PoProofReadGtkGUI()
+    if args.filename is not None:
+        poproofread.open_file_from_commandline(args.filename)
     poproofread.window.show()
     gtk.main()
