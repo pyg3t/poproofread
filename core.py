@@ -22,57 +22,72 @@ class PoProofRead():
     """ Main functionality for poproofread """
 
     def __init__(self):
-        self.file = None
+        self.fileio = FileIO()
         self.active = False
-        self.current = None
         self.content = None
 
     def open(self, filename):
-        self.file = FileIO(filename)
-        # The next three lines should only be executed if open was succesfull
+        self.content = self.fileio.read(filename)
+        # The next line should only be executed if open was succesfull
         self.active = True
-        self.current = 0
-        self.content = self.file.read()
 
     def close(self):
-        self
+        pass
 
     def save(self):
-        print "core save"
-        self.file.write(self.content)
+        self.fileio.write(self.content)
 
     def move(self, amount=None, goto=None):
         if amount != None:
-            self.current = self.current + amount
+            self.content['current'] = self.content['current'] + amount
             # There has got to be a more pythonic way of doing this
-            if self.current < 0:
-                self.current = 0
-            if self.current >= len(self.content):
-                self.current = len(self.content)-1
+            if self.content['current'] < 0:
+                self.content['current'] = 0
+            if self.content['current'] >= self.content['no_chunks']:
+                self.content['current'] = self.content['no_chunks']-1
         elif goto != None:
             if goto < 0:
-                self.current = len(self.content)-1
-            elif goto >= len(self.content):
-                self.current = len(self.content)-1
+                self.content['current'] = self.content['no_chunks']-1
+            elif goto >= self.content['no_chunks']:
+                self.content['current'] = self.content['no_chunks']-1
             else:
-                self.current = goto  
+                self.content['current'] = goto  
         
 
     def get_current_content(self):
-        return self.content[self.current]
+        return self.content['text'][self.content['current']]
 
     def get_status(self):
-        percentage = (self.current+1)*100.0/len(self.content)
-        return {'current': self.current, 'total': len(self.content),
+        """ Get the status, consisting of the current, total, percentage and
+        number of comments. NOTE current is reported zero based and it is up
+        to the GUI to change it for representation purposes
+        """
+        percentage =\
+            (self.content['current']+1)*100.0/self.content['no_chunks']
+        return {'current': self.content['current'],
+                'total': self.content['no_chunks'],
                 'percentage': percentage,
                 'comments': self.__count_comments()}
     
     def update_comment(self, new_comment):
-        self.content[self.current]['comment'] = new_comment
+        self.content['text'][self.content['current']]['comment'] = new_comment
 
     def __count_comments(self):
         number = 0
-        for element in self.content:
+        for element in self.content['text']:
             if element['comment'] != '':
                 number = number + 1
         return number
+
+    def set_bookmark(self, bookmark):
+        if bookmark < 0:
+            bookmark = 0
+        elif bookmark >= self.content['no_chunks']:
+            bookmark = self.content['no_chunks'] - 1
+        self.content['bookmark'] = bookmark
+
+    def get_bookmark(self):
+        return self.content['bookmark']
+
+    def jump_to_bookmark(self):
+        self.conten['current'] = self.content['bookmark']

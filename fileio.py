@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import os, json
+import os, json, codecs
 from custom_exceptions import FileError
 
 class FileIO():
@@ -48,7 +48,7 @@ class FileIO():
         self.out_file = input_file + '.out'
         self.__check_ppr_and_out_file(self.ppr_file, self.out_file, True)
 
-        with open(self.input_file) as f:
+        with open(input_file) as f:
             return json.loads(f.read())
 
     def __read_new(self, input_file):
@@ -68,7 +68,8 @@ class FileIO():
         diff_list = [{'diff_chunk':diff, 'comment':'', 'inline':False}
                      for diff in diff_chunks]
 
-        return {'text':diff_list, 'encoding':'utf-8', 'bookmark':None}
+        return {'text':diff_list, 'encoding':'utf-8', 'bookmark':None, 
+                'current':0, 'no_chunks':len(diff_list)}
 
     def __check_ppr_and_out_file(self, ppr_file, out_file, existing):
         """ Check file permissions """
@@ -104,12 +105,19 @@ class FileIO():
 
     def write(self, content):
         """ Write content to ppr and out file """
-        self.__write_to_ppr(self, content)
-        self.__write_to_out(self, content)
+        self.__write_to_ppr(content)
+        self.__write_to_out(content)
 
     def __write_to_ppr(self, content):
-        pass
+        """ Write json representation of conten to .ppr file """
+        with open(self.ppr_file, 'w') as f:
+            f.write(json.dumps(content))
     
     def __write_to_out(self, content):
-        pass
-
+        """ Write out file """
+        with codecs.open(self.out_file, encoding='utf-8', mode='w') as f:
+            for comment in content['text']:
+                if comment['comment'] != '':
+                    if not comment['inline']:
+                        f.write(comment['diff_chunk'] + '\n\n')
+                    f.write(comment['comment'] + '\n\n')
