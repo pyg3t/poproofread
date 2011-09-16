@@ -36,11 +36,14 @@ class FileIO():
                 """ We have tried to open the out file, overwrite and try to
                 open the .ppr file """
                 content = self.__read_ppr(os.path.splitext(input_file)[0])
+                actual_file = os.path.splitext(input_file)[0]
         elif os.path.splitext(input_file)[1] == '.ppr':
             content = self.__read_ppr(input_file)
+            actual_file = input_file
         else:
             content = self.__read_new(input_file)
-        return content
+            actual_file = input_file + '.ppr'
+        return (content, actual_file)
 
     def __read_ppr(self, input_file):
         """ Read content from .ppr file """

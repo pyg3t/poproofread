@@ -115,7 +115,9 @@ class PoProofReadGtkGUI:
         if self.ppr.active:
             self.ppr.save()
         file = self.filech.get_filename()
-        self.ppr.open(file)
+        actual_file = self.ppr.open(file)
+        self.builder.get_object('poproofread').set_title(
+            'PoProofRead - %s' % os.path.basename(actual_file))
         self.filech.hide()
         self.get_object('hbox_buttons').set_sensitive(True)
         self.get_object('hbox_statusline').set_sensitive(True)
@@ -157,6 +159,7 @@ class PoProofReadGtkGUI:
             label.set_text('-')
         self.get_object('hbox_buttons').set_sensitive(False)
         self.get_object('hbox_statusline').set_sensitive(False)
+        self.get_object('poproofread').set_title('PoProofRead')
 
     def update_gui(self):
         if not self.ppr.active:

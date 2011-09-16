@@ -27,9 +27,10 @@ class PoProofRead():
         self.content = None
 
     def open(self, filename):
-        self.content = self.fileio.read(filename)
+        self.content, actual_file = self.fileio.read(filename)
         # The next line should only be executed if open was succesfull
         self.active = True
+        return actual_file
 
     def close(self):
         pass
