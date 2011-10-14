@@ -50,7 +50,12 @@ class PoProofReadGtkGUI:
         # tb short for textbuffer
         self.tb_diff, self.tb_comment = gtk.TextBuffer(), gtk.TextBuffer()
         self.builder.get_object('textview_diff').set_buffer(self.tb_diff)   
-        self.builder.get_object('textview_comment').set_buffer(self.tb_comment)   
+        self.builder.get_object('textview_comment').set_buffer(self.tb_comment) 
+
+        self.sw1 = self.builder.get_object('scrolledwindow1')
+        self.sw2 = self.builder.get_object('scrolledwindow2')
+        self.vbox1 = self.builder.get_object('vbox1')
+        
         pangofont = pango.FontDescription('Monospace 10')
         self.builder.get_object('textview_diff').modify_font(pangofont)
         self.builder.get_object('textview_comment').modify_font(pangofont)
@@ -70,6 +75,30 @@ class PoProofReadGtkGUI:
         self.check_for_new_comment_and_save_it()
         self.ppr.move(goto=self.ppr.get_bookmark())
         self.update_gui()
+
+    def on_checkbutton_inline(self, widget):
+        inline = widget.get_active()
+        self.ppr.set_inline_status(inline)
+        # If activating inline and empty comment, copy diff to comment field
+        if inline and (self.read_comment() == ''):
+            self.ppr.update_comment(\
+                self.ppr.get_current_content()['diff_chunk'])
+
+        # Update according to inline status
+        par1 = self.vbox1.query_child_packing(self.sw1)
+        par2 = self.vbox1.query_child_packing(self.sw1)
+        if inline:
+            self.sw1.set_size_request(-1, 100)
+            self.sw2.set_size_request(-1, -1)
+            self.vbox1.set_child_packing(self.sw1, False, *par1[1:])
+            self.vbox1.set_child_packing(self.sw2, True,  *par2[1:])
+            self.builder.get_object('textview_diff').set_sensitive(False)
+        else:
+            self.sw1.set_size_request(-1, -1)
+            self.sw2.set_size_request(-1, 100)
+            self.vbox1.set_child_packing(self.sw1, True,  *par1[1:])
+            self.vbox1.set_child_packing(self.sw2, False, *par2[1:])
+            self.builder.get_object('textview_diff').set_sensitive(True)
 
     def on_btn_first(self, widget):
         self.check_for_new_comment_and_save_it()
@@ -136,7 +165,6 @@ class PoProofReadGtkGUI:
     def on_jump_to_cancel(self, widget):
         self.builder.get_object('dialog_jump_to').hide()
 
-
     # General functions
     def get_object(self, name):
         return self.builder.get_object(name)
@@ -174,6 +202,9 @@ class PoProofReadGtkGUI:
         self.tb_comment.place_cursor(enditer)
         mark = self.tb_comment.create_mark(None, enditer)
         self.builder.get_object('textview_comment').scroll_mark_onscreen(mark)
+
+        self.builder.get_object('checkbutton_inline').set_active(
+            self.ppr.get_inline_status())
 
         # Get status and update sensitivity of buttons and the statusline
         status = self.ppr.get_status()

@@ -401,6 +401,25 @@ Shortcut: Ctrl-g</property>
               </packing>
             </child>
             <child>
+              <object class="GtkCheckButton" id="checkbutton_inline">
+                <property name="label" translatable="yes">Inline</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Toggle inline commenting
+Shortcut: Ctrl-i</property>
+                <property name="use_action_appearance">False</property>
+                <property name="draw_indicator">True</property>
+                <accelerator key="i" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <signal name="toggled" handler="on_checkbutton_inline" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkLabel" id="lab_filling">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -408,7 +427,7 @@ Shortcut: Ctrl-g</property>
               <packing>
                 <property name="expand">True</property>
                 <property name="fill">True</property>
-                <property name="position">3</property>
+                <property name="position">4</property>
               </packing>
             </child>
             <child>
@@ -433,7 +452,7 @@ Shortcut: Ctrl-Home</property>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">4</property>
+                <property name="position">5</property>
               </packing>
             </child>
             <child>
@@ -458,7 +477,7 @@ Shortcut: PageUp</property>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">5</property>
+                <property name="position">6</property>
               </packing>
             </child>
             <child>
@@ -483,7 +502,7 @@ Shortcut: PageDown</property>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">6</property>
+                <property name="position">7</property>
               </packing>
             </child>
             <child>
@@ -508,7 +527,7 @@ Shortcut: Ctrl-End</property>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">7</property>
+                <property name="position">8</property>
               </packing>
             </child>
             <child>
@@ -533,7 +552,7 @@ Shortcut: Ctrl-j</property>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">8</property>
+                <property name="position">9</property>
               </packing>
             </child>
           </object>

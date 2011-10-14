@@ -58,6 +58,12 @@ class PoProofRead():
     def get_current_content(self):
         return self.content['text'][self.content['current']]
 
+    def get_inline_status(self):
+        return self.content['text'][self.content['current']]['inline']
+
+    def set_inline_status(self, inline):
+        self.content['text'][self.content['current']]['inline'] = inline
+
     def get_status(self):
         """ Get the status, consisting of the current, total, percentage and
         number of comments. NOTE current is reported zero based and it is up
