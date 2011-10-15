@@ -1,0 +1,637 @@
+ #: builtins/alias.def:132
+-#, fuzzy, c-format
++#, c-format
+ msgid "`%s': invalid alias name"
+-msgstr "\"%s\": ugyldigt tastetildelingsnavn"
++msgstr "\"%s\": ugyldigt navn på alias"
+
+ #: builtins/caller.def:135
+ msgid ""
+ ".  With EXPR, returns\n"
+ "    "
+-msgstr ""
++msgstr ".  Med EXPR, returneres\n"
+
+ #: builtins/caller.def:136
+ msgid ""
+ "; this extra information can be used to\n"
+ "    provide a stack trace.\n"
+ "    \n"
+ "    The value of EXPR indicates how many call frames to go back before the\n"
+ "    current one; the top frame is frame 0."
+ msgstr ""
++"; denne ekstra information kan anvendes til\n"
++"    at tilbyde en staksporing.\n"
++"   \n"
++"    Værdien af EXPR indikerer hvor mange kaldrammer der gås tilbage før\n"
++"    den nuværende; toprammen er ramme 0."
+
+ #: builtins/mapfile.def:165
+-#, fuzzy, c-format
++#, c-format
+ msgid "%s: not an indexed array"
+-msgstr "%s: ikke en arrayvariabel"
++msgstr "%s: ikke et indekseret array"
+
+ # Jeg tror der er en fejl i den engelske, fejlrapport
+ #: builtins/pushd.def:705
+-#, fuzzy
+ msgid ""
+ "Adds a directory to the top of the directory stack, or rotates\n"
+ "    the stack, making the new top of the stack the current working\n"
+ "    directory.  With no arguments, exchanges the top two directories.\n"
+ "    \n"
+ "    Options:\n"
+ "      -n\tSuppresses the normal change of directory when adding\n"
+ "    \tdirectories to the stack, so only the stack is manipulated.\n"
+ "    \n"
+ "    Arguments:\n"
+ "      +N\tRotates the stack so that the Nth directory (counting\n"
+ "    \tfrom the left of the list shown by `dirs', starting with\n"
+ "    \tzero) is at the top.\n"
+ "    \n"
+ "      -N\tRotates the stack so that the Nth directory (counting\n"
+ "    \tfrom the right of the list shown by `dirs', starting with\n"
+ "    \tzero) is at the top.\n"
+ "    \n"
+ "      dir\tAdds DIR to the directory stack at the top, making it the\n"
+ "    \tnew current working directory.\n"
+ "    \n"
+ "    The `dirs' builtin displays the directory stack."
+ msgstr ""
+ "Tilføjer en mappe til toppen af mappestakken, eller roterer stakken\n"
+ "    således at den nye top bliver den aktuelle mappe. Uden\n"
+ "    argumenter ombyttes de to øverste mapper.\n"
+ "    \n"
+ "    Valgmuligheder:\n"
+ "      -n\tUndertrykker det normale mappeskift ved tilføjelse\n"
+ "    \taf mapper til stakken, således at kun stakken manipuleres.\n"
+ "    \n"
+ "    Argumenter:\n"
+-"      +N\tRoterer stakken således at det N'te element (talt\n"
++"      +N\tRoterer stakken således at den N'te mappe (talt\n"
+ "    \tfra venstre af listen som vist af \"dirs\", startende med nul)\n"
+ "    \tbliver placeret i toppen.\n"
+ "    \n"
+-"      -N\tRoterer stakken således at det N'te element (talt\n"
++"      -N\tRoterer stakken således at den N'te mappe (talt\n"
+ "    \tfra højre af listen som vist af \"dirs\", startende med nul)\n"
+ "    \tbliver placeret i toppen.\n"
+ "    \n"
+ "      dir\tTilføjer DIR til toppen af mappestakken, således at den\n"
+ "    \tbliver den nye aktive mappe.\n"
+ "    \n"
+-"Den indbyggede funktion \"dirs\" viser mappestakken."
++"    Den indbyggede funktion \"dirs\" viser mappestakken."
+
+ #: jobs.c:3059
+ msgid "waitchld: turning on WNOHANG to avoid indefinite block"
+-msgstr ""
++msgstr "waitchld: slår WNOHANG til for at undgå ubestemt blokering"
+
+ #: locale.c:192
+ #, c-format
+ msgid "setlocale: LC_ALL: cannot change locale (%s)"
+-msgstr ""
++msgstr "setlocale: LC_ALL: kan ikke ændre lokalitet (%s)"
+
+ #: locale.c:194
+ #, c-format
+ msgid "setlocale: LC_ALL: cannot change locale (%s): %s"
+-msgstr ""
++msgstr "setlocale: LC_ALL: kan ikke ændre lokalitet (%s): %s"
+
+ #: locale.c:247
+-#, fuzzy, c-format
++#, c-format
+ msgid "setlocale: %s: cannot change locale (%s)"
+-msgstr "xrealloc: %s:%d: kan ikke allokere %lu bytes"
++msgstr "setlocale: %s: kan ikke ændre lokalitet (%s)"
+
+ #: locale.c:249
+-#, fuzzy, c-format
++#, c-format
+ msgid "setlocale: %s: cannot change locale (%s): %s"
+-msgstr "xrealloc: %s:%d: kan ikke allokere %lu bytes"
++msgstr "setlocale: %s: kan ikke ændre lokalitet (%s): %s"
+
+ #: print_cmd.c:363
+-#, fuzzy, c-format
++#, c-format
+ msgid "xtrace_set: %d: invalid file descriptor"
+-msgstr "%d: ugyldig filbeskrivelse: %s"
++msgstr "xtrace_set: %d: ugyldig filbeskrivelse"
+
+ #: print_cmd.c:368
+ msgid "xtrace_set: NULL file pointer"
+-msgstr ""
++msgstr "xtrace_set: NULL filpeger"
+
+ #: print_cmd.c:372
+ #, c-format
+ msgid "xtrace fd (%d) != fileno xtrace fp (%d)"
+-msgstr ""
++msgstr "xtrace fd (%d) != fileno xtrace fp (%d)"
+
+ #: redir.c:184
+-#, fuzzy, c-format
++#, c-format
+ msgid "%s: cannot assign fd to variable"
+-msgstr "%s: kan ikke tildele liste til arrayelementer"
++msgstr "%s: kan ikke tildele fd til variabel"
+
+ #: subst.c:7374
+ msgid "future versions of the shell will force evaluation as an arithmetic
+substitution"
+ msgstr ""
++"fremtidige version af skallen vil gennemtvinge evaluering som en aritmetisk "
++"substitution"
+
+ #: variables.c:3376
+-#, fuzzy, c-format
++#, c-format
+ msgid "%s has null exportstr"
+-msgstr "%s: parameter null eller ikke indstillet"
++msgstr "%s har null exportstr"
+
+ #: variables.c:4678
+-#, fuzzy, c-format
++#, c-format
+ msgid "%s: %s: cannot open as FILE"
+-msgstr "%s: kan ikke åbne: %s"
++msgstr "%s: %s kan ikke åbne som FIL"
+
+ #: variables.c:4683
+-#, fuzzy, c-format
++#, c-format
+ msgid "%s: %s: invalid value for trace file descriptor"
+-msgstr "%d: ugyldig filbeskrivelse: %s"
++msgstr "%s: %s: ugyldig værdi for sporing af filbeskrivelse"
+
+ #: version2.c:86
+-#, fuzzy, c-format
++#, c-format
+ msgid "Copyright (C) 2009 Free Software Foundation, Inc.\n"
+-msgstr "Ophavsret (C) 2009 Free Software Foundation, Inc."
++msgstr "Ophavsret (C) 2009 Free Software Foundation, Inc.\n"
+
+ #: version2.c:87
+-#, fuzzy, c-format
++#, c-format
+ msgid "License GPLv2+: GNU GPL version 2 or later
+<http://gnu.org/licenses/gpl.html>\n"
+-msgstr "Licens GPLv3+: GNU GPL version 3 eller senere
+<http://gnu.org/licenses/gpl.html>\n"
++msgstr "Licens GPLv2+: GNU GPL version 2 eller senere "
++"<http://gnu.org/licenses/gpl.html>\n"
+
+ #: xmalloc.c:91
+-#, fuzzy, c-format
++#, c-format
+ msgid "%s: cannot allocate %lu bytes (%lu bytes allocated)"
+-msgstr "xmalloc: kan ikke allokere %lu bytes (%lu bytes allokeret)"
++msgstr "%s: kan ikke allokere %lu byte (%lu byte allokeret)"
+
+ #: xmalloc.c:93
+-#, fuzzy, c-format
++#, c-format
+ msgid "%s: cannot allocate %lu bytes"
+-msgstr "xmalloc: kan ikke allokere %lu bytes"
++msgstr "%s: kan ikke allokere %lu byte"
+
+ #: xmalloc.c:163
+-#, fuzzy, c-format
++#, c-format
+ msgid "%s: %s:%d: cannot allocate %lu bytes (%lu bytes allocated)"
+-msgstr "xmalloc: %s:%d: kan ikke allokere %lu bytes (%lu bytes allokeret)"
++msgstr "%s: %s:%d: kan ikke allokere %lu byte (%lu byte allokeret)"
+
+ #: xmalloc.c:165
+-#, fuzzy, c-format
++#, c-format
+ msgid "%s: %s:%d: cannot allocate %lu bytes"
+-msgstr "xmalloc: %s:%d: kan ikke allokere %lu bytes"
++msgstr "%s: %s:%d: kan ikke allokere %lu byte"
+
+ #: builtins.c:117
+-#, fuzzy
+ msgid "help [-dms] [pattern ...]"
+-msgstr "help [-ds] [mønster ...]"
++msgstr "help [-dms] [mønster ...]"
+
+ #: builtins.c:136
+-#, fuzzy
+ msgid "read [-ers] [-a array] [-d delim] [-i text] [-n nchars] [-N nchars] [-p
+prompt] [-t timeout] [-u fd] [name ...]"
+-msgstr "read [-ers] [-a array] [-d adskil] [-i tekst] [-n ntegn] [-p prompt] [-
+t tidsgrænse] [-u fd] [navn ...]"
++msgstr ""
++"read [-ers] [-a array] [-d adskil] [-i tekst] [-n ntegn] [-N nchars] [-p "
++"prompt] [-t tidsgrænse] [-u fd] [navn ...]"
+
+ #: builtins.c:229
+-#, fuzzy
+ msgid "complete [-abcdefgjksuv] [-pr] [-DE] [-o option] [-A action] [-G
+globpat] [-W wordlist]  [-F function] [-C command] [-X filterpat] [-P prefix] [-
+S suffix] [name ...]"
+-msgstr "complete [-abcdefgjksuv] [-pr] [-o valgmuligheder] [-A handling] [-G
+globmønst] [-W ordliste]  [-F funktion] [-C kommando] [-X filtermønst] [-P
+præfiks] [-S suffiks] [navn ...]"
++msgstr ""
++"complete [-abcdefgjksuv] [-pr] [-DE] [-o valgmuligheder] [-A handling] [-G "
++"globmønst] [-W ordliste]  [-F funktion] [-C kommando] [-X filtermønst] [-P "
++"præfiks] [-S suffiks] [navn ...]"
+
+ #: builtins.c:237
+-#, fuzzy
+ msgid "compopt [-o|+o option] [-DE] [name ...]"
+-msgstr "compopt [-o|+o valgmulighed] [navn ...]"
++msgstr "compopt [-o|+o valgmulighed] [-DE] [navn ...]"
+
+ #: builtins.c:966
+-#, fuzzy
+ msgid ""
+ "Read a line from the standard input and split it into fields.\n"
+ "    \n"
+ "    Reads a single line from the standard input, or from file descriptor FD\n"
+ "    if the -u option is supplied.  The line is split into fields as with
+word\n"
+ "    splitting, and the first word is assigned to the first NAME, the second\n"
+ "    word to the second NAME, and so on, with any leftover words assigned to\n"
+ "    the last NAME.  Only the characters found in $IFS are recognized as
+word\n"
+ "    delimiters.\n"
+ "    \n"
+ "    If no NAMEs are supplied, the line read is stored in the REPLY
+variable.\n"
+ "    \n"
+ "    Options:\n"
+ "      -a array\tassign the words read to sequential indices of the array\n"
+ "    \t\tvariable ARRAY, starting at zero\n"
+ "      -d delim\tcontinue until the first character of DELIM is read, rather\n"
+ "    \t\tthan newline\n"
+ "      -e\t\tuse Readline to obtain the line in an interactive shell\n"
+ "      -i text\tUse TEXT as the initial text for Readline\n"
+ "      -n nchars\treturn after reading NCHARS characters rather than waiting\n"
+ "    \t\tfor a newline, but honor a delimiter if fewer than NCHARS\n"
+ "    \t\tcharacters are read before the delimiter\n"
+ "      -N nchars\treturn only after reading exactly NCHARS characters,
+unless\n"
+ "    \t\tEOF is encountered or read times out, ignoring any delimiter\n"
+ "      -p prompt\toutput the string PROMPT without a trailing newline before\n"
+ "    \t\tattempting to read\n"
+ "      -r\t\tdo not allow backslashes to escape any characters\n"
+ "      -s\t\tdo not echo input coming from a terminal\n"
+ "      -t timeout\ttime out and return failure if a complete line of input
+is\n"
+ "    \t\tnot read withint TIMEOUT seconds.  The value of the TMOUT\n"
+ "    \t\tvariable is the default timeout.  TIMEOUT may be a\n"
+ "    \t\tfractional number.  If TIMEOUT is 0, read returns success only\n"
+ "    \t\tif input is available on the specified file descriptor.  The\n"
+ "    \t\texit status is greater than 128 if the timeout is exceeded\n"
+ "      -u fd\t\tread from file descriptor FD instead of the standard input\n"
+ "    \n"
+ "    Exit Status:\n"
+ "    The return code is zero, unless end-of-file is encountered, read times
+out,\n"
+ "    or an invalid file descriptor is supplied as the argument to -u."
+ msgstr ""
+ "Læs en linje fra standardinput og del den op i felter.\n"
+ "    \n"
+-"    En linje vil blive læst fra standardinput, eller fra fildeskriptor FD
+hvis\n"
++"    En linje vil blive læst fra standardinput, eller fra fildeskriptor FD "
++"hvis\n"
+ "    tilvalget -u er givet. Linjen vil blive delt ind i felter som med ord-\n"
+-"    opdeling Det første ord blive tildelt det første NAVN, det andet ord til
+\n"
+-"    det andet NAVN osv. og de tilbageblivende ord vil blive tildelt det
+sidste\n"
+-"    NAVN. Kun de tegn som findes i $IFS vil blive genkendt som
+ordadskillere.\n"
++"    opdeling Det første ord blive tildelt det første NAVN, det andet ord
+til\n"
++"    det andet NAVN osv. og de tilbageblivende ord vil blive tildelt det "
++"sidste\n"
++"    NAVN. Kun de tegn som findes i $IFS vil blive genkendt som "
++"ordadskillere.\n"
+ "\n"
+ "    Hvis der ikke er angivet nogle NAVNe, vil linjen blive gemt i REPLY-\n"
+ "    variablen.\n"
+ "\n"
+ "    Tilvalg:\n"
+ "      -a array\tde indlæste ord blive tildelt fortløbende indeks i\n"
+ "    \t\tARRAY startende ved 0\n"
+-"      -d adskil\tfortsæt indtil det første tegn i ADSKIL bliver læst, i
+stedet\n"
++"      -d adskil\tfortsæt indtil det første tegn i ADSKIL bliver læst, i "
++"stedet\n"
+ "    \t\tfor ved nylinjetegn\n"
+ "      -e\tbrug Readline til at indhente linje fra en interaktiv skal\n"
+ "      -i tekst\tBrug TEKST som den indledende tekst til Readline\n"
+-"      -n ntegn\treturnerer efter at have læst NTEGN tegn i stedet for at
+vente\n"
++"      -n ntegn\treturnerer efter at have læst NTEGN tegn i stedet for at "
++"vente\n"
+ "    \t\tpå et nylinjetegn\n"
+-"      -p prompt\tudskriv strengen PROMPT, uden et nylinjetegn, før der
+forsøges på\n"
++"      -N ntegn  returnerer kun efter at have læst præcis NTEGN tegn, "
++"medmindre\n"
++"                der stødes på EOF eller læsning tidsudløber, ignorerer alle\n"
++"                adskillere\n"
++"      -p prompt\tudskriv strengen PROMPT, uden et nylinjetegn, før der "
++"forsøges på\n"
+ "    \t\tat læse\n"
+ "      -r\ttillad ikke at omvendte skråstreger undviger tegn\n"
+ "      -s\tudskriv (echo) ikke input som kommer fra en terminal\n"
+ "      -t tidsgrænse\tindstil tidsudløb og returner fejl, hvis der ikke kan\n"
+ "    \t\t\tlæses en komplet linje indenfor TIDSGRÆNSE sekunder.\n"
+ "    \t\t\tVærdien af variablen TMOUT er standardtidsudløbet.\n"
+ "    \t\t\tTIDSGRÆNSE kan være et kommatal. Hvis TIDSGRÆNSE er 0,\n"
+ "    \t\t\tvil read kun returnere succes hvis der er input\n"
+ "    \t\t\ttilgængelig ved den angivne fildeskriptor. Fejlstatus\n"
+ "    \t\t\tvil være større end 128 hvis tidsudløb indtræffer.\n"
+ "      -u fd\tlæs fra fildeskriptoren FD i stedet for standardinput\n"
+ "    \n"
+ "    Afslutningsstatus:\n"
+-"    Returkoden vil være nul, med mindre slut-på-fil nås, tidsudløb
+indtræffer,\n"
++"    Returkoden vil være nul, med mindre slut-på-fil nås, tidsudløb "
++"indtræffer,\n"
+ "    eller hvis en ugyldig fildeskriptor gives som argument til -u."
+
+ #: builtins.c:1671
+ msgid ""
+ "Execute conditional command.\n"
+ "    \n"
+ "    Returns a status of 0 or 1 depending on the evaluation of the
+conditional\n"
+ "    expression EXPRESSION.  Expressions are composed of the same primaries
+used\n"
+ "    by the `test' builtin, and may be combined using the following
+operators:\n"
+ "    \n"
+ "      ( EXPRESSION )\tReturns the value of EXPRESSION\n"
+ "      ! EXPRESSION\t\tTrue if EXPRESSION is false; else false\n"
+ "      EXPR1 && EXPR2\tTrue if both EXPR1 and EXPR2 are true; else false\n"
+ "      EXPR1 || EXPR2\tTrue if either EXPR1 or EXPR2 is true; else false\n"
+ "    \n"
+ "    When the `==' and `!=' operators are used, the string to the right of\n"
+ "    the operator is used as a pattern and pattern matching is performed.\n"
+ "    When the `=~' operator is used, the string to the right of the operator\n"
+ "    is matched as a regular expression.\n"
+ "    \n"
+ "    The && and || operators do not evaluate EXPR2 if EXPR1 is sufficient to\n"
+ "    determine the expression's value.\n"
+ "    \n"
+ "    Exit Status:\n"
+ "    0 or 1 depending on value of EXPRESSION."
+ msgstr ""
+ "Eksekver betingelseskommando.\n"
+ "    \n"
+ "    Returnerer status 0 eller 1 afhængigt af evalueringen af betingelses-\n"
+ "    udtrykket UDTRYK. Udtryk består af de samme primære elementer som
+bliver\n"
+ "    brugt i den indbyggede funktion \"test\" og kan kombineres ved brug af
+følgende\n"
+ "    operatorer:\n"
+ "    \n"
+ "      ( UDTRYK )\tReturnerer værdien af UDTRYK\n"
+ "      ! UDTRYK\t\tSand hvis UDTRYK er falsk, ellers falsk\n"
+ "      UDTR1 && UDTR2\tSand hvis både UDTR1 og UDTR2 er sande, ellers falsk\n"
+-"      UDTR1 && UDTR2\tSand hvis enten UDTR1 eller UDTR2 er sand, ellers
+falsk\n"
++"      UDTR1 || UDTR2\tSand hvis enten UDTR1 eller UDTR2 er sand, ellers
+falsk\n"
+ "    \n"
+ "    Når operatorerne \"==\" og \"!=\" bruges, vil strengen til højre for
+operatoren\n"
+ "    blive brugt som et mønster og der vil blive udført strengmatching. Når\n"
+ "    operatoren \"=~\" bliver brugt, vil strengen til højre for operatoren
+blive\n"
+ "    matchet som et regulært udtryk.\n"
+ "    \n"
+ "    Operatorerne && og || vil ikke evaluere UDTR2, hvis UDTR1 er nok til at\n"
+ "    afgøre udtrykkets værdi.\n"
+ "\n"
+ "    Afslutningsstatus:\n"
+ "    0 eller 1 afhængigt af udtrykkets værdi."
+
+ #: builtins.c:1895
+-#, fuzzy
+ msgid ""
+ "Specify how arguments are to be completed by Readline.\n"
+ "    \n"
+ "    For each NAME, specify how arguments are to be completed.  If no
+options\n"
+ "    are supplied, existing completion specifications are printed in a way
+that\n"
+ "    allows them to be reused as input.\n"
+ "    \n"
+ "    Options:\n"
+ "      -p\tprint existing completion specifications in a reusable format\n"
+ "      -r\tremove a completion specification for each NAME, or, if no\n"
+ "    \tNAMEs are supplied, all completion specifications\n"
+ "      -D\tapply the completions and actions as the default for commands\n"
+ "    \twithout any specific completion defined\n"
+ "      -E\tapply the completions and actions to \"empty\" commands --\n"
+ "    \tcompletion attempted on a blank line\n"
+ "    \n"
+ "    When completion is attempted, the actions are applied in the order the\n"
+ "    uppercase-letter options are listed above.  The -D option takes\n"
+ "    precedence over -E.\n"
+ "    \n"
+ "    Exit Status:\n"
+ "    Returns success unless an invalid option is supplied or an error occurs."
+ msgstr ""
+ "Specificer hvordan argumenter fuldføres af Readline.\n"
+ "    \n"
+ "    Specificer hvordan argumenter skal fuldføres for hvert NAVN. Hvis der\n"
+ "    ikke er angivet nogen tilvalg, vil de eksisterende fuldførsels-\n"
+ "    specifikationer blive udskrevet på en form der tillader dem at blive\n"
+ "    genbrugt som input.\n"
+ "    \n"
+ "    Tilvalg:\n"
+ "      -p\tudskriv eksisterende fuldførselsspecifikationer i et format\n"
+ "    \tsom kan genbruges\n"
+ "      -r\tfjern en fuldførselsspecifikation for hvert NAVN, eller,\n"
+ "    \thvis der ikke er angivet nogle NAVNe, alle fuldførselsspecifikationer\n"
++"      -D        anvend fuldførelserne og handlingerne som standard for\n"
++"        kommandoerne uden at nogen specifik fuldførelse er defineret\n"
++"      -E        anvend fuldførelserne og handlingerne for at \"tømme\"\n"
++"        kommandoer - fuldførelse forsøgt på tom linje\n"
+ "    \n"
+-"    Når fuldførsel forsøges, vil handlinger blive anvendt i den rækkefølge,\n"
+-"    som de tilvalg som har store bogstaver, står i.\n"
++"    Når fuldførsel forsøges, vil handlinger blive anvendt i den ovennævnte\n"
++"    rækkefølge, som de tilvalg som har store bogstaver, står i.  Tilvalget\n"
++"    -D har forrang over for -E.\n"
+ "    \n"
+ "    Afslutningsstatus:\n"
+ "    Returnerer succes med mindre der angives et ugyldigt tilvalg, eller
+hvis\n"
+ "    der opstår en fejl."
+
+ # Fejlrapport
+ #: builtins.c:1938
+-#, fuzzy
+ msgid ""
+ "Modify or display completion options.\n"
+ "    \n"
+ "    Modify the completion options for each NAME, or, if no NAMEs are
+supplied,\n"
+ "    the completion currently begin executed.  If no OPTIONs are givenm,
+print\n"
+ "    the completion options for each NAME or the current completion
+specification.\n"
+ "    \n"
+ "    Options:\n"
+ "    \t-o option\tSet completion option OPTION for each NAME\n"
+ "    \t-D\t\tChange options for the \"default\" command completion\n"
+ "    \t-E\t\tChange options for the \"empty\" command completion\n"
+ "    \n"
+ "    Using `+o' instead of `-o' turns off the specified option.\n"
+ "    \n"
+ "    Arguments:\n"
+ "    \n"
+ "    Each NAME refers to a command for which a completion specification must\n"
+ "    have previously been defined using the `complete' builtin.  If no NAMEs\n"
+ "    are supplied, compopt must be called by a function currently generating\n"
+ "    completions, and the options for that currently-executing completion\n"
+ "    generator are modified.\n"
+ "    \n"
+ "    Exit Status:\n"
+ "    Returns success unless an invalid option is supplied or NAME does not\n"
+ "    have a completion specification defined."
+ msgstr ""
+ "Ændr eller vis indstillinger for fuldførsel.\n"
+ "    \n"
+ "    Ændr fuldførselsindstillinger for hvert NAVN, eller, hvis der ikke er\n"
+ "    angivet nogle NAVNe, fuldførslen der bliver eksekveret nu. Hvis der
+ikke\n"
+ "    er angivet nogle tilvalg, vil fuldførslen for hvert navn eller den\n"
+ "    aktuelle fuldførsel blive udskrevet.\n"
+ "    \n"
+ "    Tilvalg:\n"
+ "    \t-o indstilling\tIndstil fuldførselsindstillingen INDSTILLING for\n"
+ "    \t\t\thvert NAVN.\n"
+-"    Ved brug af \"+o\" i stedet for \"-o\" vil den specificerede indstilling
+blive\n"
++"       -D               Tilpas indstillinger for \"standard\" "
++"kommandofuldførelse\n"
++"       -E               Tilpas indstillinger for den \"tomme\" "
++"kommandofuldførelse\n"
++"    Ved brug af \"+o\" i stedet for \"-o\" vil den specificerede indstilling "
++"blive\n"
+ "    slået fra.\n"
+ "    \n"
+ "    Argumenter:\n"
+ "    \n"
+-"    Hvert NAVN refererer til en kommando, for hvilken der tidligere er
+blevet\n"
++"    Hvert NAVN refererer til en kommando, for hvilken der tidligere er "
++"blevet\n"
+ "    angivet en fuldførselsspecifikation med den indbyggede \"complete\".
+Hvis\n"
+-"    der ikke er angivet nogle NAVNe, så skal compopt kaldes af den funktion
+som\n"
++"    der ikke er angivet nogle NAVNe, så skal compopt kaldes af den funktion "
++"som\n"
+ "    genererer fuldførsler nu og så vil indstillingerne for den aktuelt\n"
+ "    kørende fuldførselsgenerator blive modificeret.\n"
+ "    \n"
+ "    Afslutningsstatus:\n"
+ "    Returnerer succes med mindre der angives et ugyldigt tilvalg, eller
+hvis\n"
+ "    der ikke er defineret en fuldførselsspecifikation for NAVN."
+
+ #: builtins.c:1968
+-#, fuzzy
+ msgid ""
+ "Read lines from the standard input into an indexed array variable.\n"
+ "    \n"
+ "    Read lines from the standard input into the indexed array variable ARRAY,
+or\n"
+ "    from file descriptor FD if the -u option is supplied.  The variable
+MAPFILE\n"
+ "    is the default ARRAY.\n"
+ "    \n"
+ "    Options:\n"
+ "      -n count\tCopy at most COUNT lines.  If COUNT is 0, all lines are
+copied.\n"
+ "      -O origin\tBegin assigning to ARRAY at index ORIGIN.  The default index
+is 0.\n"
+ "      -s count \tDiscard the first COUNT lines read.\n"
+ "      -t\t\tRemove a trailing newline from each line read.\n"
+ "      -u fd\t\tRead lines from file descriptor FD instead of the standard
+input.\n"
+ "      -C callback\tEvaluate CALLBACK each time QUANTUM lines are read.\n"
+ "      -c quantum\tSpecify the number of lines read between each call to
+CALLBACK.\n"
+ "    \n"
+ "    Arguments:\n"
+ "      ARRAY\t\tArray variable name to use for file data.\n"
+ "    \n"
+ "    If -C is supplied without -c, the default quantum is 5000.  When\n"
+ "    CALLBACK is evaluated, it is supplied the index of the next array\n"
+ "    element to be assigned as an additional argument.\n"
+ "    \n"
+ "    If not supplied with an explicit origin, mapfile will clear ARRAY
+before\n"
+ "    assigning to it.\n"
+ "    \n"
+ "    Exit Status:\n"
+ "    Returns success unless an invalid option is given or ARRAY is readonly
+or\n"
+ "    not an indexed array."
+ msgstr ""
+-"Læs linjer ind i en arrayvariabel fra standardinput.\n"
++"Læs linjer ind i en indekseret arrayvariabel fra standardinput.\n"
+ "    \n"
+ "    Læs linjer ind i en arrayvariabel ARRAY fra standardinput, eller fra en\n"
+-"    fildeskriptor FD, hvis tilvalget -u er givet. Variablen MAPFIL er
+forvalgt\n"
++"    fildeskriptor FD, hvis tilvalget -u er givet. Variablen MAPFIL er "
++"forvalgt\n"
+ "    som ARRAY.\n"
+ "    \n"
+ "    Tilvalg:\n"
+-"      -n antal\tKopier højst ANTAL linjer. Hvis ANTAL er 0 kopieres alle
+linjer.\n"
+-"      -O start\tBegynd at skrive til ARRAY ved indeks START. Standardværdien
+er\n"
++"      -n antal\tKopier højst ANTAL linjer. Hvis ANTAL er 0 kopieres alle "
++"linjer.\n"
++"      -O start\tBegynd at skrive til ARRAY ved indeks START. Standardværdien "
++"er\n"
+ "    \t0.\n"
+ "      -s antal\tSmid de første ANTAL læste linjer væk.\n"
+ "      -t \tFjern et efterfølgende nylinjetegn fra slutningen af hver linje.\n"
+ "      -u fd\tLæs linjer fra fildeskriptoren FD i stedet for fra standard-\n"
+ "    \t\tinput.\n"
+ "      -C tilbagekald\tEvaluer TILBAGEKALD hver gang KVANTUM linjer er læst.\n"
+ "      -c kvantum\tSpecificer antallet af linjer imellem hvert kald til\n"
+ "    \t\t\tTILBAGEKALD\n"
+ "    \n"
+ "    Argumenter:\n"
+ "      ARRAY\t\tNavn for arrayvariabel som skal bruges til fildata.\n"
+ "    \n"
+ "    Hvis -C er angivet uden -c er standardkvantum 5000. Når TILBAGEKALD\n"
+-"    kaldes, vil den få det næste arrayindeks, som vil blive brugt som et
+ekstra\n"
++"    kaldes, vil den få det næste arrayindeks, som vil blive brugt som et "
++"ekstra\n"
+ "    argument.\n"
+ "    \n"
+ "    Med mindre et startpunkt i arrayet eksplicit angives, vil mapfile rydde\n"
+ "    ARRAY, inden skrivning til den påbegyndes.\n"
+ "    \n"
+ "    Afslutningsstatus:\n"
+ "    Returnerer succes med mindre der angives at ugyldigt tilvalg, eller
+hvis\n"
+ "    ARRAY er skrivebeskyttet."
+
+ =============================================================================
+ Number of messages: 34
+ =============================================================================
