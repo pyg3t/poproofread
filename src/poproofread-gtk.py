@@ -25,10 +25,14 @@ import gtk
 import pango
 import argparse
 from core import PoProofRead
+from settings import Settings
 	
 class PoProofReadGtkGUI:
 
     def __init__(self):
+        # Get settings
+        self.settings = Settings()
+
         # Initiate core
         self.ppr = PoProofRead()
 
@@ -57,10 +61,7 @@ class PoProofReadGtkGUI:
         self.vbox1 = self.builder.get_object('vbox1')
         self.sep1 = self.builder.get_object('hseparator1')
         
-        pangofont = pango.FontDescription('Monospace 10')
-        self.builder.get_object('textview_diff').modify_font(pangofont)
-        self.builder.get_object('textview_comment').modify_font(pangofont)
-
+        self.settings_to_gui()
         self.reset_gui()
 
     # Mandatory gtk windown handling
@@ -88,13 +89,12 @@ class PoProofReadGtkGUI:
 
         # Update according to inline status
         par2 = self.vbox1.query_child_packing(self.sw2)
-        print self.sw2.size_request()
         if inline:
             self.vbox1.remove(self.sep1)
             self.vbox1.remove(self.sw1)
             self.sw2.set_size_request(-1, -1)
             self.vbox1.set_child_packing(self.sw2, True,  *par2[1:])
-            self.builder.get_object('textview_diff').set_sensitive(False)
+            self.get_object('textview_diff').set_sensitive(False)
         else:
             self.vbox1.pack_start(self.sw1, True, True, 0)
             self.vbox1.reorder_child(self.sw1, 2)
@@ -103,7 +103,7 @@ class PoProofReadGtkGUI:
             self.sw2.set_size_request(-1, 100)            
             self.vbox1.set_child_packing(self.sw2, False, *par2[1:])
 
-            self.builder.get_object('textview_diff').set_sensitive(True)
+            self.get_object('textview_diff').set_sensitive(True)
 
     def on_btn_first(self, widget):
         self.check_for_new_comment_and_save_it()
@@ -126,8 +126,8 @@ class PoProofReadGtkGUI:
         self.update_gui()
 
     def on_btn_jump_to(self, widget):
-        self.builder.get_object('dialog_jump_to').show()
-        self.builder.get_object('spinbtn_jump_to')\
+        self.get_object('dialog_jump_to').show()
+        self.get_object('spinbtn_jump_to')\
             .set_range(1, self.ppr.get_no_chunks())
 
     def on_mnu_open(self, widget):
@@ -150,7 +150,7 @@ class PoProofReadGtkGUI:
             self.ppr.save()
         file = self.filech.get_filename()
         actual_file = self.ppr.open(file)
-        self.builder.get_object('poproofread').set_title(
+        self.get_object('poproofread').set_title(
             'PoProofRead - %s' % os.path.basename(actual_file))
         self.filech.hide()
         self.get_object('hbox_buttons').set_sensitive(True)
@@ -161,14 +161,14 @@ class PoProofReadGtkGUI:
         self.filech.hide()
 
     def on_jump_to_ok(self, widget):
-        value = self.builder.get_object('spinbtn_jump_to').get_value_as_int()
-        self.builder.get_object('dialog_jump_to').hide()
+        value = self.get_object('spinbtn_jump_to').get_value_as_int()
+        self.get_object('dialog_jump_to').hide()
         self.check_for_new_comment_and_save_it()
         self.ppr.move(goto=value-1)
         self.update_gui()
 
     def on_jump_to_cancel(self, widget):
-        self.builder.get_object('dialog_jump_to').hide()
+        self.get_object('dialog_jump_to').hide()
 
     # General functions
     def get_object(self, name):
@@ -185,6 +185,12 @@ class PoProofReadGtkGUI:
         startiter, enditer = self.tb_comment.get_bounds()
         return self.tb_comment.get_text(startiter, enditer)
 
+    def settings_to_gui(self):
+        pangofont = pango.FontDescription('Monospace ' + 
+                                          str(self.settings['font_size']))
+        self.get_object('textview_diff').modify_font(pangofont)
+        self.get_object('textview_comment').modify_font(pangofont)
+
     def reset_gui(self):
         welcome = 'Welcome to poproofread'
         self.write_to_textbuffer(self.tb_diff, welcome)
@@ -198,7 +204,7 @@ class PoProofReadGtkGUI:
         if not self.ppr.active:
             return
 
-        self.builder.get_object('checkbutton_inline').set_active(
+        self.get_object('checkbutton_inline').set_active(
             self.ppr.get_inline_status())
 
         # Update text content
@@ -206,10 +212,10 @@ class PoProofReadGtkGUI:
         self.write_to_textbuffer(self.tb_diff, content['diff_chunk'])
         self.write_to_textbuffer(self.tb_comment, content['comment'])
         startiter, enditer = self.tb_comment.get_bounds()
-        self.builder.get_object('textview_comment').grab_focus()
+        self.get_object('textview_comment').grab_focus()
         self.tb_comment.place_cursor(enditer)
         mark = self.tb_comment.create_mark(None, enditer)
-        self.builder.get_object('textview_comment').scroll_mark_onscreen(mark)
+        self.get_object('textview_comment').scroll_mark_onscreen(mark)
 
         # Get status and update sensitivity of buttons and the statusline
         status = self.ppr.get_status()
@@ -231,7 +237,7 @@ class PoProofReadGtkGUI:
         """ Update the book mark field """
         bookmark = str(self.ppr.get_bookmark() + 1)\
             if self.ppr.get_bookmark() is not None else 'N/A'
-        self.builder.get_object('lab_current_bookmark').set_text(bookmark)
+        self.get_object('lab_current_bookmark').set_text(bookmark)
 
     def update_status_line(self, position=None, total=None, percentage=None,
                            comments=None):
