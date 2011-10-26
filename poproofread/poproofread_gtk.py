@@ -39,10 +39,10 @@ class PoProofReadGtkGUI:
 
         # Load gui and connect signals
         self.builder = gtk.Builder()
-        self.builder.add_from_file("poproofread-gtk-gui.glade") 
+        self.builder.add_from_file("poproofread_gtk_gui.glade") 
         self.builder.connect_signals(self)
         self.builder.get_object('poproofread').\
-            set_icon_from_file('../graphics/622.png')
+            set_icon_from_file('../graphics/192.png')
 
         self.filech = self.get_object('filechooserdialog_open')
 
@@ -299,8 +299,7 @@ class PoProofReadGtkGUI:
         self.get_object('hbox_statusline').set_sensitive(True)
         self.update_gui()
 
-    
-if __name__ == "__main__":
+def main():
     # Parse command line arguments for a file name to open
     parser = argparse.ArgumentParser(description=
                                      'Proofread po and podiff files.')
@@ -314,3 +313,6 @@ if __name__ == "__main__":
         poproofread.open_file_from_commandline(args.filename)
     poproofread.get_object("poproofread").show()
     gtk.main()
+
+if __name__ == "__main__":
+    main()
