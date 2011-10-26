@@ -1,0 +1,30 @@
+PoProofRead is a simple application for fast and easy proofreading and commenting of po and podiff files.
+
+Introduction
+------------
+
+PoProofRead is made for the task of reviewing and commenting on the contents of po or podiff files. It does this by allowing the user to easily:
+
+ * Move through the parts of the file with a single keypress
+ * Start writing a comment without any activation of editing
+ * Save the current state of the proofreading work
+ * Output only the parts of the file that there are comments to
+ * Switch below of inline commenting for each individual part
+
+License information
+-------------------
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+The complete license can be found in the COPYING file.
