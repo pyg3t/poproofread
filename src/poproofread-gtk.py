@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
 """
-This file is a part of
-poproofread -- A po-file and podiff proofreader
+poproofread-gtk.py
+This file is a part of PoProofRead.
+
 Copyright (C) 2011 Kenneth Nielsen <k.nielsen81@gmail.com>
 
-This program is free software: you can redistribute it and/or modify
+PoProofRead is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
@@ -36,10 +37,9 @@ class PoProofReadGtkGUI:
         # Initiate core
         self.ppr = PoProofRead()
 
+        # Load gui and connect signals
         self.builder = gtk.Builder()
         self.builder.add_from_file("poproofread-gtk-gui.glade") 
-        
-        self.window = self.builder.get_object("poproofread")
         self.builder.connect_signals(self)
 
         self.filech = self.builder.get_object("filechooserdialog_open")
@@ -94,7 +94,7 @@ class PoProofReadGtkGUI:
             self.vbox1.remove(self.sw1)
             self.sw2.set_size_request(-1, -1)
             self.vbox1.set_child_packing(self.sw2, True,  *par2[1:])
-            self.get_object('textview_diff').set_sensitive(False)
+            #self.get_object('textview_diff').set_sensitive(False)
         else:
             self.vbox1.pack_start(self.sw1, True, True, 0)
             self.vbox1.reorder_child(self.sw1, 2)
@@ -102,8 +102,7 @@ class PoProofReadGtkGUI:
             self.vbox1.reorder_child(self.sep1, 3)
             self.sw2.set_size_request(-1, 100)            
             self.vbox1.set_child_packing(self.sw2, False, *par2[1:])
-
-            self.get_object('textview_diff').set_sensitive(True)
+            #self.get_object('textview_diff').set_sensitive(True)
 
     def on_btn_first(self, widget):
         self.check_for_new_comment_and_save_it()
@@ -211,6 +210,7 @@ class PoProofReadGtkGUI:
         content = self.ppr.get_current_content()
         self.write_to_textbuffer(self.tb_diff, content['diff_chunk'])
         self.write_to_textbuffer(self.tb_comment, content['comment'])
+        # Move cursor to end of comment
         startiter, enditer = self.tb_comment.get_bounds()
         self.get_object('textview_comment').grab_focus()
         self.tb_comment.place_cursor(enditer)
@@ -278,14 +278,16 @@ class PoProofReadGtkGUI:
 
     
 if __name__ == "__main__":
+    # Parse command line arguments for a file name to open
     parser = argparse.ArgumentParser(description=
                                      'Proofread po and podiff files.')
     parser.add_argument('filename', default=None, nargs='?',
                         help='The file to open')
     args = parser.parse_args()
 
+    # Initiate program
     poproofread = PoProofReadGtkGUI()
     if args.filename is not None:
         poproofread.open_file_from_commandline(args.filename)
-    poproofread.window.show()
+    poproofread.get_object("poproofread").show()
     gtk.main()

@@ -1,9 +1,12 @@
+# -*- coding: utf-8 -*-
+
 """
-This file is a part of
-poproofread -- A po-file and podiff proofreader
+custom_exceptions.py
+This file is a part of PoProofRead
+
 Copyright (C) 2011 Kenneth Nielsen <k.nielsen81@gmail.com>
 
-This program is free software: you can redistribute it and/or modify
+PoProofRead is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
