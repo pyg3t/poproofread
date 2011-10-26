@@ -41,8 +41,10 @@ class PoProofReadGtkGUI:
         self.builder = gtk.Builder()
         self.builder.add_from_file("poproofread-gtk-gui.glade") 
         self.builder.connect_signals(self)
+        self.builder.get_object('poproofread').\
+            set_icon_from_file('../graphics/622.png')
 
-        self.filech = self.builder.get_object("filechooserdialog_open")
+        self.filech = self.get_object('filechooserdialog_open')
 
         self.labels = {
             'lab_current_pos' : self.builder.get_object("lab_current_pos"),
@@ -130,7 +132,37 @@ class PoProofReadGtkGUI:
             .set_range(1, self.ppr.get_no_chunks())
 
     def on_mnu_open(self, widget):
+        # Reinitialize dialog in case it was destroyed 
+        self.builder.add_objects_from_file('poproofread-gtk-gui.glade',
+                                           ['filechooserdialog_open'])
+        self.builder.connect_signals(self)
+        self.filech = self.get_object('filechooserdialog_open')
+        # Change current directory
+        if os.path.isdir(self.settings['current_dir']):
+            self.filech.set_current_folder(self.settings['current_dir'])
+
         self.filech.show()
+
+    def on_filechooser(self, widget):
+        filename = self.filech.get_filename()
+        if os.path.isdir(filename):
+            self.filech.set_current_folder(filename)
+        else:
+            if self.ppr.active:
+                self.ppr.save()            
+
+            actual_file = self.ppr.open(filename)
+            self.get_object('poproofread').set_title(
+                'PoProofRead - %s' % os.path.basename(actual_file))
+            
+            self.get_object('hbox_buttons').set_sensitive(True)
+            self.get_object('hbox_statusline').set_sensitive(True)
+            self.update_gui()
+            self.settings['current_dir'] = self.filech.get_current_folder()
+            self.filech.destroy()
+
+    def on_filechooser_cancel(self, widget):
+        self.filech.destroy()
 
     def on_mnu_save(self, widget):
         if not self.check_for_new_comment_and_save_it():
@@ -139,25 +171,16 @@ class PoProofReadGtkGUI:
     def on_mnu_quit(self, widget):
         if self.ppr.active:
             self.ppr.save()
+        self.settings.write()
         gtk.main_quit()
 
     def on_mnu_about(self, widget):
-        pass
-
-    def on_filech_ok(self, widget):
-        if self.ppr.active:
-            self.ppr.save()
-        file = self.filech.get_filename()
-        actual_file = self.ppr.open(file)
-        self.get_object('poproofread').set_title(
-            'PoProofRead - %s' % os.path.basename(actual_file))
-        self.filech.hide()
-        self.get_object('hbox_buttons').set_sensitive(True)
-        self.get_object('hbox_statusline').set_sensitive(True)
-        self.update_gui()
-
-    def on_filech_cancel(self, widget):
-        self.filech.hide()
+        # Reinitialize the dialog in case it has been destroyed
+        self.builder.add_objects_from_file('poproofread-gtk-gui.glade',
+                                           ['aboutdialog'])
+        # -4 and -6 equals destroy window and close button
+        if self.get_object('aboutdialog').run() in [-4,-6]:
+            self.get_object('aboutdialog').destroy()
 
     def on_jump_to_ok(self, widget):
         value = self.get_object('spinbtn_jump_to').get_value_as_int()

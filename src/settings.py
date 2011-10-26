@@ -25,7 +25,8 @@ class SettingsCommon(object):
         self.settings = {'font_size': 12,
                          'comment_window_height': 100,
                          'window_height': 600,
-                         'window_width': 600
+                         'window_width': 600,
+                         'current_dir' : ''
                          }
 
     def __getitem__(self, key):
