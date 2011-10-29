@@ -56,7 +56,8 @@ class PoProofReadGtkGUI:
         # tb short for textbuffer
         self.tb_diff, self.tb_comment = gtk.TextBuffer(), gtk.TextBuffer()
         self.builder.get_object('textview_diff').set_buffer(self.tb_diff)   
-        self.builder.get_object('textview_comment').set_buffer(self.tb_comment) 
+        self.builder.get_object('textview_comment').set_buffer(self.tb_comment)
+        self.clipboard = gtk.Clipboard()
 
         self.sw1 = self.builder.get_object('scrolledwindow1')
         self.sw2 = self.builder.get_object('scrolledwindow2')
@@ -70,7 +71,8 @@ class PoProofReadGtkGUI:
     def on_window_destroy(self, widget):
         self.on_mnu_quit(widget)
 
-    # GUI widgets
+    ### GUI widgets
+    # Buttons
     def on_btn_set_bookmark(self, widget):
         self.ppr.set_bookmark()
         self.update_bookmark()
@@ -131,9 +133,22 @@ class PoProofReadGtkGUI:
         self.get_object('spinbtn_jump_to')\
             .set_range(1, self.ppr.get_no_chunks())
 
+    def on_jump_to_ok(self, widget):
+        value = self.get_object('spinbtn_jump_to').get_value_as_int()
+        self.get_object('dialog_jump_to').hide()
+        self.check_for_new_comment_and_save_it()
+        self.ppr.move(goto=value-1)
+        self.update_gui()
+
+    def on_jump_to_cancel(self, widget):
+        self.get_object('dialog_jump_to').hide()
+
+    ### GUI widgets ##########################################################
+    # Menus
+    # File menu
     def on_mnu_open(self, widget):
         # Reinitialize dialog in case it was destroyed 
-        self.builder.add_objects_from_file('poproofread-gtk-gui.glade',
+        self.builder.add_objects_from_file('poproofread_gtk_gui.glade',
                                            ['filechooserdialog_open'])
         self.builder.connect_signals(self)
         self.filech = self.get_object('filechooserdialog_open')
@@ -174,25 +189,42 @@ class PoProofReadGtkGUI:
         self.settings.write()
         gtk.main_quit()
 
+
+    # Edit menu
+    def on_mnu_copy(self, widget):
+        if not self.ppr.active:
+            return
+        tb_with_selection = self.get_textbuffer_with_selection()
+        if tb_with_selection is not None:
+            tb_with_selection.copy_clipboard(self.clipboard)
+
+    def on_mnu_paste(self, widget):
+        if not self.ppr.active:
+            return
+        self.tb_comment.paste_clipboard(self.clipboard, None, True)
+
+    def on_mnu_cut(self, widget):
+        if not self.ppr.active:
+            return
+        if self.get_textbuffer_with_selection() is self.tb_comment:
+            tb_with_selection.cut_clipboard(self.clipboard, True)
+
+    def on_mnu_delete(self, widget):
+        if not self.ppr.active:
+            return
+        if self.get_textbuffer_with_selection() is self.tb_comment:
+            self.tb_comment.delete_selection(True, True)
+
+    # Help menu
     def on_mnu_about(self, widget):
         # Reinitialize the dialog in case it has been destroyed
-        self.builder.add_objects_from_file('poproofread-gtk-gui.glade',
+        self.builder.add_objects_from_file('poproofread_gtk_gui.glade',
                                            ['aboutdialog'])
         # -4 and -6 equals destroy window and close button
         if self.get_object('aboutdialog').run() in [-4,-6]:
             self.get_object('aboutdialog').destroy()
 
-    def on_jump_to_ok(self, widget):
-        value = self.get_object('spinbtn_jump_to').get_value_as_int()
-        self.get_object('dialog_jump_to').hide()
-        self.check_for_new_comment_and_save_it()
-        self.ppr.move(goto=value-1)
-        self.update_gui()
-
-    def on_jump_to_cancel(self, widget):
-        self.get_object('dialog_jump_to').hide()
-
-    # General functions
+    ### General functions ####################################################
     def get_object(self, name):
         return self.builder.get_object(name)
         
@@ -298,6 +330,14 @@ class PoProofReadGtkGUI:
         self.get_object('hbox_buttons').set_sensitive(True)
         self.get_object('hbox_statusline').set_sensitive(True)
         self.update_gui()
+
+    def get_textbuffer_with_selection(self):
+        if self.tb_diff.get_has_selection():
+            return self.tb_diff
+        elif self.tb_comment.get_has_selection():
+            return self.tb_comment
+        else:
+            return None
 
 def main():
     # Parse command line arguments for a file name to open
