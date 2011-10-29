@@ -20,11 +20,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import os
-import sys
-import gtk
-import pango
-import argparse
+import os, sys, argparse
+import gtk, pango
 from core import PoProofRead
 from settings import Settings
 	
@@ -39,7 +36,8 @@ class PoProofReadGtkGUI:
 
         # Load gui and connect signals
         self.builder = gtk.Builder()
-        self.builder.add_from_file("poproofread_gtk_gui.glade") 
+        self.gladefile = '../gui/poproofread_gtk_gui.glade'
+        self.builder.add_from_file(self.gladefile) 
         self.builder.connect_signals(self)
         self.builder.get_object('poproofread').\
             set_icon_from_file('../graphics/192.png')
@@ -148,7 +146,7 @@ class PoProofReadGtkGUI:
     # File menu
     def on_mnu_open(self, widget):
         # Reinitialize dialog in case it was destroyed 
-        self.builder.add_objects_from_file('poproofread_gtk_gui.glade',
+        self.builder.add_objects_from_file(self.gladefile,
                                            ['filechooserdialog_open'])
         self.builder.connect_signals(self)
         self.filech = self.get_object('filechooserdialog_open')
@@ -218,7 +216,7 @@ class PoProofReadGtkGUI:
     # Help menu
     def on_mnu_about(self, widget):
         # Reinitialize the dialog in case it has been destroyed
-        self.builder.add_objects_from_file('poproofread_gtk_gui.glade',
+        self.builder.add_objects_from_file(self.gladefile,
                                            ['aboutdialog'])
         # -4 and -6 equals destroy window and close button
         if self.get_object('aboutdialog').run() in [-4,-6]:

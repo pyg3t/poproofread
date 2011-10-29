@@ -31,7 +31,7 @@ scripts = ['bin/poproofread-gtk']
 # The next two lines have not yet been added to the setup call
 #requires = ['gtk (2.24.0)', 'pango']
 provides = ['poproofread ({0})'.format(poproofread.__version__)]
-data_files = [('', ['poproofread/poproofread_gtk_gui.glade']),
+data_files = [('../gui', ['gui/poproofread_gtk_gui.glade']),
               ('../graphics', ['graphics/192.png']),
               ('/usr/share/applications', ['poproofread.desktop'])
               ]
