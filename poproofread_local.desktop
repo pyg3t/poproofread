@@ -1,0 +1,13 @@
+# For local installation link this file into $HOME/.local/applications
+# and exit the paths in the last three entries
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Name=PoProofRead
+Comment=A proofreader program for .po and .podiff files
+Categories=Development,Translation
+# Local installation, edit here
+Exec=/home/???/code/poproofread/poproofread/poproofread_gtk.py
+Icon=/home/???/code/poproofread/graphics/64.png
+Path=/home/???/code/poproofread/poproofread
