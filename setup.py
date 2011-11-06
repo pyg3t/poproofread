@@ -33,6 +33,7 @@ scripts = ['bin/poproofread-gtk']
 provides = ['poproofread ({0})'.format(poproofread.__version__)]
 data_files = [('../gui', ['gui/poproofread_gtk_gui.glade']),
               ('../graphics', ['graphics/192.png']),
+              ('/usr/share/poproofread', ['graphics/192.png']),
               ('/usr/share/applications', ['poproofread.desktop'])
               ]
 classifiers=[
