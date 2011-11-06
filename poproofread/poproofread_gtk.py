@@ -182,9 +182,15 @@ class PoProofReadGtkGUI:
         if not self.check_for_new_comment_and_save_it():
             self.ppr.save()
 
+    def on_mnu_close(self, widget):
+        if self.ppr.active:
+            self.check_for_new_comment_and_save_it()
+            self.ppr.close()
+            self.reset_gui()
+
     def on_mnu_quit(self, widget):
         if self.ppr.active:
-            self.ppr.save()
+            self.check_for_new_comment_and_save_it()
         self.settings.write()
         gtk.main_quit()
 
@@ -247,6 +253,7 @@ class PoProofReadGtkGUI:
     def reset_gui(self):
         welcome = 'Welcome to poproofread'
         self.write_to_textbuffer(self.tb_diff, welcome)
+        self.write_to_textbuffer(self.tb_comment, '')
         for label in self.labels.values():
             label.set_text('-')
         self.get_object('hbox_buttons').set_sensitive(False)

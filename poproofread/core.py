@@ -37,7 +37,9 @@ class PoProofRead():
         return actual_file
 
     def close(self):
-        pass
+        self.fileio.__init__()
+        self.active = False
+        self.content = None
 
     def save(self):
         self.fileio.write(self.content)
@@ -56,8 +58,7 @@ class PoProofRead():
             elif goto >= self.content['no_chunks']:
                 self.content['current'] = self.content['no_chunks']-1
             else:
-                self.content['current'] = goto  
-        
+                self.content['current'] = goto
 
     def get_current_content(self):
         return self.content['text'][self.content['current']]

@@ -31,7 +31,6 @@ class FileIO():
         self.ppr_file = None
         self.out_file = None
 
-
     def read(self, input_file):
         """ Read content dependent on filetype """
         if os.path.splitext(input_file)[1] == '.out':
