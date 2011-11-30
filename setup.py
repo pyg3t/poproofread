@@ -32,7 +32,7 @@ scripts = ['bin/poproofread-gtk']
 #requires = ['gtk (2.24.0)', 'pango']
 provides = ['poproofread ({0})'.format(poproofread.__version__)]
 
-data_files = [('share/poproofread', ['graphics/64.png']),
+data_files = [('share/poproofread', ['poproofread/graphics/64.png']),
               ('share/applications', ['poproofread.desktop']),
               ('share/mime/packages', ['poproofread.xml'])
               ]
