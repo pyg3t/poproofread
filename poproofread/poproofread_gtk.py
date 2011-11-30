@@ -37,11 +37,21 @@ class PoProofReadGtkGUI:
 
         # Load gui and connect signals
         self.builder = gtk.Builder()
-        self.gladefile = '../gui/poproofread_gtk_gui.glade'
+        moduledir=os.path.dirname(__file__)
+        # Installed
+        if os.path.isdir(moduledir + 'gui'):
+            self.gladefile = moduledir + 'gui/poproofread_gtk_gui.glade'
+            self.iconfile = moduledir + 'graphics/192.png'
+        # Running from bzr folder
+        else:
+            self.gladefile = os.path.dirname(moduledir) + os.sep +\
+                'gui/poproofread_gtk_gui.glade'
+            self.iconfile = os.path.dirname(moduledir) + os.sep +\
+                'graphics/192.png'
         self.builder.add_from_file(self.gladefile) 
         self.builder.connect_signals(self)
         self.builder.get_object('poproofread').\
-            set_icon_from_file('../graphics/192.png')
+            set_icon_from_file(self.iconfile)
 
         self.filech = self.get_object('filechooserdialog_open')
 

@@ -5,7 +5,7 @@ Type=Application
 Name=PoProofRead
 Comment=A proofreader program for .po and .podiff files
 Categories=Development;Translation;
-#MimeType=image/x-foo;
+MimeType=text/x-poproofread
 # Global installation
 Exec=poproofread-gtk %f
 Icon=/usr/share/poproofread/64.png
