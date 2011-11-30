@@ -72,5 +72,5 @@ setup(name='PoProofRead',
       scripts=scripts,
       provides=provides,
       package_data=package_data,
-      data_files=[]
+      data_files=data_files
       )
