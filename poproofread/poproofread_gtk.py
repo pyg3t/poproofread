@@ -25,6 +25,7 @@ import os, sys, argparse
 import gtk, pango
 from core import PoProofRead
 from settings import Settings
+import __init__
 	
 class PoProofReadGtkGUI:
 
@@ -228,6 +229,8 @@ class PoProofReadGtkGUI:
         # Reinitialize the dialog in case it has been destroyed
         self.builder.add_objects_from_file(self.gladefile,
                                            ['aboutdialog'])
+        # Set version
+        self.get_object('aboutdialog').set_version(__init__.__version__)
         # -4 and -6 equals destroy window and close button
         if self.get_object('aboutdialog').run() in [-4,-6]:
             self.get_object('aboutdialog').destroy()
@@ -254,7 +257,25 @@ class PoProofReadGtkGUI:
         self.get_object('textview_comment').modify_font(pangofont)
 
     def reset_gui(self):
-        welcome = 'Welcome to poproofread'
+        welcome = ('Welcome to PoProofRead version {0}\n\n'
+                   'To use PoProofRead simply load the podiff you wish to '
+                   'proofread, move through the file with PageUp and PageDown '
+                   'and when you wish to make a comment, just start typing. '
+                   'The program will auto-save everytime you move away from a '
+                   'new comment.\n\n'
+                   'Keyboard shortcuts:\n'
+                   'Previous string: PageUp     Next string   : PageDown\n'
+                   'First string   : Ctrl-Home  Last          : Ctrl-End\n\n'
+                   'Toggle inline commenting: Ctrl-i\n'
+                   'Set bookmark   : Ctrl-b     Go to bookmark: Ctrl-g\n'
+                   'Jump to string : Ctrl-j\n\n'
+                   'Open file      : Ctrl-o     Save file     : Ctrl-s\n'
+                   'Close file     : Ctrl-w     Quit          : Ctrl-q\n'
+                   'Copy           : Ctrl-c     Cut           : Ctrl-x\n'
+                   'Paste          : Ctrl-v     Delete        : Delete\n\n'
+                   'If in doubt, just move the mouse over the button and the '
+                   'keyboard shortcut will be in the tool tip.')\
+                   .format(__init__.__version__)
         self.write_to_textbuffer(self.tb_diff, welcome)
         self.write_to_textbuffer(self.tb_comment, '')
         for label in self.labels.values():
