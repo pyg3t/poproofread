@@ -201,6 +201,7 @@ class PoProofReadGtkGUI:
     def on_mnu_quit(self, widget):
         if self.ppr.active:
             self.check_for_new_comment_and_save_it()
+            self.ppr.save()
         self.settings.write()
         gtk.main_quit()
 
