@@ -1,0 +1,48 @@
+INSTALLATION
+------------
+This file describes the installation of PoProofRead.
+
+BY PPA
+------
+If you are on a system that can use ppa's, then the recommended way of installing PoProofRead is to use the pyg3t-dev-team ppa: https://launchpad.net/~pyg3t-dev-team/+archive/ppa
+
+ON RPM BASED SYSTEMS
+--------------------
+To come
+
+MANUAL INSTALL FROM BZR
+-----------------------
+It is also possible to run PoProofRead directly from a folder with the bzr checkout. In the following it is assumed that the manually checked out code is kept in /home/username/code. (replace username with your own)
+
+To get the code bzr make sure that you have the bzr command installed and execute the following commands:
+cd ~/code
+bzr branch lp:poproofread
+
+Now the poproofread code will live in ~/code/poproofread. In the future the code can be kept up to date with any new upstream version by executing the commands:
+cd ~/code/poproofread
+bzr pull lp:poproofread
+
+Now we must modify the .bashrc file to make sure that the PATH includes the executable, and the PYTHONPATH to make sure that the python modules can be imported. Open ~/.bashrc in you favorite editor and add the following lines:
+export PATH=$PATH:/home/username/code/poproofread/bin
+export PYTHONPATH=$PYTHONPATH:/home/username/code/poproofread
+
+If any of these lines already existed and adds a path to one of these variables simply add the relavant poproofread path to that line after a ":".
+
+Now the program should be ready to run. Open a new terminal or reload your .bashrc with:
+source ~/.bashrc
+and try and run:
+poproofread-gtk
+
+# Optional and experimental:
+To add PoProofRead to the menu system and to the context menus for .podiff and .podiff.ppr files add the .desktop and MIME-type file to your personal setup:
+cp ~/code/poproofread/poproofread_local.desktop ~/.local/share/applications/poproofread.desktop
+cp ~/code/poproofread/poproofread.xml ~/.local/share/mime/packages/poproofread.xml
+
+Afterwards edit the ~/.local/share/applications/poproofread.desktop file and make sure that the paths for Exec, Icon and Path points to the appropriate locations e.g.:
+Exec=/home/username/code/poproofread/poproofread/poproofread_gtk.py %f
+Icon=/home/username/code/poproofread/poproofread/graphics/64.png
+Path=/home/username/code/poproofread/poproofread
+
+Afterwards update the relavant databases with the following commands:
+update-mime-database ~/.local/share/mime/
+update-desktop-database  ~/.local/share/applications/
