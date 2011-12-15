@@ -22,7 +22,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os, sys, argparse
-import gtk, pango
+import pango, gtk
+if not (gtk.ver[0] >= 2 and gtk.ver[1] >= 24):
+    print ('current gtk version {0} is insufficient\n'
+           'PoProofRead requires >= 2.24').format(str(gtk.ver))
+    sys.exit(1)
 from core import PoProofRead
 from settings import Settings
 import __init__
