@@ -39,12 +39,24 @@ class FileIO():
                 open the .ppr file """
                 content = self.__read_ppr(os.path.splitext(input_file)[0])
                 actual_file = os.path.splitext(input_file)[0]
+                print ('Loaded .ppr instead of .ppr.out since that is the one '
+                       'we need to load to continue previous work')
         elif os.path.splitext(input_file)[1] == '.ppr':
             content = self.__read_ppr(input_file)
             actual_file = input_file
+            print 'Loaded .ppr'
         else:
-            content = self.__read_new(input_file)
-            actual_file = input_file + '.ppr'
+            if os.access(input_file + '.ppr', os.F_OK):
+                actual_file = input_file + '.ppr'
+                content = self.__read_ppr(actual_file)
+                print ('Loaded .ppr instead of source to prevent overwriting '
+                       'existing work in the .ppr file\n\nIf you wish to '
+                       'reset your proofreading you must delete the .ppr '
+                       'and .ppr.out files.')
+            else:
+                content = self.__read_new(input_file)
+                actual_file = input_file + '.ppr'
+                print 'Loaded new diff'
         return (content, actual_file)
 
     def __read_ppr(self, input_file):
