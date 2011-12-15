@@ -95,7 +95,6 @@ class PoProofReadGtkGUI:
         # If activating inline and empty comment, copy diff to comment field
         if inline and (self.read_comment() == '') and\
                 (self.ppr.get_current_content()['comment'] == ''):
-            print 'copy diff chunk to comment'
             self.ppr.update_comment(\
                 self.ppr.get_current_content()['diff_chunk'])
             self.update_gui()
@@ -354,7 +353,6 @@ class PoProofReadGtkGUI:
         whether the file has been saved.
         """
         if self.tb_comment.get_modified():
-            print 'comment modified'
             self.ppr.update_comment(self.read_comment())
             self.ppr.save()
             self.tb_comment.set_modified(False)
