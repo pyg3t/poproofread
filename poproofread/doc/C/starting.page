@@ -3,24 +3,32 @@
       id="starting">
   <info>
     <link type="guide" xref="index"/>
+
+    <credit type="author">
+      <name>Kenneth Nielsen</name>
+      <email>k.nielsen81@gmail.com</email>
+      <years>2011</years>
+    </credit>
   </info>
   
   <title>Getting started</title>
   
-  <p>This page describes how to get started using PoProofRead.</p>
+  <p>This page describes how to get started using <app>PoProofRead</app>.</p>
 
-  <section id="first">
+  <section id="opening">
     <title>Opening the podiff-file</title>
     <p>First download the file you wish to work with,
-    e.g. "example.podiff". There are now three different ways that you
-    open the file:</p>
+    e.g. "<file>example.podiff</file>". There are now three different
+    ways that you open the file:</p>
     <list>
-      <item><p>Start PoProofRead and use the open file dialog (Ctrl-o)</p></item>
-      <item><p>Right click the example.podiff file in your file browser and find PoProofRead among the applications in the "Open with"-menu</p></item>
-      <item><p>Start PoProofRead from the terminal and supply the file as a argument e.g: <cmd>poproofread-gtk example.podiff</cmd></p></item>
+      <item><p>Start <app>PoProofRead</app> and use the open file
+      dialog (Ctrl-o)</p></item>
+      <item><p>Right click the "<file>example.podiff</file>" file in
+      your file browser and find <app>PoProofRead</app> among the
+      applications in the "Open with"-menu</p></item>
+      <item><p>Start <app>PoProofRead</app> from the terminal and
+      supply the file as a argument e.g: <cmd>poproofread-gtk
+      example.podiff</cmd></p></item>
     </list>
-  
   </section>
-  
-  
 </page>
