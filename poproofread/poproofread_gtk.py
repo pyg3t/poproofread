@@ -22,11 +22,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os, sys, argparse
-import pango, gtk
-if not (gtk.ver[0] >= 2 and gtk.ver[1] >= 24):
-    print ('current gtk version {0} is insufficient\n'
-           'PoProofRead requires >= 2.24').format(str(gtk.ver))
-    sys.exit(1)
+import pygtk
+pygtk.require('2.0')
+import pango, gtk, glib
 from core import PoProofRead
 from settings import Settings
 import __init__
@@ -46,7 +44,12 @@ class PoProofReadGtkGUI:
         self.gladefile = moduledir + os.sep + 'gui/poproofread_gtk_gui.glade'
         self.iconfile = moduledir + os.sep + 'graphics/192.png'
 
-        self.builder.add_from_file(self.gladefile) 
+        try:
+            self.builder.add_from_file(self.gladefile) 
+        except glib.GError as error:
+            print "Your gtk version is not new enough:\n", error
+            sys.exit(1)
+
         self.builder.connect_signals(self)
         self.builder.get_object('poproofread').\
             set_icon_from_file(self.iconfile)
