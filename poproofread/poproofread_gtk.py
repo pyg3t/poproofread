@@ -69,6 +69,12 @@ class PoProofReadGtkGUI:
         self.builder.get_object('textview_comment').set_buffer(self.tb_comment)
         self.clipboard = gtk.Clipboard()
 
+        # Color the background of the diff window grey
+        self.builder.get_object('textview_diff').modify_base(
+            self.builder.get_object('textview_diff').get_state(),
+            gtk.gdk.Color(red=58000, green=58000, blue=58000))
+
+        # Assign commonly used widgets local variable names
         self.sw1 = self.builder.get_object('scrolledwindow1')
         self.sw2 = self.builder.get_object('scrolledwindow2')
         self.vbox1 = self.builder.get_object('vbox1')
