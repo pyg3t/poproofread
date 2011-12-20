@@ -2,7 +2,7 @@
       type="topic"
       id="starting">
   <info>
-    <link type="guide" xref="index"/>
+    <link type="guide" xref="index#introduction"/>
 
     <credit type="author">
       <name>Kenneth Nielsen</name>
@@ -19,16 +19,68 @@
     <title>Opening the podiff-file</title>
     <p>First download the file you wish to work with,
     e.g. "<file>example.podiff</file>". There are now three different
-    ways that you open the file:</p>
+    ways that you can open the file:</p>
     <list>
-      <item><p>Start <app>PoProofRead</app> and use the open file
+      <item><p>Start <app>PoProofRead</app> and use the <gui>Open</gui> file
       dialog (Ctrl-o)</p></item>
       <item><p>Right click the "<file>example.podiff</file>" file in
       your file browser and find <app>PoProofRead</app> among the
-      applications in the "Open with"-menu</p></item>
+      applications in the <gui>Open with</gui>-menu</p></item>
       <item><p>Start <app>PoProofRead</app> from the terminal and
       supply the file as a argument e.g: <cmd>poproofread-gtk
       example.podiff</cmd></p></item>
     </list>
+  </section>
+
+  <section id="gui">
+    <title>The <app>PoProofRead</app> main window</title>
+    <p>The figure below shows the <app>PoProofRead</app> main windown. Moving from the top down it consist of:</p>
+    <terms>
+      <item>
+	<title>The navigation bar</title>
+	<p>From left to right it contains controls for setting and
+	jumping to a bookmark, activating the in-line commenting mode,
+	navigating through the diff parts or jumping to a specific
+	diff part.</p>
+      </item>
+      <item>
+	<title>The diff and comment fields</title>
+	<p>The top and bottom fields in the center are used for
+	showing the diff and typing in the comment, respectively. In
+	in-line mode the comment field will expand and use all of the
+	space.</p>
+      </item>
+      <item>
+	<title>The status line</title>
+	<p>This bottom line shows the status of the proofreading.</p>
+      </item>
+    </terms>
+    <figure>
+      <title>The <app>PoProofRead main window</app></title>
+      <desc>The <app>PoProofRead</app> main window with navigation bar, diff and comment text fields and status line.</desc>
+      <media type="image" src="fig/main.png"/>
+    </figure>
+  </section>
+
+  <section id="working">
+    <title>Proofreading in <app>PoProofRead</app></title>
+    <p>To do a proofreading with the program follow these steps:</p>
+    <steps>
+      <item><p>Open the podiff you wish to proofread
+      e.g. <file>example.podiff</file></p></item>
+      <item><p>Move though the document with the navigation buttons or
+      the <link xref="shortcuts">keyboard shortcuts</link></p></item>
+      <item><p>When you encounter a diff part that you would like to
+      comment on then simply start typing your comment</p></item>
+      <item><p>If it is a large diff part and you wish to make
+      comments in the middle of the diff part (in-line comments) then
+      activate the in-line mode (with the control or the <link
+      xref="shortcuts">keyboard shortcut</link>)</p></item>
+      <item><p>When you are done with the proofreading, save your
+      work, and the formatted output will be available in the file
+      <file>example.podiff.ppr.out</file>. This will contain only the
+      diff parts you commented on and your comments.</p></item>
+    </steps>
+
   </section>
 </page>

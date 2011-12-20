@@ -2,7 +2,7 @@
       type="topic"
       id="pointers">
   <info>
-    <link type="guide" xref="index"/>
+    <link type="guide" xref="index#user"/>
 
     <credit type="author">
       <name>Kenneth Nielsen</name>
@@ -12,25 +12,59 @@
   </info>
 
   <title>A few important points about <app>PoProofRead</app></title>
-  <p>Besides the subjects covered in the <link xref="starting">Getting Started </link> page, this page contains a few important pieces of information about how <app>PoProofRead</app> works.</p>
+
+  <p>Besides the subjects covered in the <link xref="starting">Getting
+  Started</link> page, this page contains a few important pieces of
+  information about how <app>PoProofRead</app> works.</p>
 
   <section id="files">
     <title>The <app>PoProofRead</app> files</title>
-    <p>After opening a file and saving the ongoing work for the first time, two new files has now been created, in the same folder that the original file was placed in. The files are named like this:</p>
+    <p>After opening a file and saving the ongoing work for the first
+    time, two new files has now been created, in the same folder that
+    the original file was placed in. The files are named like
+    this:</p>
     <terms>
       <item>
 	<title><file>example.podiff</file></title>
-	<p>This is the file with the original content that needs proofreading. This file should only be opened when the work on this files content is started.</p>
+	<p>This is the file with the original content that needs
+	proofreading. This file should only be opened when starting
+	the work on this file's content.</p>
       </item>
       <item>
 	<title><file>example.podiff.ppr</file></title>
-	<p>The is <app>PoProofRead</app>'s internal representation of the proofreading. It contains all the content of the original podiff, the comments and various information about current state of the proofreading. This is the file that should be opened for resuming previous work on a proofreading.</p>
+	<p>The is <app>PoProofRead</app>'s internal representation of
+	the proofreading. It contains all the content of the original
+	podiff, the comments and various information about the current
+	state of the proofreading. This is the file that should be
+	opened for resuming previous work on a proofreading.</p>
       </item>
       <item>
 	<title><file>example.podiff.ppr.out</file></title>
-	<p>This file contains the output of the proofreading. It contains the podiff parts that has been commented on and their comments. It is ready to send back to the author of the podiff as is.</p>
+	<p>This file contains the output of the proofreading. It
+	contains the podiff parts that has been commented on and their
+	comments. It is ready to send back to the author of the podiff
+	as is.</p>
       </item>
     </terms>
     <p></p>
   </section>
+
+  <section>
+    <title>Saving the current work</title>
+    <p>The current work will automatically be saved everytime you move
+    away from a changed comment, when you manually save, or when you
+    shut down the program.</p>
+  </section>
+
+  <section>
+    <title>In-line mode for a comment</title>
+    <p>In the in-line commenting mode, only the content of the
+    commenting field will be written to the output. This means that
+    the commenting field should contain the diff part that is being
+    commented on as well as your comment. If you activate the in-line
+    commenting mode while the commenting field is empty the diff part
+    will be automatically copied to the commenting field. Otherwise
+    you will have to copy it manually.</p>
+  </section>
+
 </page>

@@ -1,0 +1,64 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="shortcuts">
+  <info>
+    <link type="guide" xref="index#user"/>
+    
+    <credit type="author">
+      <name>Kenneth Nielsen</name>
+      <email>k.nielsen81@gmail.com</email>
+      <years>2011</years>
+    </credit>
+  </info>
+  
+  <title>Keyboard shortcuts</title>
+  <table frame="all" rules="all" shade="cols">
+    <thead style="important">
+      <tr>
+	<td><p><em>Function</em></p></td><td><p><em>Shortcut</em></p></td>
+	<td><p><em>Function</em></p></td><td><p><em>Shortcut</em></p></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+	<td><p>Previous part:</p></td><td><p>PageUp</p></td>
+	<td><p>Next part:</p></td><td><p>PageDown</p></td>
+      </tr>
+      <tr>
+	<td><p>First part:</p></td><td><p>Ctrl-Home</p></td>
+	<td><p>Last part:</p></td><td><p>Ctrl-End</p></td>
+      </tr>
+      <tr>
+	<td colspan="4"><p></p></td>
+      </tr>
+      <tr>
+	<td><p>Set bookmark:</p></td><td><p>Ctrl-b</p></td> <td><p>Go to
+	bookmark:</p></td><td><p>Ctrl-g</p></td>
+      </tr>
+      <tr>
+	<td><p>Jump to book mark #</p></td><td><p>Ctrl-j</p></td>
+	<td><p>Toggle inline mode:</p></td><td><p>Ctrl-i</p></td>
+      </tr>
+      <tr>
+	<td colspan="4"><p></p></td>
+      </tr>
+      <tr>
+	<td><p>Open file:</p></td><td><p>Ctrl-o</p></td>
+	<td><p>Save file:</p></td><td><p>Ctrl-s</p></td>
+      </tr>
+      <tr>
+	<td><p>Close file:</p></td><td><p>Ctrl-w</p></td>
+	<td><p>Quit:</p></td><td><p>Ctrl-q</p></td>
+      </tr>
+      <tr>
+	<td><p>Copy:</p></td><td><p>Ctrl-c</p></td>
+	<td><p>Cut:</p></td><td><p>Ctrl-x</p></td>
+      </tr>
+      <tr>
+	<td><p>Paste:</p></td><td><p>Ctrl-v</p></td>
+	<td><p>Delete</p></td><td><p>Delete</p></td>
+      </tr>
+    </tbody>
+  </table>
+  
+</page>
