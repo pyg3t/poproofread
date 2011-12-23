@@ -197,8 +197,9 @@ class PoProofReadGtkGUI:
         self.filech.destroy()
 
     def on_mnu_save(self, widget):
-        if not self.check_for_new_comment_and_save_it():
-            self.ppr.save()
+        if self.ppr.active:
+            if not self.check_for_new_comment_and_save_it():
+                self.ppr.save()
 
     def on_mnu_close(self, widget):
         if self.ppr.active:
