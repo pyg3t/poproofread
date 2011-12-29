@@ -99,31 +99,9 @@ class PoProofReadGtkGUI:
         self.update_gui()
 
     def on_checkbutton_inline(self, widget):
-        inline = widget.get_active()
-        self.ppr.set_inline_status(inline)
-        # If activating inline and empty comment, copy diff to comment field
-        if inline and (self.read_comment() == '') and\
-                (self.ppr.get_current_content()['comment'] == ''):
-            self.ppr.update_comment(\
-                self.ppr.get_current_content()['diff_chunk'])
-            self.update_gui()
-
-        # Update according to inline status
-        par2 = self.vbox1.query_child_packing(self.sw2)
-        if inline:
-            self.vbox1.remove(self.sep1)
-            self.vbox1.remove(self.sw1)
-            self.sw2.set_size_request(-1, -1)
-            self.vbox1.set_child_packing(self.sw2, True,  *par2[1:])
-            #self.get_object('textview_diff').set_sensitive(False)
-        else:
-            self.vbox1.pack_start(self.sw1, True, True, 0)
-            self.vbox1.reorder_child(self.sw1, 2)
-            self.vbox1.pack_start(self.sep1, False, True, 0)
-            self.vbox1.reorder_child(self.sep1, 3)
-            self.sw2.set_size_request(-1, 100)            
-            self.vbox1.set_child_packing(self.sw2, False, *par2[1:])
-            #self.get_object('textview_diff').set_sensitive(True)
+        self.check_for_new_comment_and_save_it()
+        self.ppr.set_inline_status(widget.get_active())
+        self.update_gui()
 
     def on_btn_first(self, widget):
         self.check_for_new_comment_and_save_it()
@@ -149,6 +127,7 @@ class PoProofReadGtkGUI:
         self.get_object('dialog_jump_to').show()
         self.get_object('spinbtn_jump_to')\
             .set_range(1, self.ppr.get_no_chunks())
+        # MAKE THE NUMBER SELECTED
 
     def on_jump_to_ok(self, widget):
         value = self.get_object('spinbtn_jump_to').get_value_as_int()
@@ -299,13 +278,21 @@ class PoProofReadGtkGUI:
         self.get_object('hbox_buttons').set_sensitive(False)
         self.get_object('hbox_statusline').set_sensitive(False)
         self.get_object('poproofread').set_title('PoProofRead')
+        self.update_inline_gui(False)
 
     def update_gui(self):
         if not self.ppr.active:
             return
 
-        self.get_object('checkbutton_inline').set_active(
-            self.ppr.get_inline_status())
+        # Read inline status from ppr and update checkbutton accordingly
+        inline = self.ppr.get_inline_status()
+        self.get_object('checkbutton_inline').handler_block_by_func(
+            self.on_checkbutton_inline)
+        self.get_object('checkbutton_inline').set_active(inline)
+        self.get_object('checkbutton_inline').handler_unblock_by_func(
+            self.on_checkbutton_inline)
+
+        self.update_inline_gui(inline)
 
         # Update text content
         content = self.ppr.get_current_content()
@@ -333,6 +320,24 @@ class PoProofReadGtkGUI:
         self.tb_comment.set_modified(False)
 
         self.update_bookmark()
+
+    def update_inline_gui(self, inline):
+        # Update GUI according to inline status
+        par2 = self.vbox1.query_child_packing(self.sw2)
+        if inline and self.vbox1.children().count(self.sw1) == 1:
+            # If inline and not already in inline layout ...
+            self.vbox1.remove(self.sep1)
+            self.vbox1.remove(self.sw1)
+            self.sw2.set_size_request(-1, -1)
+            self.vbox1.set_child_packing(self.sw2, True,  *par2[1:])
+        elif not inline and self.vbox1.children().count(self.sw1) == 0:
+            # ... and vice versa
+            self.vbox1.pack_start(self.sw1, True, True, 0)
+            self.vbox1.reorder_child(self.sw1, 2)
+            self.vbox1.pack_start(self.sep1, False, True, 0)
+            self.vbox1.reorder_child(self.sep1, 3)
+            self.sw2.set_size_request(-1, 100)            
+            self.vbox1.set_child_packing(self.sw2, False, *par2[1:])
 
     def update_bookmark(self):
         """ Update the book mark field """

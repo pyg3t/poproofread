@@ -67,7 +67,14 @@ class PoProofRead():
         return self.content['text'][self.content['current']]['inline']
 
     def set_inline_status(self, inline):
-        self.content['text'][self.content['current']]['inline'] = inline
+        content = self.get_current_content()
+        content['inline'] = inline
+        if inline:
+            content['comment'] = (content['diff_chunk'] + '\n\n' +
+                                  content['comment'])
+        else:
+            content['comment'] = content['comment'].replace(
+                content['diff_chunk'], '').lstrip('\n')
 
     def get_status(self):
         """ Get the status, consisting of the current, total, percentage and
