@@ -1,6 +1,6 @@
 <page xmlns="http://projectmallard.org/1.0/"
       type="topic"
-      id="starting">
+      id="intro_starting">
   <info>
     <link type="guide" xref="index#introduction"/>
 
@@ -15,7 +15,7 @@
   
   <p>This page describes how to get started using <app>PoProofRead</app>.</p>
 
-  <section id="opening">
+  <section id="starting_opening">
     <title>Opening the podiff-file</title>
     <p>First download the file you wish to work with,
     e.g. "<file>example.podiff</file>". There are now three different
@@ -32,7 +32,7 @@
     </list>
   </section>
 
-  <section id="gui">
+  <section id="starting_gui">
     <title>The <app>PoProofRead</app> main window</title>
     <p>The figure below shows the <app>PoProofRead</app> main windown. Moving from the top down it consist of:</p>
     <terms>
@@ -56,26 +56,26 @@
       </item>
     </terms>
     <figure>
-      <title>The <app>PoProofRead main window</app></title>
+      <title>The <app>PoProofRead</app> main window</title>
       <desc>The <app>PoProofRead</app> main window with navigation bar, diff and comment text fields and status line.</desc>
       <media type="image" src="fig/main.png"/>
     </figure>
   </section>
 
-  <section id="working">
+  <section id="starting_working">
     <title>Proofreading in <app>PoProofRead</app></title>
     <p>To do a proofreading with the program follow these steps:</p>
     <steps>
       <item><p>Open the podiff you wish to proofread
       e.g. <file>example.podiff</file></p></item>
       <item><p>Move though the document with the navigation buttons or
-      the <link xref="shortcuts">keyboard shortcuts</link></p></item>
+      the <link xref="user_shortcuts">keyboard shortcuts</link></p></item>
       <item><p>When you encounter a diff part that you would like to
       comment on then simply start typing your comment</p></item>
       <item><p>If it is a large diff part and you wish to make
       comments in the middle of the diff part (in-line comments) then
       activate the in-line mode (with the control or the <link
-      xref="shortcuts">keyboard shortcut</link>)</p></item>
+      xref="user_shortcuts">keyboard shortcut</link>)</p></item>
       <item><p>When you are done with the proofreading, save your
       work, and the formatted output will be available in the file
       <file>example.podiff.ppr.out</file>. This will contain only the

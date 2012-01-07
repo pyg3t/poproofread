@@ -23,5 +23,7 @@
   <section id='user'>
     <title>User documentation</title>
   </section>
-  <!--<section id='development'></section>-->
+  <section id='developer'>
+    <title>Developer documentation</title>
+  </section>
 </page>

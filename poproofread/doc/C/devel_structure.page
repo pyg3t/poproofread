@@ -1,0 +1,91 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="devel_structure">
+  <info>
+    <link type="guide" xref="index#developer"/>
+
+    <credit type="author">
+      <name>Kenneth Nielsen</name>
+      <email>k.nielsen81@gmail.com</email>
+      <years>2011</years>
+    </credit>
+  </info>
+
+  <title>The structure of the code</title>
+ 
+  <section id="structure_introduction">
+    <title>Introduction</title>
+    <p>This page describes the structure of the code for <app>PoProofRead</app>. This information is not necessary to use the program and on mainly intended for people who wishes to contribute to the code or who are simply interested in the structure.</p>
+    
+    <section id="structure_tools">
+      <title>Development tools</title>
+      <p><app>PoProofRead</app> is written in <link
+      href="http://python.org/">Python</link>. It uses <link
+      href="http://www.gtk.org/">GTK+</link> for the GUI front-end via
+      the <link href="http://www.pygtk.org/">PyGTK</link>
+      bindings. The GTK+-GUI is made in <link
+      href="http://glade.gnome.org/"><app>Glade</app></link>. The
+      documentation is written in <link
+      href="http://projectmallard.org/">Mallard</link>.</p>
+    </section>
+  </section>
+
+  <section id="structure_structure">
+    <title>Over-all code structure</title>
+    <figure>
+      <title>The <app>PoProofRead</app> code structure</title>
+      <desc>The <app>PoProofRead</app> code with file names and classes.</desc>
+      <media type="image" src="fig/code_overview.png"/>
+    </figure>
+    
+    <section id="structure_poproofread_gtk">
+      <title>PoProofReadGtkGUI</title>
+      <p>The <code>PoProofReadGtkGUI</code> class contains the main
+      GUI code for the <app>Gtk</app> front-end. It has methods for
+      all the GUI-signals and makes the changes in the GUI and in the
+      proofreading content that matches the signals.</p>
+
+      <p>This class makes use of the <code>PoProofRead</code> and
+      <code>Settings</code> classes.</p>
+    </section>
+
+    <section id="structure_poproofread">
+      <title>PoProofRead</title>
+      <p>The code for <app>PoProofRead</app> er centered around the
+      <code>PoProofRead</code> class. This class contains all the data and
+      performs all the actions on the content like updating a comment or
+      setting a bookmark. The class is meant to be persistent throughout
+      a session and therefore can be reset.</p>
+
+      <p>This class makes use of the <code>FileIO</code> class.</p>
+    </section>
+
+    <section id="structure_fileio">
+      <title>FileIO</title>
+      <p>The <code>FileIO</code> class is responsible for loading, saving and
+      exporting content to files.</p>
+
+      <p>This class makes use of the <code>FileError</code> class.</p>
+    </section>
+
+    <section id="structure_settings">
+      <title>Settings</title>
+      <p>The <code>Settings</code> class inherits from a series of
+      classes: <code>SettingsCommon</code>,
+      <code>SettingsFromFile</code> and
+      <code>SettingsFromSystem</code>. It contains defaults and reads
+      and writes settings either using the system settings or, if that
+      is unavailable, from a file.</p>
+    </section>
+    
+    <section id="structure_exceptions">
+      <title>Exceptions</title>
+      <p>The file <file>custom_exception.py</file> contains a set of
+      custom exception:</p>
+      <list>
+	<item><p><code>FileError</code></p></item>
+      </list>
+    </section>
+    
+  </section>
+</page>

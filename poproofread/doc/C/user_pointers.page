@@ -11,13 +11,13 @@
     </credit>
   </info>
 
-  <title>A few important points about <app>PoProofRead</app></title>
+  <title>A few important points</title>
 
-  <p>Besides the subjects covered in the <link xref="starting">Getting
+  <p>Besides the subjects covered in the <link xref="intro_starting">Getting
   Started</link> page, this page contains a few important pieces of
   information about how <app>PoProofRead</app> works.</p>
 
-  <section id="files">
+  <section id="pointers_files">
     <title>The <app>PoProofRead</app> files</title>
     <p>After opening a file and saving the ongoing work for the first
     time, two new files has now been created, in the same folder that
@@ -49,7 +49,7 @@
     <p></p>
   </section>
 
-  <section>
+  <section id="pointers_saving">
     <title>Saving the current work</title>
     <p>The current work will automatically be saved everytime you move
     away from a changed comment, when you manually save, or when you
