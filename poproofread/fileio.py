@@ -20,8 +20,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import os, json, codecs
+import os
+import json
+import codecs
 from custom_exceptions import FileError
+
 
 class FileIO():
     """ This class provides the file IO functionality """
@@ -35,8 +38,8 @@ class FileIO():
         """ Read content dependent on filetype """
         if os.path.splitext(input_file)[1] == '.out':
             if os.path.splitext(os.path.splitext(input_file)[0])[1] == '.ppr':
-                """ We have tried to open the out file, overwrite and try to
-                open the .ppr file """
+                # We have tried to open the out file, overwrite and try to open
+                # the .ppr file
                 content = self.__read_ppr(os.path.splitext(input_file)[0])
                 actual_file = os.path.splitext(input_file)[0]
                 print ('Loaded .ppr instead of .ppr.out since that is the one '
@@ -78,15 +81,15 @@ class FileIO():
             raise FileError(input_file, 'The file does not exist.')
         if not os.access(input_file, os.R_OK):
             raise FileError(input_file, 'The file is not readable.')
-        
+
         with open(input_file) as f:
             diff_chunks = f.read().split('\n\n')
 
         diff_list = [{'diff_chunk':diff, 'comment':'', 'inline':False}
                      for diff in diff_chunks]
 
-        return {'text':diff_list, 'encoding':'utf-8', 'bookmark':None, 
-                'current':0, 'no_chunks':len(diff_list)}
+        return {'text': diff_list, 'encoding': 'utf-8', 'bookmark': None,
+                'current': 0, 'no_chunks': len(diff_list)}
 
     def __check_ppr_and_out_file(self, ppr_file, out_file, existing):
         """ Check file permissions """
@@ -129,7 +132,7 @@ class FileIO():
         """ Write json representation of conten to .ppr file """
         with open(self.ppr_file, 'w') as f:
             f.write(json.dumps(content))
-    
+
     def __write_to_out(self, content):
         """ Write out file """
         with codecs.open(self.out_file, encoding='utf-8', mode='w') as f:

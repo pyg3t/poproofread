@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from fileio import FileIO
 
+
 class PoProofRead():
     """ Main functionality for poproofread """
 
@@ -48,15 +49,16 @@ class PoProofRead():
         if amount != None:
             self.content['current'] = self.content['current'] + amount
             # There has got to be a more pythonic way of doing this
+            # index = max(0, min(index, len(List) - 1))
             if self.content['current'] < 0:
                 self.content['current'] = 0
             if self.content['current'] >= self.content['no_chunks']:
-                self.content['current'] = self.content['no_chunks']-1
+                self.content['current'] = self.content['no_chunks'] - 1
         elif goto != None:
             if goto < 0:
-                self.content['current'] = self.content['no_chunks']-1
+                self.content['current'] = self.content['no_chunks'] - 1
             elif goto >= self.content['no_chunks']:
-                self.content['current'] = self.content['no_chunks']-1
+                self.content['current'] = self.content['no_chunks'] - 1
             else:
                 self.content['current'] = goto
 
@@ -82,12 +84,12 @@ class PoProofRead():
         to the GUI to change it for representation purposes
         """
         percentage =\
-            (self.content['current']+1)*100.0/self.content['no_chunks']
+            (self.content['current'] + 1) * 100.0 / self.content['no_chunks']
         return {'current': self.content['current'],
                 'total': self.content['no_chunks'],
                 'percentage': percentage,
                 'comments': self.__count_comments()}
-    
+
     def update_comment(self, new_comment):
         self.content['text'][self.content['current']]['comment'] = new_comment
 

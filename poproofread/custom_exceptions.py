@@ -20,8 +20,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+
 class FileError(Exception):
     """ Common exception for file errors """
     def __init__(self, filename, msg):
+        # Make this more proper
+        #Exception.__init__(self, msg)
         self.filename = filename
         self.msg = msg

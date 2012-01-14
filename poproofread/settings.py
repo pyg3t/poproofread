@@ -19,6 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+
 class SettingsCommon(object):
     def __init__(self):
         # Default values
@@ -26,7 +27,7 @@ class SettingsCommon(object):
                          'comment_window_height': 100,
                          'window_height': 600,
                          'window_width': 600,
-                         'current_dir' : ''
+                         'current_dir': ''
                          }
 
     def __getitem__(self, key):
@@ -34,6 +35,7 @@ class SettingsCommon(object):
 
     def __setitem__(self, key, value):
         self.settings[key] = value
+
 
 class SettingsFromFile(SettingsCommon):
     def __init__(self):
@@ -49,7 +51,7 @@ class SettingsFromFile(SettingsCommon):
                 loaded_settings = json.loads(f.read())
                 self.settings.update(loaded_settings)
         except IOError:
-            pass # Write real exception here
+            pass  # Write real exception here
 
     def write(self):
         if not os.access(os.path.dirname(self.settings_file), os.F_OK):
@@ -58,7 +60,8 @@ class SettingsFromFile(SettingsCommon):
             with open(self.settings_file, 'w') as f:
                 f.write(json.dumps(self.settings))
         except IOError:
-            pass # Write real exception here
+            pass  # Write real exception here
+
 
 class SettingsFromSystem(SettingsCommon):
     pass
@@ -66,9 +69,12 @@ class SettingsFromSystem(SettingsCommon):
 # Determine if system settings environment is available
 try:
     import modulethatdoesnotexist
+
     class Settings(SettingsFromSystem):
         pass
 except ImportError:
-    import json, os
+    import json
+    import os
+
     class Settings(SettingsFromFile):
         pass
