@@ -1,0 +1,63 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="devel_implementation_details">
+  <info>
+    <link type="guide" xref="index#developer"/>
+
+    <credit type="author">
+      <name>Kenneth Nielsen</name>
+      <email>k.nielsen81@gmail.com</email>
+      <years>2011</years>
+    </credit>
+  </info>
+
+  <title>Implementation details</title>
+  <p>This page contains details about specific aspects of the
+  implementation. The primary function of this page is to document
+  complicated aspects to the active authors themselves, and to
+  document non-obvious aspects and choices to new authors.</p>
+  
+  <links type="section"/>
+
+
+  <section id="implementation_details_persistence">
+    <title>Persistence of objects</title>
+    <p>Both the <code>PoProofRead</code> and <code>FileIO</code> are
+    persistent throughout the entire program session and they
+    therefore both can be reset.</p>
+  </section>
+
+
+  <section id="implementation_details_gui_updating">
+    <title>GUI updating and toggling in-line mode</title>
+    <p>Updating the GUI is done by the <code>update_gui</code> method
+    in the <code>PoProofReadGtkGUI</code> class. This method will
+    update the entire GUI according to the information about the
+    current diff part contained in the <code>PoProofRead</code>
+    instance. This has two implementations:</p>
+    
+    <list type="numbered">
+      <item><p>It is important that the comment text buffer is checked
+      for new content and saved before this method is called on the
+      same diff part. Otherwise the new content is lost and the
+      comment buffer will be updated with the old value. New comment
+      content should of course also be saved when moving to a new diff
+      part, but that is more obviously necessary since the work on the
+      current part is done.</p></item>
+      <item><p>Special care has to be taken for e.g. the toggle
+      in-line widget. When this widget is changed, it will emit a
+      signal that activates the <code>on_checkbutton_inline</code>
+      method, that in turn changes the internal state for the diff
+      part and after-wards calls the <code>update_gui</code>
+      method. However, the <code>update_gui</code> method needs to be
+      able to change the widget e.g. when moving to a new diff
+      part. This would also emit a signal if the widget gets a new
+      state and thus there is the potential for undesired recursive
+      calls.</p><p>While this recursion will never go more than one
+      level down because the signal is only emitted when the widget is
+      changed it was decided to avoid it explicitly by deactivating
+      the signal emission from the widget while it is being updated
+      from the <code>update_gui</code> method.</p></item>
+    </list>
+  </section>
+</page>

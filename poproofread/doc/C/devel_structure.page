@@ -54,8 +54,7 @@
       <p>The code for <app>PoProofRead</app> er centered around the
       <code>PoProofRead</code> class. This class contains all the data and
       performs all the actions on the content like updating a comment or
-      setting a bookmark. The class is meant to be persistent throughout
-      a session and therefore can be reset.</p>
+      setting a bookmark.</p>
 
       <p>This class makes use of the <code>FileIO</code> class.</p>
     </section>

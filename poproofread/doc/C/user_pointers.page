@@ -56,7 +56,7 @@
     shut down the program.</p>
   </section>
 
-  <section>
+  <section id="pointers_inline">
     <title>In-line mode for a comment</title>
     <p>In the in-line commenting mode, only the content of the
     commenting field will be written to the output. This means that
