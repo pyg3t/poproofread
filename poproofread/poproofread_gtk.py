@@ -23,6 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
 import sys
+try:
+    import argparse
+except ImportError:
+    import optparse
 import pygtk
 pygtk.require('2.0')
 import pango
@@ -408,9 +412,9 @@ def main():
     version_str = '%prog {0}'.format(__init__.__version__)
     filename = None
 
-    # Use argparse if available else optparse, REMOVE WHEN PYTHON 2.6
-    try:
-        import argparse
+    # Use argparse if available else optparse
+    # REMOVE WHEN PYTHON 2.6 IS NO LONGER IN SERIOUS USE
+    if 'argparse' in globals():
         parser = argparse.ArgumentParser(description=description)
         parser.add_argument('filename', default=None, nargs='?',
                             help=file_option_str)
@@ -419,8 +423,7 @@ def main():
         args = parser.parse_args()
         filename = args.filename
 
-    except ImportError:
-        import optparse
+    else:
         parser = optparse.OptionParser(usage=usage,
                                        description=description,
                                        version=version_str)
