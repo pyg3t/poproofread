@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
 import sys
-import argparse
 import pygtk
 pygtk.require('2.0')
 import pango
@@ -401,16 +400,40 @@ class PoProofReadGtkGUI:
 
 def main():
     # Parse command line arguments for a file name to open
-    parser = argparse.ArgumentParser(
-        description='Proofread po and podiff files.')
-    parser.add_argument('filename', default=None, nargs='?',
-                        help='The file to open')
-    args = parser.parse_args()
+    description = 'Proofread po and podiff files.'
+    usage = 'usage: %prog [options] filename'
+    file_option_str = 'Path to one file that should be opened'
+    n_arguments_str = ('incorrect number of arguments: {0}. 0 or 1 filenames '
+                       'allowed.')
+    version_str = '%prog {0}'.format(__init__.__version__)
+    filename = None
+
+    # Use argparse if available else optparse, REMOVE WHEN PYTHON 2.6
+    try:
+        import argparse
+        parser = argparse.ArgumentParser(description=description)
+        parser.add_argument('filename', default=None, nargs='?',
+                            help=file_option_str)
+        parser.add_argument('--version', action='version',
+                            version=__init__.__version__)
+        args = parser.parse_args()
+        filename = args.filename
+
+    except ImportError:
+        import optparse
+        parser = optparse.OptionParser(usage=usage,
+                                       description=description,
+                                       version=version_str)
+        args = parser.parse_args()[1]  # parse_args gives (options, args)
+        if len(args) == 1:
+            filename = args[0]
+        elif len(args) > 1:
+            parser.error(n_arguments_str.format(len(args)))
 
     # Initiate program
     poproofread = PoProofReadGtkGUI()
-    if args.filename is not None:
-        poproofread.open_file_from_commandline(args.filename)
+    if filename is not None:
+        poproofread.open_file_from_commandline(filename)
     poproofread.get_object("poproofread").show()
     gtk.main()
 
