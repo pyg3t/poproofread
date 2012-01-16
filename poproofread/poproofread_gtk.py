@@ -167,16 +167,7 @@ class PoProofReadGtkGUI:
         if os.path.isdir(filename):
             self.filech.set_current_folder(filename)
         else:
-            if self.ppr.active:
-                self.ppr.save()
-
-            actual_file = self.ppr.open(filename)
-            self.get_object('poproofread').set_title(
-                'PoProofRead - %s' % os.path.basename(actual_file))
-
-            self.get_object('hbox_buttons').set_sensitive(True)
-            self.get_object('hbox_statusline').set_sensitive(True)
-            self.update_gui()
+            self.open_file(filename)
             self.settings['current_dir'] = self.filech.get_current_folder()
             self.filech.destroy()
 
@@ -385,10 +376,15 @@ class PoProofReadGtkGUI:
             return True
         return False
 
-    def open_file_from_commandline(self, filename):
+    def open_file(self, filename):
         if self.ppr.active:
             self.ppr.save()
-        self.ppr.open(filename)
+            # close ???
+
+        actual_file = self.ppr.open(filename)
+        self.get_object('poproofread').set_title(
+            'PoProofRead - %s' % os.path.basename(actual_file))
+
         self.get_object('hbox_buttons').set_sensitive(True)
         self.get_object('hbox_statusline').set_sensitive(True)
         self.update_gui()
@@ -436,7 +432,7 @@ def main():
     # Initiate program
     poproofread = PoProofReadGtkGUI()
     if filename is not None:
-        poproofread.open_file_from_commandline(filename)
+        poproofread.open_file(filename)
     poproofread.get_object("poproofread").show()
     gtk.main()
 
