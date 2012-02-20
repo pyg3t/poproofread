@@ -28,3 +28,4 @@ class FileError(Exception):
         #Exception.__init__(self, msg)
         self.filename = filename
         self.msg = msg
+        self.title = 'File Error'

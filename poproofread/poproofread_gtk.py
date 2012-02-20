@@ -34,6 +34,8 @@ import gtk
 import glib
 from core import PoProofRead
 from settings import Settings
+from custom_exceptions import FileError
+from dialogs_gtk import InformationDialogOK
 import __init__
 
 
@@ -167,9 +169,9 @@ class PoProofReadGtkGUI:
         if os.path.isdir(filename):
             self.filech.set_current_folder(filename)
         else:
-            self.open_file(filename)
             self.settings['current_dir'] = self.filech.get_current_folder()
             self.filech.destroy()
+            self.open_file(filename)
 
     def on_filechooser_cancel(self, widget):
         self.filech.destroy()
@@ -380,15 +382,20 @@ class PoProofReadGtkGUI:
         if self.ppr.active:
             self.ppr.save()
             # close ???
-
-        actual_file = self.ppr.open(filename)
-        self.get_object('poproofread').set_title(
-            'PoProofRead - %s' % os.path.basename(actual_file))
-
-        self.get_object('hbox_buttons').set_sensitive(True)
-        self.get_object('hbox_statusline').set_sensitive(True)
-        self.update_gui()
-
+        
+        # This call loads the file and sets active state,
+        # it may generate exceptions
+        try:
+            actual_file = self.ppr.open(filename)
+            self.get_object('poproofread').set_title(
+                'PoProofRead - %s' % os.path.basename(actual_file))
+            
+            self.get_object('hbox_buttons').set_sensitive(True)
+            self.get_object('hbox_statusline').set_sensitive(True)
+            self.update_gui()
+        except FileError as error:
+            InformationDialogOK(error.title, error.msg).run()
+            
     def get_textbuffer_with_selection(self):
         if self.tb_diff.get_has_selection():
             return self.tb_diff
@@ -431,9 +438,9 @@ def main():
 
     # Initiate program
     poproofread = PoProofReadGtkGUI()
+    poproofread.get_object("poproofread").show()
     if filename is not None:
         poproofread.open_file(filename)
-    poproofread.get_object("poproofread").show()
     gtk.main()
 
 if __name__ == "__main__":
