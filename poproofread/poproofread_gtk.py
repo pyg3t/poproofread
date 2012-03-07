@@ -35,7 +35,7 @@ import glib
 from core import PoProofRead
 from settings import Settings
 from custom_exceptions import FileError
-from dialogs_gtk import InformationDialogOK
+from dialogs_gtk import ErrorDialogOK, WarningDialogOK
 import __init__
 
 
@@ -386,15 +386,20 @@ class PoProofReadGtkGUI:
         # This call loads the file and sets active state,
         # it may generate exceptions
         try:
-            actual_file = self.ppr.open(filename)
+            actual_file, warnings = self.ppr.open(filename)
             self.get_object('poproofread').set_title(
                 'PoProofRead - %s' % os.path.basename(actual_file))
             
             self.get_object('hbox_buttons').set_sensitive(True)
             self.get_object('hbox_statusline').set_sensitive(True)
             self.update_gui()
+
+            for warning in warnings:
+                WarningDialogOK(warning.title, warning.msg).run()
+
         except FileError as error:
-            InformationDialogOK(error.title, error.msg).run()
+            ErrorDialogOK(error.title, error.msg).run()
+
             
     def get_textbuffer_with_selection(self):
         if self.tb_diff.get_has_selection():

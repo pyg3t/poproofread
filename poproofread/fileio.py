@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os
 import json
 import codecs
-from custom_exceptions import FileError
+from custom_exceptions import FileError, FileWarning
 
 
 class FileIO():
@@ -36,14 +36,17 @@ class FileIO():
 
     def read(self, input_file):
         """ Read content dependent on filetype """
+        warning = []
         if os.path.splitext(input_file)[1] == '.out':
             if os.path.splitext(os.path.splitext(input_file)[0])[1] == '.ppr':
                 # We have tried to open the out file, overwrite and try to open
                 # the .ppr file
                 content = self.__read_ppr(os.path.splitext(input_file)[0])
                 actual_file = os.path.splitext(input_file)[0]
-                print ('Loaded .ppr instead of .ppr.out since that is the one '
-                       'we need to load to continue previous work')
+                warning.append(FileWarning(input_file, 'Loaded .ppr instead of '
+                                           '.ppr.out since that is the one we '
+                                           'need to load to continue previous '
+                                           'work'))
         elif os.path.splitext(input_file)[1] == '.ppr':
             content = self.__read_ppr(input_file)
             actual_file = input_file
@@ -60,7 +63,7 @@ class FileIO():
                 content = self.__read_new(input_file)
                 actual_file = input_file + '.ppr'
                 print 'Loaded new diff'
-        return (content, actual_file)
+        return (content, actual_file, warning)
 
     def __read_ppr(self, input_file):
         """ Read content from .ppr file """

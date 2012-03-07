@@ -29,3 +29,10 @@ class FileError(Exception):
         self.filename = filename
         self.msg = msg
         self.title = 'File Error'
+
+class FileWarning():
+    """ Common warning for file operations """
+    def __init__(self, filename, msg):
+        self.filename = filename
+        self.msg = msg
+        self.title = 'File Warning'
