@@ -30,23 +30,23 @@ class FileIO():
     """ This class provides the file IO functionality """
 
     def __init__(self):
-        """ Initiate variables and file states """
+        """ Initiate variables """
         self.ppr_file = None
         self.out_file = None
 
     def read(self, input_file):
         """ Read content dependent on filetype """
-        warning = []
+        warnings = []
         if os.path.splitext(input_file)[1] == '.out':
             if os.path.splitext(os.path.splitext(input_file)[0])[1] == '.ppr':
                 # We have tried to open the out file, overwrite and try to open
                 # the .ppr file
                 content = self.__read_ppr(os.path.splitext(input_file)[0])
                 actual_file = os.path.splitext(input_file)[0]
-                warning.append(FileWarning(input_file, 'Loaded .ppr instead of '
-                                           '.ppr.out since that is the one we '
-                                           'need to load to continue previous '
-                                           'work'))
+                warning_text = ('Loaded .ppr instead of .ppr.out since that '
+                                'is the one we need to load to continue '
+                                'previous work')
+                warnings.append(FileWarning(input_file, warning_text))
         elif os.path.splitext(input_file)[1] == '.ppr':
             content = self.__read_ppr(input_file)
             actual_file = input_file
@@ -55,15 +55,16 @@ class FileIO():
             if os.access(input_file + '.ppr', os.F_OK):
                 actual_file = input_file + '.ppr'
                 content = self.__read_ppr(actual_file)
-                print ('Loaded .ppr instead of source to prevent overwriting '
-                       'existing work in the .ppr file\n\nIf you wish to '
-                       'reset your proofreading you must delete the .ppr '
-                       'and .ppr.out files.')
+                warning_text = ('Loaded .ppr instead of source to prevent '
+                                'overwriting existing work in the .ppr file'
+                                '\n\nIf you wish to reset your proofreading '
+                                'you must delete the .ppr and .ppr.out files.')
+                warnings.append(FileWarning(input_file, warning_text))
             else:
                 content = self.__read_new(input_file)
                 actual_file = input_file + '.ppr'
                 print 'Loaded new diff'
-        return (content, actual_file, warning)
+        return (content, actual_file, warnings)
 
     def __read_ppr(self, input_file):
         """ Read content from .ppr file """
@@ -88,7 +89,7 @@ class FileIO():
         with open(input_file) as f:
             diff_chunks = f.read().split('\n\n')
 
-        diff_list = [{'diff_chunk':diff, 'comment':'', 'inline':False}
+        diff_list = [{'diff_chunk': diff, 'comment': '', 'inline': False}
                      for diff in diff_chunks]
 
         return {'text': diff_list, 'encoding': 'utf-8', 'bookmark': None,
@@ -132,7 +133,7 @@ class FileIO():
         self.__write_to_out(content)
 
     def __write_to_ppr(self, content):
-        """ Write json representation of conten to .ppr file """
+        """ Write json representation of content to .ppr file """
         with open(self.ppr_file, 'w') as f:
             f.write(json.dumps(content))
 
