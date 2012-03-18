@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os
 import json
 import codecs
+import re
 from custom_exceptions import FileError, FileWarning
 
 
@@ -85,6 +86,29 @@ class FileIO():
             raise FileError(input_file, 'The file does not exist.')
         if not os.access(input_file, os.R_OK):
             raise FileError(input_file, 'The file is not readable.')
+
+        # Detect charater encoding
+        encoding = None
+        # Search for diff type (+- ) line and charset in Content-Type line
+        charset_pattern = r'^(.*)"Content-Type:.*charset=([a-zA-Z0-9-]*).*$'
+        with open(input_file) as f:
+            for line in f.readlines():
+                if line == '\n':
+                    break
+                else:
+                    search = re.search(charset_pattern, line)
+                    try:
+                        # A diff has a character before #Content-Type...
+                        if len(search.group(1)) > 0:
+                            if search.group(1) in ['+', ' ']:
+                                encoding = search.group(2)
+                        # a reular po-file does not
+                        else:
+                            encoding = search.group(2)
+                    except AttributeError:
+                        pass
+
+        # Continue charater encoding code
 
         with open(input_file) as f:
             diff_chunks = f.read().split('\n\n')
