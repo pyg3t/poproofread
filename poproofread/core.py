@@ -43,7 +43,8 @@ class PoProofRead():
         self.content = None
 
     def save(self):
-        self.fileio.write(self.content)
+        charset_warning = self.fileio.write(self.content)
+        return charset_warning
 
     def move(self, amount=None, goto=None):
         if amount != None:

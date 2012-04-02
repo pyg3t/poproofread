@@ -24,7 +24,7 @@ import os
 import json
 import codecs
 import re
-from custom_exceptions import FileError, FileWarning
+from custom_exceptions import FileError, FileWarning, UnhandledException
 
 
 class FileIO():
@@ -62,7 +62,20 @@ class FileIO():
                                 'you must delete the .ppr and .ppr.out files.')
                 warnings.append(FileWarning(input_file, warning_text))
             else:
-                content = self.__read_new(input_file)
+                # get warnings
+                content, charset_warning = self.__read_new(input_file)
+                if charset_warning:
+                    warning_text = ('Since no character encoding specification'
+                                    ' could be found in your file, it was '
+                                    'attempted to autodetect it. The detected '
+                                    'encoding is: "{0}"\n\n'
+                                    'Please check if any characters that are '
+                                    'special to your language look allright in'
+                                    ' the diff chunks AND try to type'
+                                    ' any such special characters in the '
+                                    'comment window and check that the program'
+                                    ' can save.').format(content['encoding'])
+                    warnings.append(FileWarning(input_file, warning_text))
                 actual_file = input_file + '.ppr'
                 print 'Loaded new diff'
         return (content, actual_file, warnings)
@@ -87,37 +100,17 @@ class FileIO():
         if not os.access(input_file, os.R_OK):
             raise FileError(input_file, 'The file is not readable.')
 
-        # Detect charater encoding
-        encoding = None
-        # Search for diff type (+- ) line and charset in Content-Type line
-        charset_pattern = r'^(.*)"Content-Type:.*charset=([a-zA-Z0-9-]*).*$'
-        with open(input_file) as f:
-            for line in f.readlines():
-                if line == '\n':
-                    break
-                else:
-                    search = re.search(charset_pattern, line)
-                    try:
-                        # A diff has a character before #Content-Type...
-                        if len(search.group(1)) > 0:
-                            if search.group(1) in ['+', ' ']:
-                                encoding = search.group(2)
-                        # a reular po-file does not
-                        else:
-                            encoding = search.group(2)
-                    except AttributeError:
-                        pass
+        encoding, charset_warning =\
+            self.__detect_character_encoding(input_file)
 
-        # Continue charater encoding code
-
-        with open(input_file) as f:
+        with codecs.open(input_file, encoding=encoding) as f:
             diff_chunks = f.read().split('\n\n')
 
         diff_list = [{'diff_chunk': diff, 'comment': '', 'inline': False}
                      for diff in diff_chunks]
 
-        return {'text': diff_list, 'encoding': 'utf-8', 'bookmark': None,
-                'current': 0, 'no_chunks': len(diff_list)}
+        return {'text': diff_list, 'encoding': encoding, 'bookmark': None,
+                'current': 0, 'no_chunks': len(diff_list)}, charset_warning
 
     def __check_ppr_and_out_file(self, ppr_file, out_file, existing):
         """ Check file permissions """
@@ -151,21 +144,75 @@ class FileIO():
                     os.access(dirname, os.X_OK)):
                 raise FileError(out_file, 'The file cannot be created.')
 
+    def __detect_character_encoding(self, input_file):
+        """ Detect the character encoding of a new file """
+        # First try to read it from a po type file
+        # Search for diff type (+- ) line and charset in Content-Type line
+        charset_pattern = r'^(.*)"Content-Type:.*charset=([a-zA-Z0-9-]*).*$'
+        with open(input_file) as f:
+            for line in f.readlines():
+                search = re.search(charset_pattern, line)
+                try:
+                    # A diff has a character before #Content-Type...
+                    if len(search.group(1)) > 0:
+                        if search.group(1) in ['+', ' ']:
+                            pass #return search.group(2), False
+                    # a reular po-file does not
+                    else:
+                        pass #return search.group(2), False
+                except AttributeError:
+                    pass
+
+        # Try to detect with chardet
+        try:
+            import chardet
+            print 'chardet'
+            with open(input_file, "r") as f:
+                rawdata = f.read()
+                result = chardet.detect(rawdata)
+                if result['confidence'] > 0.8:
+                    try:
+                        rawdata.decode(result['encoding'])
+                        print 'Passed decoding'
+                        return result['encoding'], True
+                    except IOError:
+                        pass
+        except ImportError:
+            pass
+
+        # Simply default to UTF-8
+        return 'utf-8'
+
     def write(self, content):
         """ Write content to ppr and out file """
         self.__write_to_ppr(content)
-        self.__write_to_out(content)
+        charset_warning = self.__write_to_out(content)
+        return charset_warning
 
     def __write_to_ppr(self, content):
         """ Write json representation of content to .ppr file """
         with open(self.ppr_file, 'w') as f:
             f.write(json.dumps(content))
 
-    def __write_to_out(self, content):
+    def __write_to_out(self, content, override_encoding=False):
         """ Write out file """
-        with codecs.open(self.out_file, encoding='utf-8', mode='w') as f:
+        encoding = 'utf-8' if override_encoding else content['encoding']
+        with codecs.open(self.out_file, encoding=encoding,
+                         mode='w') as f:
             for comment in content['text']:
                 if comment['comment'] != '':
-                    if not comment['inline']:
-                        f.write(comment['diff_chunk'] + '\n\n')
-                    f.write(comment['comment'] + '\n\n')
+                    try:
+                        if not comment['inline']:
+                            f.write(comment['diff_chunk'] + '\n\n')
+                        f.write(comment['comment'] + '\n\n')
+                    except UnicodeEncodeError:
+                        if not override_encoding:
+                            self.__write_to_out(content, True)
+                        else:
+                            raise UnhandledException('Char set save loop')
+                        warning = ('It was not possible to save the content '
+                                   'to the .ppr.out-file in the detected '
+                                   'encoding "{0}". Falling back to "utf-8" '
+                                   'for this file.'
+                                   '').format(content['encoding'])
+                        return FileWarning(self.out_file, warning)

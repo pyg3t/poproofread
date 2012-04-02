@@ -30,9 +30,20 @@ class FileError(Exception):
         self.msg = msg
         self.title = 'File Error'
 
+
 class FileWarning():
     """ Common warning for file operations """
     def __init__(self, filename, msg):
         self.filename = filename
         self.msg = msg
         self.title = 'File Warning'
+
+
+class UnhandledException(Exception):
+    """ This is thrown if we end up in a really bad place """
+    def __init__(self, msg):
+        Exception.__init__(self, msg)
+        self.msg = ('Unhandled PoProofRead exception. This should not happen!'
+                    '\n\nPlease report it as a bug at '
+                    'https://bugs.launchpad.net/poproofread and include this '
+                    'error message: {0}').format(msg)

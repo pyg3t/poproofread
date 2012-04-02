@@ -382,14 +382,14 @@ class PoProofReadGtkGUI:
         if self.ppr.active:
             self.ppr.save()
             # close ???
-        
+
         # This call loads the file and sets active state,
         # it may generate exceptions
         try:
             actual_file, warnings = self.ppr.open(filename)
             self.get_object('poproofread').set_title(
                 'PoProofRead - %s' % os.path.basename(actual_file))
-            
+
             self.get_object('hbox_buttons').set_sensitive(True)
             self.get_object('hbox_statusline').set_sensitive(True)
             self.update_gui()
@@ -400,7 +400,7 @@ class PoProofReadGtkGUI:
         except FileError as error:
             ErrorDialogOK(error.title, error.msg).run()
 
-            
+
     def get_textbuffer_with_selection(self):
         if self.tb_diff.get_has_selection():
             return self.tb_diff
