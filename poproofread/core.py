@@ -44,6 +44,8 @@ class PoProofRead():
 
     def save(self):
         charset_warning = self.fileio.write(self.content)
+        if charset_warning is not None:
+            self.content['encoding'] = 'utf-8'
         return charset_warning
 
     def move(self, amount=None, goto=None):

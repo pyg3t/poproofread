@@ -4,7 +4,7 @@
 fileio.py
 This file is a part of PoProofRead
 
-Copyright (C) 2011 Kenneth Nielsen <k.nielsen81@gmail.com>
+Copyright (C) 2011-2012 Kenneth Nielsen <k.nielsen81@gmail.com>
 
 PoProofRead is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@ import os
 import json
 import codecs
 import re
+from dialogs_gtk import EncodingDialogOK
 from custom_exceptions import FileError, FileWarning, UnhandledException
 
 
@@ -63,19 +64,7 @@ class FileIO():
                 warnings.append(FileWarning(input_file, warning_text))
             else:
                 # get warnings
-                content, charset_warning = self.__read_new(input_file)
-                if charset_warning:
-                    warning_text = ('Since no character encoding specification'
-                                    ' could be found in your file, it was '
-                                    'attempted to autodetect it. The detected '
-                                    'encoding is: "{0}"\n\n'
-                                    'Please check if any characters that are '
-                                    'special to your language look allright in'
-                                    ' the diff chunks AND try to type'
-                                    ' any such special characters in the '
-                                    'comment window and check that the program'
-                                    ' can save.').format(content['encoding'])
-                    warnings.append(FileWarning(input_file, warning_text))
+                content = self.__read_new(input_file)
                 actual_file = input_file + '.ppr'
                 print 'Loaded new diff'
         return (content, actual_file, warnings)
@@ -100,8 +89,7 @@ class FileIO():
         if not os.access(input_file, os.R_OK):
             raise FileError(input_file, 'The file is not readable.')
 
-        encoding, charset_warning =\
-            self.__detect_character_encoding(input_file)
+        encoding = self.__detect_character_encoding(input_file)
 
         with codecs.open(input_file, encoding=encoding) as f:
             diff_chunks = f.read().split('\n\n')
@@ -110,7 +98,7 @@ class FileIO():
                      for diff in diff_chunks]
 
         return {'text': diff_list, 'encoding': encoding, 'bookmark': None,
-                'current': 0, 'no_chunks': len(diff_list)}, charset_warning
+                'current': 0, 'no_chunks': len(diff_list)}
 
     def __check_ppr_and_out_file(self, ppr_file, out_file, existing):
         """ Check file permissions """
@@ -156,32 +144,45 @@ class FileIO():
                     # A diff has a character before #Content-Type...
                     if len(search.group(1)) > 0:
                         if search.group(1) in ['+', ' ']:
-                            pass #return search.group(2), False
+                            return search.group(2)
                     # a reular po-file does not
                     else:
-                        pass #return search.group(2), False
+                        return search.group(2)
                 except AttributeError:
                     pass
 
         # Try to detect with chardet
         try:
             import chardet
-            print 'chardet'
             with open(input_file, "r") as f:
                 rawdata = f.read()
-                result = chardet.detect(rawdata)
-                if result['confidence'] > 0.8:
-                    try:
-                        rawdata.decode(result['encoding'])
-                        print 'Passed decoding'
-                        return result['encoding'], True
-                    except IOError:
-                        pass
+                detected = chardet.detect(rawdata)
         except ImportError:
-            pass
+            detected = [None, None]
 
-        # Simply default to UTF-8
-        return 'utf-8'
+        text = ("It was not possible to read the encoding of this file directly "
+                "from the content. Therefore, please select an encoding below "
+                "or press \"Cancel\" to abort loading the file.")
+        enc_dialog = EncodingDialogOK(text, detected['encoding'],
+                                      detected['confidence'])
+        selected_enc = enc_dialog.run()
+        aborted_text = ('Loading of the file was aborted.')
+        if selected_enc is None:
+            raise FileError(input_file, aborted_text)
+        while True:
+            try:
+                rawdata.decode(selected_enc)
+                enc_dialog.destroy()
+                return selected_enc
+            except UnicodeDecodeError:
+                text = ("The selected encoding: {0}\n"
+                        "could not decode the file content. Please select "
+                        "another decoding to try again or press \"Cancel\" to "
+                        "abort loading the file.").format(selected_enc)
+                enc_dialog.set_text(text)
+                selected_enc = enc_dialog.run()
+                if selected_enc is None:
+                    raise FileError(input_file, aborted_text)
 
     def write(self, content):
         """ Write content to ppr and out file """
@@ -213,6 +214,7 @@ class FileIO():
                         warning = ('It was not possible to save the content '
                                    'to the .ppr.out-file in the detected '
                                    'encoding "{0}". Falling back to "utf-8" '
-                                   'for this file.'
+                                   'for this file.\n\nPlease check if the '
+                                   'output looks correct!'
                                    '').format(content['encoding'])
                         return FileWarning(self.out_file, warning)
