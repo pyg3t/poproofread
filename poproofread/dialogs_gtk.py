@@ -62,6 +62,7 @@ class ErrorDialogOK(Dialog):
         self.builder.get_object('inf_dia_ok').destroy()
         return ans
 
+
 class WarningDialogOK(Dialog):
     """ Information dialog with on a OK button """
     def __init__(self, text, sec_text):
@@ -77,9 +78,11 @@ class WarningDialogOK(Dialog):
         self.builder.get_object('inf_dia_ok').destroy()
         return ans
 
+
 class EncodingDialogOK(Dialog):
     """ Encoding selection dialog """
-    def __init__(self, text, autodetected = None, autodetect_confidence = 0):
+
+    def __init__(self, text, autodetected=None, autodetect_confidence=0):
         Dialog.__init__(self, 'enc_dia_ok')
         self.autodetected = autodetected
         self.set_text(text)
@@ -89,13 +92,20 @@ class EncodingDialogOK(Dialog):
         self.combo = self.builder.get_object('combobox_enc')
         # See if there is an easier way to do this, and make sure that these
         # encodings are only text encodings
-        false_positives = set(["aliases"])
+        false_positives = set(["aliases", "base64_codec", "bz2_codec",
+                               "hex_codec", "idna", "mbcs", "palmos",
+                               "punycode", "quopri_codec",
+                               "raw_unicode_escape", "rot_13", "string_escape",
+                               "undefined", "unicode_escape",
+                               "unicode_internal", "uu_codec", "zlib_codec"])
+
         encs = set(name for imp, name, ispkg in
                    pkgutil.iter_modules(encodings.__path__) if not ispkg)
         encs.difference_update(false_positives)
         encs = list(encs)
         encs.sort()
-        [self.combo.append_text(enc) for enc in encs]
+        for enc in encs:
+            self.combo.append_text(enc)
         self.combo.set_active(0)
 
         # Fill out the autodetect option or deactivate
@@ -104,15 +114,16 @@ class EncodingDialogOK(Dialog):
                 set_sensitive(False)
         else:
             self.builder.get_object('label_autodetect').set_text(
-                '{0} with {1:.0f}% confidence'.format(autodetected,
-                                                      autodetect_confidence*100))
+                '{0} with {1:.0f}% confidence'.format(
+                    autodetected, autodetect_confidence * 100))
         self.dialog = self.builder.get_object('dialog_encodings')
         self.builder.connect_signals(self)
 
     def run(self):
         ans = self.dialog.run()
         if ans == -5:
-            radio_group = self.builder.get_object('radiobutton_default').get_group()
+            radio_group = self.builder.get_object('radiobutton_default')\
+                .get_group()
             radio_active = [r for r in radio_group if r.get_active()][0]
             if radio_active == self.builder.get_object('radiobutton_default'):
                 ret = 'utf_8'

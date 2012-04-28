@@ -160,9 +160,13 @@ class FileIO():
         except ImportError:
             detected = [None, None]
 
-        text = ("It was not possible to read the encoding of this file directly "
-                "from the content. Therefore, please select an encoding below "
-                "or press \"Cancel\" to abort loading the file.")
+        text = ('It was not possible to read the encoding of this file '
+                'directly from the content. Therefore, please select an '
+                'encoding below or press "Cancel" to abort loading the '
+                'file.\n\nAfter loading the file please write a test '
+                'comment that contains the characters that are special '
+                'for this encoding and test that it can be saved and that '
+                'the output looks correct.')
         enc_dialog = EncodingDialogOK(text, detected['encoding'],
                                       detected['confidence'])
         selected_enc = enc_dialog.run()
@@ -175,10 +179,14 @@ class FileIO():
                 enc_dialog.destroy()
                 return selected_enc
             except UnicodeDecodeError:
-                text = ("The selected encoding: {0}\n"
-                        "could not decode the file content. Please select "
-                        "another decoding to try again or press \"Cancel\" to "
-                        "abort loading the file.").format(selected_enc)
+                text = ('The selected encoding: {0}\n'
+                        'could not decode the file content. Please select '
+                        'another decoding to try again or press "Cancel" to '
+                        'abort loading the file.\n\nAfter loading the file '
+                        'please write a test comment that contains the '
+                        'characters that are special for this encoding and '
+                        'test that it can be saved and that the output '
+                        'looks correct.').format(selected_enc)
                 enc_dialog.set_text(text)
                 selected_enc = enc_dialog.run()
                 if selected_enc is None:
