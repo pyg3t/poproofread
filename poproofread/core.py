@@ -4,7 +4,7 @@
 core.py
 This file is a part of PoProofRead.
 
-Copyright (C) 2011 Kenneth Nielsen <k.nielsen81@gmail.com>
+Copyright (C) 2011-2012 Kenneth Nielsen <k.nielsen81@gmail.com>
 
 PoProofRead is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
