@@ -42,11 +42,11 @@ class PoProofRead():
         self.active = False
         self.content = None
 
-    def save(self):
-        charset_warning = self.fileio.write(self.content)
+    def save(self, clipboard=False):
+        charset_warning, text = self.fileio.write(self.content, clipboard)
         if charset_warning is not None:
             self.content['encoding'] = 'utf-8'
-        return charset_warning
+        return charset_warning, text
 
     def move(self, amount=None, goto=None):
         if amount != None:

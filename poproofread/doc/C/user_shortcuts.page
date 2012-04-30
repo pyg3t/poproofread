@@ -40,6 +40,10 @@
 	<td><p>Toggle inline mode:</p></td><td><p>Ctrl-i</p></td>
       </tr>
       <tr>
+	<td><p>Export to clipboard</p></td><td><p>Ctrl-e</p></td>
+	<td></td><td></td>
+      </tr>
+      <tr>
 	<td colspan="4"><p></p></td>
       </tr>
       <tr>

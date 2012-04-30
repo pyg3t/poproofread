@@ -152,9 +152,6 @@ class PoProofReadGtkGUI:
     ### GUI widgets ##########################################################
     # Menus
     # File menu
-    def _on_mnu_open(self, widget):
-        print EncodingDialogOK().run()
-
     def on_mnu_open(self, widget):
         # Reinitialize dialog in case it was destroyed
         self.builder.add_objects_from_file(self.gladefile,
@@ -182,7 +179,7 @@ class PoProofReadGtkGUI:
     def on_mnu_save(self, widget):
         if self.ppr.active:
             if not self.check_for_new_comment_and_save_it():
-                warning = self.ppr.save()
+                warning = self.ppr.save()[0]
                 if warning is not None:
                     WarningDialogOK(warning.title, warning.msg).run()
 
@@ -192,10 +189,17 @@ class PoProofReadGtkGUI:
             self.ppr.close()
             self.reset_gui()
 
+    def on_mnu_export_clipboard_activate(self, widget):
+        if self.ppr.active:
+            warning, text = self.ppr.save(clipboard=True)
+            if warning is not None:
+                WarningDialogOK(warning.title, warning.msg).run()
+            self.clipboard.set_text(text)
+
     def on_mnu_quit(self, widget):
         if self.ppr.active:
             self.check_for_new_comment_and_save_it()
-            warning = self.ppr.save()
+            warning = self.ppr.save()[0]
             if warning is not None:
                 WarningDialogOK(warning.title, warning.msg).run()
 
@@ -272,6 +276,7 @@ class PoProofReadGtkGUI:
                    'Previous part  : PageUp     Next part     : PageDown\n'
                    'First part     : Ctrl-Home  Last          : Ctrl-End\n\n'
                    'Toggle inline commenting: Ctrl-i\n'
+                   'Export to clipboard     : Ctrl-e\n'
                    'Set bookmark   : Ctrl-b     Go to bookmark: Ctrl-g\n'
                    'Jump to part # : Ctrl-j\n\n'
                    'Open file      : Ctrl-o     Save file     : Ctrl-s\n'
@@ -381,7 +386,7 @@ class PoProofReadGtkGUI:
         """
         if self.tb_comment.get_modified():
             self.ppr.update_comment(self.read_comment())
-            warning = self.ppr.save()
+            warning = self.ppr.save()[0]
             if warning is not None:
                 WarningDialogOK(warning.title, warning.msg).run()
             self.tb_comment.set_modified(False)
@@ -390,7 +395,7 @@ class PoProofReadGtkGUI:
 
     def open_file(self, filename):
         if self.ppr.active:
-            warning = self.ppr.save()
+            warning = self.ppr.save()[0]
             if warning is not None:
                 WarningDialogOK(warning.title, warning.msg).run()
             # close ???
