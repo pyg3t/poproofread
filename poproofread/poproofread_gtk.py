@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
 import sys
+import subprocess
 try:
     import argparse
 except ImportError:
@@ -35,7 +36,7 @@ import glib
 from core import PoProofRead
 from settings import Settings
 from custom_exceptions import FileError
-from dialogs_gtk import ErrorDialogOK, WarningDialogOK, EncodingDialogOK
+from dialogs_gtk import ErrorDialogOK, WarningDialogOK  # EncodingDialogOK
 import __init__
 
 
@@ -51,8 +52,10 @@ class PoProofReadGtkGUI:
         # Load gui and connect signals
         self.builder = gtk.Builder()
         moduledir = os.path.dirname(__file__)
-        self.gladefile = moduledir + os.sep + 'gui/poproofread_gtk_gui.glade'
-        self.iconfile = moduledir + os.sep + 'graphics/192.png'
+        self.gladefile = os.path.join(moduledir,
+                                      'gui/poproofread_gtk_gui.glade')
+        self.iconfile = os.path.join(moduledir, 'graphics/192.png')
+        self.helpdir = os.path.join(moduledir, 'doc', 'C')
 
         try:
             self.builder.add_from_file(self.gladefile)
@@ -243,6 +246,16 @@ class PoProofReadGtkGUI:
         # -4 and -6 equals destroy window and close button
         if self.get_object('aboutdialog').run() in [-4, -6]:
             self.get_object('aboutdialog').destroy()
+
+    def on_mnu_help_activate(self, widget):
+        p = subprocess.Popen('which yelp > /dev/null', shell=True)
+        if p.wait() == 0:
+            command = 'yelp {0} &'.format(self.helpdir)
+            subprocess.Popen(command, shell=True)
+        else:
+            warning = ('You need to have the program "yelp" installed to read '
+                       'the documentation')
+            WarningDialogOK('Missing program: "yelp"', warning).run()
 
     ### General functions ####################################################
     def get_object(self, name):
