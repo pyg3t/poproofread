@@ -19,6 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+import os
 
 class SettingsCommon(object):
     def __init__(self):
@@ -27,7 +28,7 @@ class SettingsCommon(object):
                          'comment_window_height': 100,
                          'window_height': 600,
                          'window_width': 600,
-                         'current_dir': ''
+                         'current_dir': os.getenv("HOME")
                          }
 
     def __getitem__(self, key):
