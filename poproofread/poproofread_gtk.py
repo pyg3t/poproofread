@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# pylint: disable-msg=W0613,R0902,R0904
 
 """
 poproofread-gtk.py
@@ -41,6 +42,7 @@ import __init__
 
 
 class PoProofReadGtkGUI:
+    """ The GTK frontend class for PoProofRead """
 
     def __init__(self):
         # Get settings
@@ -98,51 +100,61 @@ class PoProofReadGtkGUI:
 
     # Mandatory gtk windown handling
     def on_window_destroy(self, widget):
+        """ Callback for "window destroy" event """
         self.on_mnu_quit(widget)
 
     ### GUI widgets
     # Buttons
     def on_btn_set_bookmark(self, widget):
+        """ Callback for "set bookmark" button """
         self.ppr.set_bookmark()
         self.update_bookmark()
 
     def on_btn_jump_to_bookmark(self, widget):
+        """ Callback for "jump to bookmark" button """
         self.check_for_new_comment_and_save_it()
         self.ppr.move(goto=self.ppr.get_bookmark())
         self.update_gui()
 
     def on_checkbutton_inline(self, widget):
+        """ Callback for inline toggle button """
         self.check_for_new_comment_and_save_it()
         self.ppr.set_inline_status(widget.get_active())
         self.update_gui()
 
     def on_btn_first(self, widget):
+        """ Callback for "go to first message" button """
         self.check_for_new_comment_and_save_it()
         self.ppr.move(goto=0)
         self.update_gui()
 
     def on_btn_previous(self, widget):
+        """ Callback for "go to previous message" button """
         self.check_for_new_comment_and_save_it()
         self.ppr.move(amount=-1)
         self.update_gui()
 
     def on_btn_next(self, widget):
+        """ Callback for "go to next message" button """
         self.check_for_new_comment_and_save_it()
         self.ppr.move(amount=1)
         self.update_gui()
 
     def on_btn_last(self, widget):
+        """ Callback for "go to last message" button """
         self.check_for_new_comment_and_save_it()
         self.ppr.move(goto=-1)
         self.update_gui()
 
     def on_btn_jump_to(self, widget):
+        """ Callback for "jump to" button """
         self.get_object('dialog_jump_to').show()
         self.get_object('spinbtn_jump_to')\
             .set_range(1, self.ppr.get_no_chunks())
         # MAKE THE NUMBER SELECTED
 
     def on_jump_to_ok(self, widget):
+        """ Callback for "ok" button in jump to dialog """
         value = self.get_object('spinbtn_jump_to').get_value_as_int()
         self.get_object('dialog_jump_to').hide()
         self.check_for_new_comment_and_save_it()
@@ -150,24 +162,25 @@ class PoProofReadGtkGUI:
         self.update_gui()
 
     def on_jump_to_cancel(self, widget):
+        """ Callback for "cancel" button in jump to dialog """
         self.get_object('dialog_jump_to').hide()
 
-    ### GUI widgets ##########################################################
     # Menus
     # File menu
     def on_mnu_open(self, widget):
+        """ Callback for "open" menu item """
         # Reinitialize dialog in case it was destroyed
         self.builder.add_objects_from_file(self.gladefile,
                                            ['filechooserdialog_open'])
         self.builder.connect_signals(self)
         self.filech = self.get_object('filechooserdialog_open')
         # Change current directory
-        if os.path.isdir(self.settings['current_dir']):
-            self.filech.set_current_folder(self.settings['current_dir'])
+        self.filech.set_current_folder(self.settings['current_dir'])
 
         self.filech.show()
 
     def on_filechooser(self, widget):
+        """ Callback for filechooser return """
         filename = self.filech.get_filename()
         if os.path.isdir(filename):
             self.filech.set_current_folder(filename)
@@ -177,9 +190,11 @@ class PoProofReadGtkGUI:
             self.open_file(filename)
 
     def on_filechooser_cancel(self, widget):
+        """ Callback for "cancel" button in filechooser """
         self.filech.destroy()
 
     def on_mnu_save(self, widget):
+        """ Callback for "save" menu item """
         if self.ppr.active:
             if not self.check_for_new_comment_and_save_it():
                 warning = self.ppr.save()[0]
@@ -187,12 +202,14 @@ class PoProofReadGtkGUI:
                     WarningDialogOK(warning.title, warning.msg).run()
 
     def on_mnu_close(self, widget):
+        """ Callback for "close" menu item """
         if self.ppr.active:
             self.check_for_new_comment_and_save_it()
             self.ppr.close()
             self.reset_gui()
 
     def on_mnu_export_clipboard_activate(self, widget):
+        """ Callback for "Export to clipoard" menu item """
         if self.ppr.active:
             warning, text = self.ppr.save(clipboard=True)
             if warning is not None:
@@ -200,6 +217,7 @@ class PoProofReadGtkGUI:
             self.clipboard.set_text(text)
 
     def on_mnu_quit(self, widget):
+        """ Callback for "quit" menu item """
         if self.ppr.active:
             self.check_for_new_comment_and_save_it()
             warning = self.ppr.save()[0]
@@ -212,6 +230,7 @@ class PoProofReadGtkGUI:
     ########################################
     # Edit menu
     def on_mnu_copy(self, widget):
+        """ Callback for "copy" menu item """
         if not self.ppr.active:
             return
         tb_with_selection = self.get_textbuffer_with_selection()
@@ -219,17 +238,20 @@ class PoProofReadGtkGUI:
             tb_with_selection.copy_clipboard(self.clipboard)
 
     def on_mnu_paste(self, widget):
+        """ Callback for "paste" menu item """
         if not self.ppr.active:
             return
         self.tb_comment.paste_clipboard(self.clipboard, None, True)
 
     def on_mnu_cut(self, widget):
+        """ Callback for "cut" menu item """
         if not self.ppr.active:
             return
         if self.get_textbuffer_with_selection() is self.tb_comment:
             self.tb_comment.cut_clipboard(self.clipboard, True)
 
     def on_mnu_delete(self, widget):
+        """ Callback for "delete" menu item """
         if not self.ppr.active:
             return
         if self.get_textbuffer_with_selection() is self.tb_comment:
@@ -238,6 +260,7 @@ class PoProofReadGtkGUI:
     ########################################
     # Help menu
     def on_mnu_about(self, widget):
+        """ Callback for "about" menu item """
         # Reinitialize the dialog in case it has been destroyed
         self.builder.add_objects_from_file(self.gladefile,
                                            ['aboutdialog'])
@@ -248,8 +271,9 @@ class PoProofReadGtkGUI:
             self.get_object('aboutdialog').destroy()
 
     def on_mnu_help_activate(self, widget):
-        p = subprocess.Popen('which yelp > /dev/null', shell=True)
-        if p.wait() == 0:
+        """ Callback for "help" menu item """
+        process = subprocess.Popen('which yelp > /dev/null', shell=True)
+        if process.wait() == 0:
             command = 'yelp {0} &'.format(self.helpdir)
             subprocess.Popen(command, shell=True)
         else:
@@ -259,6 +283,7 @@ class PoProofReadGtkGUI:
 
     ### General functions ####################################################
     def get_object(self, name):
+        """ Convinience method to get gui widget """
         return self.builder.get_object(name)
 
     def write_to_textbuffer(self, textbuffer, text):
@@ -273,12 +298,14 @@ class PoProofReadGtkGUI:
         return self.tb_comment.get_text(startiter, enditer)
 
     def settings_to_gui(self):
+        """ Update the gui according to the settings """
         pangofont = pango.FontDescription('Monospace ' +
                                           str(self.settings['font_size']))
         self.get_object('textview_diff').modify_font(pangofont)
         self.get_object('textview_comment').modify_font(pangofont)
 
     def reset_gui(self):
+        """ Reset the gui to start up mode """
         welcome = ('Welcome to PoProofRead version {0}\n\n'
                    'To use PoProofRead simply load the podiff you wish to '
                    'proofread, move through the file with PageUp and PageDown '
@@ -309,6 +336,7 @@ class PoProofReadGtkGUI:
         self.update_inline_gui(False)
 
     def update_gui(self):
+        """ update the gui from current poproofread state """
         if not self.ppr.active:
             return
 
@@ -352,6 +380,7 @@ class PoProofReadGtkGUI:
         self.update_bookmark()
 
     def update_inline_gui(self, inline):
+        """ Update the gui to the current inline status """
         # Update GUI according to inline status
         par2 = self.vbox1.query_child_packing(self.sw2)
         if inline and self.vbox1.children().count(self.sw1) == 1:
@@ -377,6 +406,7 @@ class PoProofReadGtkGUI:
 
     def update_status_line(self, position=None, total=None, percentage=None,
                            comments=None):
+        """ Update the statue line part of the gui """
         if position is not None:
             self.labels['lab_current_pos'].set_text(str(position))
         if total is not None:
@@ -387,6 +417,9 @@ class PoProofReadGtkGUI:
             self.labels['lab_comments'].set_text(str(comments))
 
     def set_sensitive_nav_buttons(self, btn_status):
+        """ Sets the sensitivity of the navigation buttons in accordance with
+        the position
+        """
         self.get_object('btn_first').set_sensitive(btn_status[0])
         self.get_object('btn_previous').set_sensitive(btn_status[1])
         self.get_object('btn_next').set_sensitive(btn_status[2])
@@ -407,6 +440,7 @@ class PoProofReadGtkGUI:
         return False
 
     def open_file(self, filename):
+        """ Open file logic, factored out for use both from gui and cli """
         if self.ppr.active:
             warning = self.ppr.save()[0]
             if warning is not None:
@@ -430,8 +464,8 @@ class PoProofReadGtkGUI:
         except FileError as error:
             ErrorDialogOK(error.title, error.msg).run()
 
-
     def get_textbuffer_with_selection(self):
+        """ Return the text buffer with an active text selection """
         if self.tb_diff.get_has_selection():
             return self.tb_diff
         elif self.tb_comment.get_has_selection():
@@ -441,6 +475,7 @@ class PoProofReadGtkGUI:
 
 
 def main():
+    """ Parse command line parameters and initiate gtk gui """
     # Parse command line arguments for a file name to open
     description = 'Proofread po and podiff files.'
     usage = 'usage: %prog [options] filename'
