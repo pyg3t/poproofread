@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# pylint: disable-msg=W0613,R0903,R0201
 
 """
 poproofread-gtk.py
@@ -29,13 +30,19 @@ import gtk
 
 
 class Dialog:
+    """ Abstract class for all info dialogs """
     def __init__(self, object_name):
-        """ Abstract class for all dialogs """
+        """ Load the appropriate GUI dependent on which dialog is being
+        formed
+        """
 
         # Form the paths for all the dialogs
         guidir = os.path.dirname(__file__) + os.sep + 'gui' + os.sep
-        paths = {'inf_dia_ok': guidir + 'info_dialog_ok.glade',
-                 'enc_dia_ok': guidir + 'encoding_selection_dialog.glade'}
+        paths = {
+            'inf_dia_ok': os.path.join(guidir, 'info_dialog_ok.glade'),
+            'enc_dia_ok': os.path.join(guidir,
+                'encoding_selection_dialog.glade')
+                }
 
         # Read the layout xml
         with open(paths[object_name]) as xmlfile:
@@ -58,6 +65,7 @@ class ErrorDialogOK(Dialog):
         self.dialog.set_property('message-type', gtk.MESSAGE_ERROR)
 
     def run(self):
+        """ Run the dialog and get an answer """
         ans = self.builder.get_object('inf_dia_ok').run()
         self.builder.get_object('inf_dia_ok').destroy()
         return ans
@@ -74,6 +82,7 @@ class WarningDialogOK(Dialog):
         self.dialog.set_property('message-type', gtk.MESSAGE_WARNING)
 
     def run(self):
+        """ Run the dialog and get an answer """
         ans = self.builder.get_object('inf_dia_ok').run()
         self.builder.get_object('inf_dia_ok').destroy()
         return ans
@@ -86,7 +95,7 @@ class EncodingDialogOK(Dialog):
         Dialog.__init__(self, 'enc_dia_ok')
         self.autodetected = autodetected
         self.set_text(text)
-        self.builder.get_object('label_description').set_line_wrap(True)
+        self.builder.get_object('label_desc').set_line_wrap(True)
 
         # Fill out the encoding combobox
         self.combo = self.builder.get_object('combobox_enc')
@@ -120,6 +129,7 @@ class EncodingDialogOK(Dialog):
         self.builder.connect_signals(self)
 
     def run(self):
+        """ Run the dialog and get an answer """
         ans = self.dialog.run()
         if ans == -5:
             radio_group = self.builder.get_object('radiobutton_default')\
@@ -139,10 +149,12 @@ class EncodingDialogOK(Dialog):
         return ret
 
     def destroy(self):
+        """ Destroy the dialog """
         self.dialog.destroy()
 
     def set_text(self, text):
-        self.builder.get_object('label_description').set_text(text)
+        """ Set the text in the main dialog message label """
+        self.builder.get_object('label_desc').set_text(text)
 
     def on_combobox_enc_changed(self, widget):
         """ Call back that actives the manual radio button, when the manuel
@@ -150,6 +162,6 @@ class EncodingDialogOK(Dialog):
         """
         self.builder.get_object('radiobutton_manual').set_active(2)
 
-    def on_label_description_size_allocate(self, widget, size):
+    def on_label_desc_size_allocate(self, widget, size):
         """ Hack to get label text wrapping to work """
         widget.set_size_request(size.width, -1)
