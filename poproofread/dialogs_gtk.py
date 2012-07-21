@@ -30,16 +30,14 @@ import gtk
 
 
 class Dialog:
-    """ Abstract class for all info dialogs """
+    """ Abstract class for all dialogs that loads the gui and assigns the
+    dialog to a variable
+    """
     def __init__(self, object_name):
-        """ Load the appropriate GUI dependent on which dialog is being
-        formed
-        """
-
         # Form the paths for all the dialogs
-        guidir = os.path.dirname(__file__) + os.sep + 'gui' + os.sep
+        guidir = os.path.join(os.path.dirname(__file__), 'gui')
         paths = {
-            'inf_dia_ok': os.path.join(guidir, 'info_dialog_ok.glade'),
+            'mes_dia_ok': os.path.join(guidir, 'message_dialog_ok.glade'),
             'enc_dia_ok': os.path.join(guidir,
                 'encoding_selection_dialog.glade')
                 }
@@ -54,43 +52,37 @@ class Dialog:
         self.dialog = self.builder.get_object(object_name)
 
 
-class ErrorDialogOK(Dialog):
-    """ Information dialog with on a OK button """
-    def __init__(self, text, sec_text):
-        Dialog.__init__(self, 'inf_dia_ok')
+class MessageDialog(Dialog):
+    """ Abstract class for all message dialogs """
+    def __init__(self, message_dialog_type, text, sec_text):
+        Dialog.__init__(self, 'mes_dia_ok')
         self.dialog.set_property('text', text)
         self.dialog.set_property('secondary-text', sec_text)
         # This can be used to set the type of message: gtk.MESSAGE_INFO,
         # gtk.MESSAGE_WARNING, gtk.MESSAGE_QUESTION or gtk.MESSAGE_ERROR.
-        self.dialog.set_property('message-type', gtk.MESSAGE_ERROR)
+        self.dialog.set_property('message-type', message_dialog_type)
 
     def run(self):
         """ Run the dialog and get an answer """
-        ans = self.builder.get_object('inf_dia_ok').run()
-        self.builder.get_object('inf_dia_ok').destroy()
+        ans = self.dialog.run()
+        self.dialog.destroy()
         return ans
 
 
-class WarningDialogOK(Dialog):
+class ErrorDialogOK(MessageDialog):
+    """ Error dialog with on a OK button """
+    def __init__(self, text, sec_text):
+        MessageDialog.__init__(self, gtk.MESSAGE_ERROR, text, sec_text)
+
+
+class WarningDialogOK(MessageDialog):
     """ Information dialog with on a OK button """
     def __init__(self, text, sec_text):
-        Dialog.__init__(self, 'inf_dia_ok')
-        self.dialog.set_property('text', text)
-        self.dialog.set_property('secondary-text', sec_text)
-        # This can be used to set the type of message: gtk.MESSAGE_INFO,
-        # gtk.MESSAGE_WARNING, gtk.MESSAGE_QUESTION or gtk.MESSAGE_ERROR.
-        self.dialog.set_property('message-type', gtk.MESSAGE_WARNING)
-
-    def run(self):
-        """ Run the dialog and get an answer """
-        ans = self.builder.get_object('inf_dia_ok').run()
-        self.builder.get_object('inf_dia_ok').destroy()
-        return ans
+        MessageDialog.__init__(self, gtk.MESSAGE_WARNING, text, sec_text)
 
 
 class EncodingDialogOK(Dialog):
     """ Encoding selection dialog """
-
     def __init__(self, text, autodetected=None, autodetect_confidence=0):
         Dialog.__init__(self, 'enc_dia_ok')
         self.autodetected = autodetected
