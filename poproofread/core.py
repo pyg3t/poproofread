@@ -48,6 +48,11 @@ class PoProofRead():
             self.content['encoding'] = 'utf-8'
         return charset_warning, text
 
+    def set_new_save_location(self, filename):
+        ok_to_save, actual_filename =\
+            self.fileio.check_and_set_new_file_location(filename)
+        return ok_to_save, actual_filename
+
     def move(self, amount=None, goto=None):
         if amount != None:
             self.content['current'] = self.content['current'] + amount

@@ -36,13 +36,16 @@ class Dialog:
     def __init__(self, object_name):
         # Form the paths for all the dialogs
         guidir = os.path.join(os.path.dirname(__file__), 'gui')
+
+        def tot_dir(glade_file):
+            """ Convinience function to form join glade file paths """
+            return os.path.join(guidir, glade_file)
         paths = {
-            'mes_dia_ok': os.path.join(guidir, 'message_dialog_ok.glade'),
-            'enc_dia_ok': os.path.join(guidir,
-                'encoding_selection_dialog.glade'),
-            'save_as_dia': os.path.join(guidir,
-                'file_chooser_dialog_save_as.glade'),
-                }
+            'mes_dia_ok': tot_dir('message_dialog_ok.glade'),
+            'enc_dia_ok': tot_dir('encoding_selection_dialog.glade'),
+            'save_as_dia': tot_dir('file_chooser_dialog_save_as.glade'),
+            'question_dia': tot_dir('question_dialog.glade'),
+            }
 
         # Read the layout xml
         with open(paths[object_name]) as xmlfile:
@@ -56,8 +59,11 @@ class Dialog:
 
 class MessageDialog(Dialog):
     """ Abstract class for all message dialogs """
-    def __init__(self, message_dialog_type, text, sec_text):
-        Dialog.__init__(self, 'mes_dia_ok')
+    def __init__(self, message_dialog_type, text, sec_text, question=False):
+        if question:
+            Dialog.__init__(self, 'question_dia')
+        else:
+            Dialog.__init__(self, 'mes_dia_ok')
         self.dialog.set_property('text', text)
         self.dialog.set_property('secondary-text', sec_text)
         # This can be used to set the type of message: gtk.MESSAGE_INFO,
@@ -81,6 +87,19 @@ class WarningDialogOK(MessageDialog):
     """ Information dialog with on a OK button """
     def __init__(self, text, sec_text):
         MessageDialog.__init__(self, gtk.MESSAGE_WARNING, text, sec_text)
+
+
+class QuestionWarningDialog(MessageDialog):
+    """ Question dialog with ok and cancel buttons """
+    def __init__(self, text, sec_text):
+        MessageDialog.__init__(self, gtk.MESSAGE_WARNING, text, sec_text,
+            question=True)
+
+    def run(self):
+        ret = False
+        if MessageDialog.run(self) == -5:
+            ret = True
+        return ret
 
 
 class EncodingDialogOK(Dialog):
@@ -163,15 +182,19 @@ class EncodingDialogOK(Dialog):
 
 class SaveAsDialog(Dialog):
     """ Save as dialog """
-    def __init__(self):
+    def __init__(self, current_dir):
         Dialog.__init__(self, 'save_as_dia')
+        self.dialog.set_current_folder(current_dir)
+        file_filter = self.builder.get_object('save_as_file_filter')
+        file_filter.add_pattern('*.ppr')
 
     def run(self):
         """ Run the dialog and return the filename. None is returned of no
-        file name was selected. The self.dialog.get_filename() method it self
+        file name was selected. The self.dialog.get_filename() method itself
         return None in case of Cancel, window destroy of Ok without a filename
         """
         self.dialog.run()
         filename = self.dialog.get_filename()
+        current_dir = self.dialog.get_current_folder()
         self.dialog.destroy()
-        return filename
+        return filename, current_dir

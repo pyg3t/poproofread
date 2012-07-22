@@ -25,7 +25,7 @@ import json
 import codecs
 import re
 import StringIO
-from dialogs_gtk import EncodingDialogOK
+from dialogs_gtk import EncodingDialogOK, QuestionWarningDialog
 from custom_exceptions import FileError, FileWarning, UnhandledException
 
 
@@ -72,18 +72,14 @@ class FileIO():
 
     def __read_ppr(self, input_file):
         """ Read content from .ppr file """
-        self.ppr_file = input_file
-        self.out_file = input_file + '.out'
-        self.__check_ppr_and_out_file(self.ppr_file, self.out_file, True)
+        self._set_new_file_location(input_file, existing=True, ppr=True)
 
-        with open(input_file) as f:
-            return json.loads(f.read())
+        with open(input_file) as file_:
+            return json.loads(file_.read())
 
     def __read_new(self, input_file):
         """ Read content from new file """
-        self.ppr_file = input_file + '.ppr'
-        self.out_file = self.ppr_file + '.out'
-        self.__check_ppr_and_out_file(self.ppr_file, self.out_file, False)
+        self._set_new_file_location(input_file, existing=False, ppr=False)
 
         if not os.access(input_file, os.F_OK):
             raise FileError(input_file, 'The file does not exist.')
@@ -92,14 +88,47 @@ class FileIO():
 
         encoding = self.__detect_character_encoding(input_file)
 
-        with codecs.open(input_file, encoding=encoding) as f:
-            diff_chunks = f.read().split('\n\n')
+        with codecs.open(input_file, encoding=encoding) as file_:
+            diff_chunks = file_.read().split('\n\n')
 
         diff_list = [{'diff_chunk': diff, 'comment': '', 'inline': False}
                      for diff in diff_chunks]
 
         return {'text': diff_list, 'encoding': encoding, 'bookmark': None,
                 'current': 0, 'no_chunks': len(diff_list)}
+
+    def check_and_set_new_file_location(self, filename):
+        """ Check if file exists and the set new file locations """
+        if os.path.splitext(filename)[1] != '.ppr':
+            filename += '.ppr'
+        outfile = filename + '.out'
+
+        existing = False
+        if os.access(filename, os.F_OK) or os.access(filename, os.F_OK):
+            if os.access(filename, os.F_OK):
+                existing = True
+            ans = QuestionWarningDialog('File exists, overwrite?',
+                    ('One of the files:\n{0}\n{1}\nalready exist. Do you ' +
+                    'wish to overwrite it and loose the current content of ' +
+                    'the file?').format(filename, outfile)
+                ).run()
+
+        if not existing:
+            self._set_new_file_location(filename, existing=False, ppr=True)
+        elif existing and ans:
+            self._set_new_file_location(filename, existing=True, ppr=True)
+        else:
+            return False, None
+        return True, filename
+
+    def _set_new_file_location(self, filename, existing, ppr):
+        """ Set new file locations and check if they are usable """
+        if ppr:
+            self.ppr_file = filename
+        else:
+            self.ppr_file = filename + '.ppr'
+        self.out_file = self.ppr_file + '.out'
+        self.__check_ppr_and_out_file(self.ppr_file, self.out_file, existing)
 
     def __check_ppr_and_out_file(self, ppr_file, out_file, existing):
         """ Check file permissions """
@@ -138,8 +167,8 @@ class FileIO():
         # First try to read it from a po type file
         # Search for diff type (+- ) line and charset in Content-Type line
         charset_pattern = r'^(.*)"Content-Type:.*charset=([a-zA-Z0-9-]*).*$'
-        with open(input_file) as f:
-            for line in f.readlines():
+        with open(input_file) as file_:
+            for line in file_.readlines():
                 search = re.search(charset_pattern, line)
                 try:
                     # A diff has a character before #Content-Type...
@@ -155,8 +184,8 @@ class FileIO():
         # Try to detect with chardet
         try:
             import chardet
-            with open(input_file, "r") as f:
-                rawdata = f.read()
+            with open(input_file, "r") as file_:
+                rawdata = file_.read()
                 detected = chardet.detect(rawdata)
         except ImportError:
             detected = [None, None]
@@ -196,37 +225,38 @@ class FileIO():
     def write(self, content, clipboard=False):
         """ Write content to ppr and out file """
         self.__write_to_ppr(content)
-        charset_warning, text =\
+        charset_warning, text = \
             self.__write_to_out(content, clipboard=clipboard)
         return charset_warning, text
 
     def __write_to_ppr(self, content):
         """ Write json representation of content to .ppr file """
-        with open(self.ppr_file, 'w') as f:
-            f.write(json.dumps(content))
+        with open(self.ppr_file, 'w') as file_:
+            file_.write(json.dumps(content))
 
-    def __write_to_out(self, content, override_encoding=False, clipboard=False):
+    def __write_to_out(self, content, override_encoding=False,
+                       clipboard=False):
         """ Write out file
 
         Returns warning or None and text or None"""
         encoding = 'utf-8' if override_encoding else content['encoding']
         if clipboard:
-            f = StringIO.StringIO()
+            file_ = StringIO.StringIO()
         else:
-            f = codecs.open(self.out_file, encoding=encoding, mode='w')
+            file_ = codecs.open(self.out_file, encoding=encoding, mode='w')
 
         for comment in content['text']:
             if comment['comment'] != '':
                 try:
                     if not comment['inline']:
-                        f.write(comment['diff_chunk'] + '\n\n')
-                    f.write(comment['comment'] + '\n\n')
+                        file_.write(comment['diff_chunk'] + '\n\n')
+                    file_.write(comment['comment'] + '\n\n')
                 except UnicodeEncodeError:
                     if not override_encoding:
                         text = self.__write_to_out(content,
                                                    override_encoding=True)[1]
                     else:
-                        f.close()
+                        file_.close()
                         raise UnhandledException('Char set save loop')
                     warning = ('It was not possible to save the content '
                                'to the .ppr.out-file in the detected '
@@ -234,12 +264,12 @@ class FileIO():
                                'for this file.\n\nPlease check if the '
                                'output looks correct!'
                                '').format(content['encoding'])
-                    f.close()
+                    file_.close()
                     return FileWarning(self.out_file, warning), text
 
         if clipboard:
-            text = f.getvalue()
-            f.close()
+            text = file_.getvalue()
+            file_.close()
         else:
             text = None
 

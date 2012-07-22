@@ -37,7 +37,7 @@ import glib
 from core import PoProofRead
 from settings import Settings
 from custom_exceptions import FileError
-from dialogs_gtk import ErrorDialogOK, WarningDialogOK  # EncodingDialogOK
+from dialogs_gtk import ErrorDialogOK, WarningDialogOK, SaveAsDialog
 import __init__
 
 
@@ -98,7 +98,7 @@ class PoProofReadGtkGUI:
         self.settings_to_gui()
         self.reset_gui()
 
-    # Mandatory gtk windown handling
+    # Mandatory gtk window handling
     def on_window_destroy(self, widget):
         """ Callback for "window destroy" event """
         self.on_mnu_quit(widget)
@@ -200,6 +200,21 @@ class PoProofReadGtkGUI:
                 warning = self.ppr.save()[0]
                 if warning is not None:
                     WarningDialogOK(warning.title, warning.msg).run()
+
+    def on_mnu_save_as(self, widget):
+        """ Callback for "save as" menu item """
+        if self.ppr.active:
+            new_filename, current_dir =\
+                SaveAsDialog(self.settings['current_dir']).run()
+            if new_filename is not None:
+                if current_dir is not None:
+                    self.settings['current_dir'] = current_dir
+                ok_to_save, actual_filename =\
+                    self.ppr.set_new_save_location(new_filename)
+                self.get_object('poproofread').set_title(
+                    'PoProofRead - %s' % os.path.basename(actual_filename))
+                if ok_to_save:
+                    self.on_mnu_save(None)
 
     def on_mnu_close(self, widget):
         """ Callback for "close" menu item """
