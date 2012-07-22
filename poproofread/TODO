@@ -1,0 +1,8 @@
+TODO
+
+* Make sure the core and fileio modules are reset after a failed read or change
+  of save file
+* Remove check for self.ppr.active in gui call backs and instead deactivate the
+  controls when inactive
+* Do something to the window title to indicate whether the current content has
+  been saved
