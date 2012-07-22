@@ -39,7 +39,9 @@ class Dialog:
         paths = {
             'mes_dia_ok': os.path.join(guidir, 'message_dialog_ok.glade'),
             'enc_dia_ok': os.path.join(guidir,
-                'encoding_selection_dialog.glade')
+                'encoding_selection_dialog.glade'),
+            'save_as_dia': os.path.join(guidir,
+                'file_chooser_dialog_save_as.glade'),
                 }
 
         # Read the layout xml
@@ -157,3 +159,19 @@ class EncodingDialogOK(Dialog):
     def on_label_desc_size_allocate(self, widget, size):
         """ Hack to get label text wrapping to work """
         widget.set_size_request(size.width, -1)
+
+
+class SaveAsDialog(Dialog):
+    """ Save as dialog """
+    def __init__(self):
+        Dialog.__init__(self, 'save_as_dia')
+
+    def run(self):
+        """ Run the dialog and return the filename. None is returned of no
+        file name was selected. The self.dialog.get_filename() method it self
+        return None in case of Cancel, window destroy of Ok without a filename
+        """
+        self.dialog.run()
+        filename = self.dialog.get_filename()
+        self.dialog.destroy()
+        return filename
