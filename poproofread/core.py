@@ -24,7 +24,10 @@ from fileio import FileIO
 
 
 class PoProofRead():
-    """ Main functionality for poproofread """
+    """ Main functionality for PoProofRead. This class contains and controls
+    all of the functionality of PoProodRead except for the GUI. All index for
+    the diff part list are zero based from this class and downwards.
+    """
 
     def __init__(self):
         self.fileio = FileIO()
@@ -32,51 +35,54 @@ class PoProofRead():
         self.content = None
 
     def open(self, filename):
+        """ Open a file """
         self.content, actual_file, warning = self.fileio.read(filename)
-        # The next line should only be executed if open was succesfull
+        # The next line will only be executed if open was succesfull, because
+        # error will raise exceptions
         self.active = True
         return actual_file, warning
 
     def close(self):
+        """ Close or reset functionality """
         self.fileio.__init__()
         self.active = False
         self.content = None
 
     def save(self, clipboard=False):
+        """ Save. If 'clipboard' the output is returned in 'text' """
         charset_warning, text = self.fileio.write(self.content, clipboard)
         if charset_warning is not None:
             self.content['encoding'] = 'utf-8'
         return charset_warning, text
 
     def set_new_save_location(self, filename):
-        ok_to_save, actual_filename =\
+        """ Set new save location. For "Save as" functionality """
+        ok_to_save, actual_filename = \
             self.fileio.check_and_set_new_file_location(filename)
         return ok_to_save, actual_filename
 
     def move(self, amount=None, goto=None):
+        """ Move to a different diff part. Either by 'amount' or to 'goto' """
         if amount != None:
-            self.content['current'] = self.content['current'] + amount
-            # There has got to be a more pythonic way of doing this
-            # index = max(0, min(index, len(List) - 1))
-            if self.content['current'] < 0:
-                self.content['current'] = 0
-            if self.content['current'] >= self.content['no_chunks']:
-                self.content['current'] = self.content['no_chunks'] - 1
+            requested = self.content['current'] + amount
         elif goto != None:
-            if goto < 0:
-                self.content['current'] = self.content['no_chunks'] - 1
-            elif goto >= self.content['no_chunks']:
-                self.content['current'] = self.content['no_chunks'] - 1
-            else:
-                self.content['current'] = goto
+            requested = goto
+        # Coerce in range
+        self.content['current'] = \
+            max(0, min(requested, self.content['no_chunks'] - 1))
 
     def get_current_content(self):
+        """ Return the current part """
         return self.content['text'][self.content['current']]
 
     def get_inline_status(self):
+        """ Return the inline status of the current diff part """
         return self.content['text'][self.content['current']]['inline']
 
     def set_inline_status(self, inline):
+        """ Set the inline status of the diff part and edit the comment
+        accordingly.
+        """
         content = self.get_current_content()
         content['inline'] = inline
         if inline:
@@ -91,7 +97,7 @@ class PoProofRead():
         number of comments. NOTE current is reported zero based and it is up
         to the GUI to change it for representation purposes
         """
-        percentage =\
+        percentage = \
             (self.content['current'] + 1) * 100.0 / self.content['no_chunks']
         return {'current': self.content['current'],
                 'total': self.content['no_chunks'],
@@ -99,20 +105,25 @@ class PoProofRead():
                 'comments': self.__count_comments()}
 
     def update_comment(self, new_comment):
+        """ Update the comment for the current diff part """
         self.content['text'][self.content['current']]['comment'] = new_comment
 
     def __count_comments(self):
+        """ Return the number of comments in the proofreading """
         number = 0
         for element in self.content['text']:
             if element['comment'] != '':
-                number = number + 1
+                number += 1
         return number
 
     def set_bookmark(self):
+        """ Set the bookmark to the current diff part """
         self.content['bookmark'] = self.content['current']
 
     def get_bookmark(self):
+        """ Return the bookmark """
         return self.content['bookmark']
 
     def get_no_chunks(self):
-        return int(self.content['no_chunks'])
+        """ Return the number of diff parts """
+        return self.content['no_chunks']

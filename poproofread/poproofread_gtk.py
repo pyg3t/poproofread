@@ -158,6 +158,7 @@ class PoProofReadGtkGUI:
         value = self.get_object('spinbtn_jump_to').get_value_as_int()
         self.get_object('dialog_jump_to').hide()
         self.check_for_new_comment_and_save_it()
+        print value
         self.ppr.move(goto=value - 1)
         self.update_gui()
 
@@ -204,12 +205,12 @@ class PoProofReadGtkGUI:
     def on_mnu_save_as(self, widget):
         """ Callback for "save as" menu item """
         if self.ppr.active:
-            new_filename, current_dir =\
+            new_filename, current_dir = \
                 SaveAsDialog(self.settings['current_dir']).run()
             if new_filename is not None:
                 if current_dir is not None:
                     self.settings['current_dir'] = current_dir
-                ok_to_save, actual_filename =\
+                ok_to_save, actual_filename = \
                     self.ppr.set_new_save_location(new_filename)
                 self.get_object('poproofread').set_title(
                     'PoProofRead - %s' % os.path.basename(actual_filename))
