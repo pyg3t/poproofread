@@ -45,6 +45,7 @@ class Dialog:
             'enc_dia_ok': tot_dir('encoding_selection_dialog.glade'),
             'save_as_dia': tot_dir('file_chooser_dialog_save_as.glade'),
             'question_dia': tot_dir('question_dialog.glade'),
+            'open_dia': tot_dir('file_chooser_dialog_open.glade')
             }
 
         # Read the layout xml
@@ -196,5 +197,27 @@ class SaveAsDialog(Dialog):
         self.dialog.run()
         filename = self.dialog.get_filename()
         current_dir = self.dialog.get_current_folder()
+        self.dialog.destroy()
+        return filename, current_dir
+
+
+class OpenDialog(Dialog):
+    """ Open dialog """
+    def __init__(self, current_dir):
+        Dialog.__init__(self, 'open_dia')
+        self.dialog.set_current_folder(current_dir)
+
+    def run(self):
+        """ Run the dialog and return the filename and the current folder """
+        ans = self.dialog.run()
+        filename = self.dialog.get_filename()
+        while os.path.isdir(filename) and ans == 0:
+            self.dialog.set_current_folder(filename)
+            ans = self.dialog.run()
+            filename = self.dialog.get_filename()
+        if ans == 0:
+            current_dir = self.dialog.get_current_folder()
+        else:
+            current_dir = filename = None
         self.dialog.destroy()
         return filename, current_dir
