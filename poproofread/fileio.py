@@ -132,26 +132,31 @@ class FileIO():
 
     def __check_ppr_and_out_file(self, ppr_file, out_file, existing):
         """ Check file permissions """
-        if existing:
-            if not os.access(ppr_file, os.F_OK):
-                raise FileError(ppr_file, 'The file does not exist.')
-            if not os.access(ppr_file, os.R_OK):
-                raise FileError(ppr_file, 'The file is not readable.')
-            if not os.access(ppr_file, os.W_OK):
-                raise FileError(ppr_file, 'The file is not writeable.')
-        else:
-            if os.access(ppr_file, os.F_OK):
-                if not os.access(ppr_file, os.R_OK):
-                    raise FileError(ppr_file, 'The file is not readable.')
-                if not os.access(ppr_file, os.W_OK):
-                    raise FileError(ppr_file, 'The file is not writeable.')
-            else:
+        # Error messages on failed file tests
+        err_msgs = {
+            os.R_OK: 'The file is not readable.',
+            os.W_OK: 'The file is not writeable.',
+            os.F_OK: 'The file does not exist.',
+            'dummy': 'The file cannot be created.'
+        }
+        if existing:  # If we are told the file exists
+            for test in [os.F_OK, os.R_OK, os.W_OK]:  # check exists, r & w
+                if not os.access(ppr_file, test):
+                    raise FileError(ppr_file, err_msgs[test])
+        else:  # if told the file does not exist
+            if os.access(ppr_file, os.F_OK):  # check if it does anyway
+                for test in [os.R_OK, os.W_OK]:  # check r & w
+                    if not os.access(ppr_file, test):
+                        raise FileError(ppr_file, err_msgs[test])
+            else:  # if it does not exist anyway, check if dirname
                 dirname = os.path.dirname(ppr_file)\
                     if os.path.dirname(ppr_file) != '' else '.'
+                # has wx permission so the file can be created
                 if not (os.access(dirname, os.W_OK) and
                         os.access(dirname, os.X_OK)):
-                    raise FileError(ppr_file, 'The file cannot be created.')
+                    raise FileError(ppr_file, err_msgs[3][1])
 
+        # Out file tests
         if os.access(out_file, os.F_OK):
             if not os.access(self.out_file, os.W_OK):
                 raise FileError(out_file, 'The file is not writeable.')
