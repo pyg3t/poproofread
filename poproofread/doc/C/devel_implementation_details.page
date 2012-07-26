@@ -34,7 +34,7 @@
     in the <code>PoProofReadGtkGUI</code> class. This method will
     update the entire GUI according to the information about the
     current diff part contained in the <code>PoProofRead</code>
-    instance. This has two implementations:</p>
+    instance. This has two implications:</p>
     
     <list type="numbered">
       <item><p>It is important that the comment text buffer is checked
