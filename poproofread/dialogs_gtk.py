@@ -47,7 +47,8 @@ class Dialog:
             'save_as_dia': tot_dir('file_chooser_dialog_save_as.glade'),
             'question_dia': tot_dir('question_dialog.glade'),
             'open_dia': tot_dir('file_chooser_dialog_open.glade'),
-            'about_dia': tot_dir('about_dialog.glade')
+            'about_dia': tot_dir('about_dialog.glade'),
+            'jump_to_dia': tot_dir('jump_to_dialog.glade')
             }
 
         # Read the layout xml
@@ -235,3 +236,20 @@ class AboutDialog(Dialog):
         """ Run the dialog """
         self.dialog.run()
         self.dialog.destroy()
+
+
+class JumpToDialog(Dialog):
+    """ Jump to dialog """
+    def __init__(self, min_, max_):
+        Dialog.__init__(self, 'jump_to_dia')
+        self.spinbtn = self.builder.get_object('spinbtn_jump_to')
+        self.spinbtn.set_range(min_, max_)
+
+    def run(self):
+        """ Run the dialog and return the result """
+        ans = self.dialog.run()
+        ret = None
+        if ans == 0:
+            ret = self.spinbtn.get_value_as_int()
+        self.dialog.destroy()
+        return ret

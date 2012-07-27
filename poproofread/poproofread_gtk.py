@@ -38,7 +38,7 @@ from core import PoProofRead
 from settings import Settings
 from custom_exceptions import FileError
 from dialogs_gtk import ErrorDialogOK, WarningDialogOK, SaveAsDialog, \
-    OpenDialog, AboutDialog
+    OpenDialog, AboutDialog, JumpToDialog
 import __init__
 
 
@@ -149,23 +149,11 @@ class PoProofReadGtkGUI:
 
     def on_btn_jump_to(self, widget):
         """ Callback for "jump to" button """
-        self.get_object('dialog_jump_to').show()
-        self.get_object('spinbtn_jump_to')\
-            .set_range(1, self.ppr.get_no_chunks())
-        # MAKE THE NUMBER SELECTED
-
-    def on_jump_to_ok(self, widget):
-        """ Callback for "ok" button in jump to dialog """
-        value = self.get_object('spinbtn_jump_to').get_value_as_int()
-        self.get_object('dialog_jump_to').hide()
-        self.check_for_new_comment_and_save_it()
-        print value
-        self.ppr.move(goto=value - 1)
-        self.update_gui()
-
-    def on_jump_to_cancel(self, widget):
-        """ Callback for "cancel" button in jump to dialog """
-        self.get_object('dialog_jump_to').hide()
+        value = JumpToDialog(1, self.ppr.get_no_chunks()).run()
+        if value is not None:
+            self.check_for_new_comment_and_save_it()
+            self.ppr.move(goto=value - 1)
+            self.update_gui()
 
     # Menus
     # File menu
