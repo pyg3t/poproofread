@@ -37,7 +37,8 @@ import glib
 from core import PoProofRead
 from settings import Settings
 from custom_exceptions import FileError
-from dialogs_gtk import ErrorDialogOK, WarningDialogOK, SaveAsDialog
+from dialogs_gtk import ErrorDialogOK, WarningDialogOK, SaveAsDialog, \
+    OpenDialog
 import __init__
 
 
@@ -170,29 +171,10 @@ class PoProofReadGtkGUI:
     # File menu
     def on_mnu_open(self, widget):
         """ Callback for "open" menu item """
-        # Reinitialize dialog in case it was destroyed
-        self.builder.add_objects_from_file(self.gladefile,
-                                           ['filechooserdialog_open'])
-        self.builder.connect_signals(self)
-        self.filech = self.get_object('filechooserdialog_open')
-        # Change current directory
-        self.filech.set_current_folder(self.settings['current_dir'])
-
-        self.filech.show()
-
-    def on_filechooser(self, widget):
-        """ Callback for filechooser return """
-        filename = self.filech.get_filename()
-        if os.path.isdir(filename):
-            self.filech.set_current_folder(filename)
-        else:
-            self.settings['current_dir'] = self.filech.get_current_folder()
-            self.filech.destroy()
+        filename, current_dir = OpenDialog(self.settings['current_dir']).run()
+        if filename is not None:
+            self.settings['current_dir'] = current_dir
             self.open_file(filename)
-
-    def on_filechooser_cancel(self, widget):
-        """ Callback for "cancel" button in filechooser """
-        self.filech.destroy()
 
     def on_mnu_save(self, widget):
         """ Callback for "save" menu item """
