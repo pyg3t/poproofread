@@ -194,7 +194,20 @@ class PoProofReadGtkGUI:
             self.ppr.close()
             self.reset_gui()
 
-    def on_mnu_export_clipboard_activate(self, widget):
+    def on_mnu_import_clipboard(self, widget):
+        """ Import the contents of the clipboard """
+        # This method below converts into utf-8 which means that character
+        # code information is lost
+        text = self.clipboard.wait_for_text()
+        if text is not None:
+            self.ppr.import_from_text(text)
+            self.get_object('poproofread').set_title(
+                'PoProofRead - Un-named document')
+            self.get_object('hbox_buttons').set_sensitive(True)
+            self.get_object('hbox_statusline').set_sensitive(True)
+            self.update_gui()
+
+    def on_mnu_export_clipboard(self, widget):
         """ Callback for "Export to clipoard" menu item """
         if self.ppr.active:
             warning, text = self.ppr.save(clipboard=True)
@@ -295,7 +308,8 @@ class PoProofReadGtkGUI:
                    'Previous part  : PageUp     Next part     : PageDown\n'
                    'First part     : Ctrl-Home  Last          : Ctrl-End\n\n'
                    'Toggle inline commenting: Ctrl-i\n'
-                   'Export to clipboard     : Ctrl-e\n'
+                   'Import from clipboard   : Ctrl-shift-i\n'
+                   'Export to clipboard     : Ctrl-shift-e\n'
                    'Set bookmark   : Ctrl-b     Go to bookmark: Ctrl-g\n'
                    'Jump to part # : Ctrl-j\n\n'
                    'Open file      : Ctrl-o     Save file     : Ctrl-s\n'

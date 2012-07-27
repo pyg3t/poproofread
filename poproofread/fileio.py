@@ -91,11 +91,19 @@ class FileIO():
         with codecs.open(input_file, encoding=encoding) as file_:
             diff_chunks = file_.read().split('\n\n')
 
+        return self.__default_structure(diff_chunks, encoding)
+
+    def read_new_from_text(self, text):
+        """ Read new content from text """
+        diff_chunks = text.split('\n\n')
+        return self.__default_structure(diff_chunks, 'utf-8')
+
+    def __default_structure(self, diff_chunks, encoding):
+        """ This method defines the default content structure """
         diff_list = [{'diff_chunk': diff, 'comment': '', 'inline': False}
                      for diff in diff_chunks]
-
         return {'text': diff_list, 'encoding': encoding, 'bookmark': None,
-                'current': 0, 'no_chunks': len(diff_list)}
+                'current': 0, 'no_chunks': len(diff_list)}        
 
     def check_and_set_new_file_location(self, filename):
         """ Check if file exists and the set new file locations """
@@ -129,6 +137,9 @@ class FileIO():
             self.ppr_file = filename + '.ppr'
         self.out_file = self.ppr_file + '.out'
         self.__check_ppr_and_out_file(self.ppr_file, self.out_file, existing)
+
+    def get_file_locations(self):
+        return self.ppr_file, self.out_file
 
     def __check_ppr_and_out_file(self, ppr_file, out_file, existing):
         """ Check file permissions """

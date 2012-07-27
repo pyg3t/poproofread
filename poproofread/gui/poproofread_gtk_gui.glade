@@ -39,6 +39,16 @@
                       </object>
                     </child>
                     <child>
+                      <object class="GtkMenuItem" id="mnu_import_clipboard">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="use_action_appearance">False</property>
+                        <property name="label" translatable="yes">Import from clipboard</property>
+                        <accelerator key="i" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
+                        <signal name="activate" handler="on_mnu_import_clipboard" swapped="no"/>
+                      </object>
+                    </child>
+                    <child>
                       <object class="GtkSeparatorMenuItem" id="separatormenuitem1">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -77,8 +87,8 @@
                         <property name="use_action_appearance">False</property>
                         <property name="label" translatable="yes">_Export to clipboard</property>
                         <property name="use_underline">True</property>
-                        <accelerator key="e" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                        <signal name="activate" handler="on_mnu_export_clipboard_activate" swapped="no"/>
+                        <accelerator key="e" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
+                        <signal name="activate" handler="on_mnu_export_clipboard" swapped="no"/>
                       </object>
                     </child>
                     <child>

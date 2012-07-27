@@ -38,9 +38,13 @@ class PoProofRead():
         """ Open a file """
         self.content, actual_file, warning = self.fileio.read(filename)
         # The next line will only be executed if open was succesfull, because
-        # error will raise exceptions
+        # errors will raise exceptions
         self.active = True
         return actual_file, warning
+
+    def import_from_text(self, text):
+        self.content = self.fileio.read_new_from_text(text)
+        self.active = True
 
     def close(self):
         """ Close or reset functionality """
@@ -50,6 +54,8 @@ class PoProofRead():
 
     def save(self, clipboard=False):
         """ Save. If 'clipboard' the output is returned in 'text' """
+        if self.fileio.get_file_locations() == (None, None):
+            return None, ''
         charset_warning, text = self.fileio.write(self.content, clipboard)
         if charset_warning is not None:
             self.content['encoding'] = 'utf-8'

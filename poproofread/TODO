@@ -9,6 +9,7 @@ TODO
 * Work with the jump_to_dialog. Pressing ok while in spinbutton does not
   register the change. Provided this can be changed, make the number selected
   when opening the dialog
+* Check up on character sets on import from clipboard
 
 Windows compatibility:
 * Remove hard coding of settings location
