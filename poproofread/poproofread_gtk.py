@@ -38,7 +38,7 @@ from core import PoProofRead
 from settings import Settings
 from custom_exceptions import FileError
 from dialogs_gtk import ErrorDialogOK, WarningDialogOK, SaveAsDialog, \
-    OpenDialog
+    OpenDialog, AboutDialog
 import __init__
 
 
@@ -259,14 +259,7 @@ class PoProofReadGtkGUI:
     # Help menu
     def on_mnu_about(self, widget):
         """ Callback for "about" menu item """
-        # Reinitialize the dialog in case it has been destroyed
-        self.builder.add_objects_from_file(self.gladefile,
-                                           ['aboutdialog'])
-        # Set version
-        self.get_object('aboutdialog').set_version(__init__.__version__)
-        # -4 and -6 equals destroy window and close button
-        if self.get_object('aboutdialog').run() in [-4, -6]:
-            self.get_object('aboutdialog').destroy()
+        AboutDialog().run()
 
     def on_mnu_help_activate(self, widget):
         """ Callback for "help" menu item """

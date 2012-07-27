@@ -27,6 +27,7 @@ import pkgutil
 import pygtk
 pygtk.require('2.0')
 import gtk
+import __init__
 
 
 class Dialog:
@@ -45,7 +46,8 @@ class Dialog:
             'enc_dia_ok': tot_dir('encoding_selection_dialog.glade'),
             'save_as_dia': tot_dir('file_chooser_dialog_save_as.glade'),
             'question_dia': tot_dir('question_dialog.glade'),
-            'open_dia': tot_dir('file_chooser_dialog_open.glade')
+            'open_dia': tot_dir('file_chooser_dialog_open.glade'),
+            'about_dia': tot_dir('about_dialog.glade')
             }
 
         # Read the layout xml
@@ -221,3 +223,15 @@ class OpenDialog(Dialog):
             current_dir = filename = None
         self.dialog.destroy()
         return filename, current_dir
+
+
+class AboutDialog(Dialog):
+    """ About dialog """
+    def __init__(self):
+        Dialog.__init__(self, 'about_dia')
+        self.dialog.set_version(__init__.__version__)
+
+    def run(self):
+        """ Run the dialog """
+        self.dialog.run()
+        self.dialog.destroy()
