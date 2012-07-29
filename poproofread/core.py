@@ -73,6 +73,8 @@ class PoProofRead():
             requested = self.content['current'] + amount
         elif goto != None:
             requested = goto
+            if goto < 0:
+                requested = self.content['no_chunks'] + goto
         # Coerce in range
         self.content['current'] = \
             max(0, min(requested, self.content['no_chunks'] - 1))
