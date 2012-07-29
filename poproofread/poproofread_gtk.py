@@ -69,12 +69,12 @@ class PoProofReadGtkGUI:
         self.builder.connect_signals(self)
         self.gui('poproofread').set_icon_from_file(self.iconfile)
 
-        self.labels = {
-            'lab_current_pos': self.gui("lab_current_pos"),
-            'lab_total': self.gui("lab_total"),
-            'lab_percentage': self.gui("lab_percentage"),
-            'lab_comments': self.gui("lab_comments"),
-            }
+        #self.labels = {
+        #    'lab_current_pos': self.gui("lab_current_pos"),
+        #    'lab_total': self.gui("lab_total"),
+        #    'lab_percentage': self.gui("lab_percentage"),
+        #    'lab_comments': self.gui("lab_comments"),
+        #    }
 
         # tb short for textbuffer
         self.tb_diff, self.tb_comment = gtk.TextBuffer(), gtk.TextBuffer()
@@ -110,37 +110,37 @@ class PoProofReadGtkGUI:
 
     def on_btn_jump_to_bookmark(self, widget):
         """ Callback for "jump to bookmark" button """
-        self.check_for_new_comment_and_save_it()
+        self.check_for_new_comment_and_save()
         self.ppr.move(goto=self.ppr.get_bookmark())
         self.update_gui()
 
     def on_checkbutton_inline(self, widget):
         """ Callback for inline toggle button """
-        self.check_for_new_comment_and_save_it()
+        self.check_for_new_comment_and_save()
         self.ppr.set_inline_status(widget.get_active())
         self.update_gui()
 
     def on_btn_first(self, widget):
         """ Callback for "go to first message" button """
-        self.check_for_new_comment_and_save_it()
+        self.check_for_new_comment_and_save()
         self.ppr.move(goto=0)
         self.update_gui()
 
     def on_btn_previous(self, widget):
         """ Callback for "go to previous message" button """
-        self.check_for_new_comment_and_save_it()
+        self.check_for_new_comment_and_save()
         self.ppr.move(amount=-1)
         self.update_gui()
 
     def on_btn_next(self, widget):
         """ Callback for "go to next message" button """
-        self.check_for_new_comment_and_save_it()
+        self.check_for_new_comment_and_save()
         self.ppr.move(amount=1)
         self.update_gui()
 
     def on_btn_last(self, widget):
         """ Callback for "go to last message" button """
-        self.check_for_new_comment_and_save_it()
+        self.check_for_new_comment_and_save()
         self.ppr.move(goto=-1)
         self.update_gui()
 
@@ -148,7 +148,7 @@ class PoProofReadGtkGUI:
         """ Callback for "jump to" button """
         value = JumpToDialog(1, self.ppr.get_no_chunks()).run()
         if value is not None:
-            self.check_for_new_comment_and_save_it()
+            self.check_for_new_comment_and_save()
             self.ppr.move(goto=value - 1)
             self.update_gui()
 
@@ -164,7 +164,7 @@ class PoProofReadGtkGUI:
     def on_mnu_save(self, widget):
         """ Callback for "save" menu item """
         if self.ppr.active:
-            if not self.check_for_new_comment_and_save_it():
+            if not self.check_for_new_comment_and_save():
                 warning = self.ppr.save()[0]
                 if warning is not None:
                     WarningDialogOK(warning.title, warning.msg).run()
@@ -187,7 +187,7 @@ class PoProofReadGtkGUI:
     def on_mnu_close(self, widget):
         """ Callback for "close" menu item """
         if self.ppr.active:
-            self.check_for_new_comment_and_save_it()
+            self.check_for_new_comment_and_save()
             self.ppr.close()
             self.reset_gui()
 
@@ -214,7 +214,7 @@ class PoProofReadGtkGUI:
     def on_mnu_quit(self, widget):
         """ Callback for "quit" menu item """
         if self.ppr.active:
-            self.check_for_new_comment_and_save_it()
+            self.check_for_new_comment_and_save()
             warning = self.ppr.save()[0]
             if warning is not None:
                 WarningDialogOK(warning.title, warning.msg).run()
@@ -254,7 +254,7 @@ class PoProofReadGtkGUI:
 
     ########################################
     # Help menu
-    def on_mnu_about(self, widget):
+    def on_mnu_about(self, widget):  # pylint: disable=R0201
         """ Callback for "about" menu item """
         AboutDialog().run()
 
@@ -317,8 +317,9 @@ class PoProofReadGtkGUI:
                    .format(__init__.__version__)
         self.write_to_textbuffer(self.tb_diff, welcome)
         self.write_to_textbuffer(self.tb_comment, '')
-        for label in self.labels.values():
-            label.set_text('-')
+        for label_name in ['lab_current_pos', 'lab_total', 'lab_percentage',
+                                'lab_comments']:
+            self.gui(label_name).set_text('-')
         self.gui('hbox_buttons').set_sensitive(False)
         self.gui('hbox_statusline').set_sensitive(False)
         self.gui('poproofread').set_title('PoProofRead')
@@ -397,13 +398,13 @@ class PoProofReadGtkGUI:
                            comments=None):
         """ Update the statue line part of the gui """
         if position is not None:
-            self.labels['lab_current_pos'].set_text(str(position))
+            self.gui('lab_current_pos').set_text(str(position))
         if total is not None:
-            self.labels['lab_total'].set_text(str(total))
+            self.gui('lab_total').set_text(str(total))
         if percentage is not None:
-            self.labels['lab_percentage'].set_text(str(percentage))
+            self.gui('lab_percentage').set_text(str(percentage))
         if comments is not None:
-            self.labels['lab_comments'].set_text(str(comments))
+            self.gui('lab_comments').set_text(str(comments))
 
     def set_sensitive_nav_buttons(self, btn_status):
         """ Sets the sensitivity of the navigation buttons in accordance with
@@ -414,7 +415,7 @@ class PoProofReadGtkGUI:
         self.gui('btn_next').set_sensitive(btn_status[2])
         self.gui('btn_last').set_sensitive(btn_status[3])
 
-    def check_for_new_comment_and_save_it(self):
+    def check_for_new_comment_and_save(self):
         """ Check if the comment text buffer has been modified and if it has
         update the comment with the new content. The return value indicates
         whether the file has been saved.
