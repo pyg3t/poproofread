@@ -43,6 +43,7 @@ class PoProofRead():
         return actual_file, warning
 
     def import_from_text(self, text):
+        """ Import text as the diff to be proofread """
         self.content = self.fileio.read_new_from_text(text)
         self.active = True
 

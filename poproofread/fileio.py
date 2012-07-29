@@ -103,7 +103,7 @@ class FileIO():
         diff_list = [{'diff_chunk': diff, 'comment': '', 'inline': False}
                      for diff in diff_chunks]
         return {'text': diff_list, 'encoding': encoding, 'bookmark': None,
-                'current': 0, 'no_chunks': len(diff_list)}        
+                'current': 0, 'no_chunks': len(diff_list)}
 
     def check_and_set_new_file_location(self, filename):
         """ Check if file exists and the set new file locations """
@@ -139,6 +139,7 @@ class FileIO():
         self.__check_ppr_and_out_file(self.ppr_file, self.out_file, existing)
 
     def get_file_locations(self):
+        """ Return the save and out files """
         return self.ppr_file, self.out_file
 
     def __check_ppr_and_out_file(self, ppr_file, out_file, existing):
