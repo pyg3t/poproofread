@@ -69,13 +69,6 @@ class PoProofReadGtkGUI:
         self.builder.connect_signals(self)
         self.gui('poproofread').set_icon_from_file(self.iconfile)
 
-        #self.labels = {
-        #    'lab_current_pos': self.gui("lab_current_pos"),
-        #    'lab_total': self.gui("lab_total"),
-        #    'lab_percentage': self.gui("lab_percentage"),
-        #    'lab_comments': self.gui("lab_comments"),
-        #    }
-
         # tb short for textbuffer
         self.tb_diff, self.tb_comment = gtk.TextBuffer(), gtk.TextBuffer()
         self.gui('textview_diff').set_buffer(self.tb_diff)
