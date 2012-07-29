@@ -67,27 +67,24 @@ class PoProofReadGtkGUI:
             sys.exit(1)
 
         self.builder.connect_signals(self)
-        self.builder.get_object('poproofread').\
-            set_icon_from_file(self.iconfile)
-
-        self.filech = self.get_object('filechooserdialog_open')
+        self.gui('poproofread').set_icon_from_file(self.iconfile)
 
         self.labels = {
-            'lab_current_pos': self.builder.get_object("lab_current_pos"),
-            'lab_total': self.builder.get_object("lab_total"),
-            'lab_percentage': self.builder.get_object("lab_percentage"),
-            'lab_comments': self.builder.get_object("lab_comments"),
+            'lab_current_pos': self.gui("lab_current_pos"),
+            'lab_total': self.gui("lab_total"),
+            'lab_percentage': self.gui("lab_percentage"),
+            'lab_comments': self.gui("lab_comments"),
             }
 
         # tb short for textbuffer
         self.tb_diff, self.tb_comment = gtk.TextBuffer(), gtk.TextBuffer()
-        self.builder.get_object('textview_diff').set_buffer(self.tb_diff)
-        self.builder.get_object('textview_comment').set_buffer(self.tb_comment)
+        self.gui('textview_diff').set_buffer(self.tb_diff)
+        self.gui('textview_comment').set_buffer(self.tb_comment)
         self.clipboard = gtk.Clipboard()
 
         # Color the background of the diff window grey
-        self.builder.get_object('textview_diff').modify_base(
-            self.builder.get_object('textview_diff').get_state(),
+        self.gui('textview_diff').modify_base(
+            self.gui('textview_diff').get_state(),
             gtk.gdk.Color(red=58000, green=58000, blue=58000))
 
         # Assign commonly used widgets local variable names
@@ -182,8 +179,8 @@ class PoProofReadGtkGUI:
                     self.settings['current_dir'] = current_dir
                 ok_to_save, actual_filename = \
                     self.ppr.set_new_save_location(new_filename)
-                self.get_object('poproofread').set_title(
-                    'PoProofRead - %s' % os.path.basename(actual_filename))
+                self.gui('poproofread').set_title('PoProofRead - {0}'\
+                    .format(os.path.basename(actual_filename)))
                 if ok_to_save:
                     self.on_mnu_save(None)
 
@@ -201,10 +198,9 @@ class PoProofReadGtkGUI:
         text = self.clipboard.wait_for_text()
         if text is not None:
             self.ppr.import_from_text(text)
-            self.get_object('poproofread').set_title(
-                'PoProofRead - Un-named document')
-            self.get_object('hbox_buttons').set_sensitive(True)
-            self.get_object('hbox_statusline').set_sensitive(True)
+            self.gui('poproofread').set_title('PoProofRead - Unnamed document')
+            self.gui('hbox_buttons').set_sensitive(True)
+            self.gui('hbox_statusline').set_sensitive(True)
             self.update_gui()
 
     def on_mnu_export_clipboard(self, widget):
@@ -274,7 +270,7 @@ class PoProofReadGtkGUI:
             WarningDialogOK('Missing program: "yelp"', warning).run()
 
     ### General functions ####################################################
-    def get_object(self, name):
+    def gui(self, name):
         """ Convinience method to get gui widget """
         return self.builder.get_object(name)
 
@@ -291,10 +287,10 @@ class PoProofReadGtkGUI:
 
     def settings_to_gui(self):
         """ Update the gui according to the settings """
-        pangofont = pango.FontDescription('Monospace ' +
-                                          str(self.settings['font_size']))
-        self.get_object('textview_diff').modify_font(pangofont)
-        self.get_object('textview_comment').modify_font(pangofont)
+        pangofont = pango.FontDescription(
+            'Monospace {0}'.format(self.settings['font_size']))
+        self.gui('textview_diff').modify_font(pangofont)
+        self.gui('textview_comment').modify_font(pangofont)
 
     def reset_gui(self):
         """ Reset the gui to start up mode """
@@ -323,9 +319,9 @@ class PoProofReadGtkGUI:
         self.write_to_textbuffer(self.tb_comment, '')
         for label in self.labels.values():
             label.set_text('-')
-        self.get_object('hbox_buttons').set_sensitive(False)
-        self.get_object('hbox_statusline').set_sensitive(False)
-        self.get_object('poproofread').set_title('PoProofRead')
+        self.gui('hbox_buttons').set_sensitive(False)
+        self.gui('hbox_statusline').set_sensitive(False)
+        self.gui('poproofread').set_title('PoProofRead')
         self.update_inline_gui(False)
 
     def update_gui(self):
@@ -335,10 +331,10 @@ class PoProofReadGtkGUI:
 
         # Read inline status from ppr and update checkbutton accordingly
         inline = self.ppr.get_inline_status()
-        self.get_object('checkbutton_inline').handler_block_by_func(
+        self.gui('checkbutton_inline').handler_block_by_func(
             self.on_checkbutton_inline)
-        self.get_object('checkbutton_inline').set_active(inline)
-        self.get_object('checkbutton_inline').handler_unblock_by_func(
+        self.gui('checkbutton_inline').set_active(inline)
+        self.gui('checkbutton_inline').handler_unblock_by_func(
             self.on_checkbutton_inline)
 
         self.update_inline_gui(inline)
@@ -350,10 +346,10 @@ class PoProofReadGtkGUI:
         # Move cursor to end of comment
         # get_bounds returns (startiter, enditer)
         enditer = self.tb_comment.get_bounds()[1]
-        self.get_object('textview_comment').grab_focus()
+        self.gui('textview_comment').grab_focus()
         self.tb_comment.place_cursor(enditer)
         mark = self.tb_comment.create_mark(None, enditer)
-        self.get_object('textview_comment').scroll_mark_onscreen(mark)
+        self.gui('textview_comment').scroll_mark_onscreen(mark)
 
         # Get status and update sensitivity of buttons and the statusline
         status = self.ppr.get_status()
@@ -395,7 +391,7 @@ class PoProofReadGtkGUI:
         """ Update the book mark field """
         bookmark = str(self.ppr.get_bookmark() + 1)\
             if self.ppr.get_bookmark() is not None else 'N/A'
-        self.get_object('lab_current_bookmark').set_text(bookmark)
+        self.gui('lab_current_bookmark').set_text(bookmark)
 
     def update_status_line(self, position=None, total=None, percentage=None,
                            comments=None):
@@ -413,10 +409,10 @@ class PoProofReadGtkGUI:
         """ Sets the sensitivity of the navigation buttons in accordance with
         the position
         """
-        self.get_object('btn_first').set_sensitive(btn_status[0])
-        self.get_object('btn_previous').set_sensitive(btn_status[1])
-        self.get_object('btn_next').set_sensitive(btn_status[2])
-        self.get_object('btn_last').set_sensitive(btn_status[3])
+        self.gui('btn_first').set_sensitive(btn_status[0])
+        self.gui('btn_previous').set_sensitive(btn_status[1])
+        self.gui('btn_next').set_sensitive(btn_status[2])
+        self.gui('btn_last').set_sensitive(btn_status[3])
 
     def check_for_new_comment_and_save_it(self):
         """ Check if the comment text buffer has been modified and if it has
@@ -444,11 +440,11 @@ class PoProofReadGtkGUI:
         # it may generate exceptions
         try:
             actual_file, warnings = self.ppr.open(filename)
-            self.get_object('poproofread').set_title(
+            self.gui('poproofread').set_title(
                 'PoProofRead - %s' % os.path.basename(actual_file))
 
-            self.get_object('hbox_buttons').set_sensitive(True)
-            self.get_object('hbox_statusline').set_sensitive(True)
+            self.gui('hbox_buttons').set_sensitive(True)
+            self.gui('hbox_statusline').set_sensitive(True)
             self.update_gui()
 
             for warning in warnings:
@@ -501,7 +497,7 @@ def main():
 
     # Initiate program
     poproofread = PoProofReadGtkGUI()
-    poproofread.get_object("poproofread").show()
+    poproofread.gui("poproofread").show()
     if filename is not None:
         poproofread.open_file(filename)
     gtk.main()
