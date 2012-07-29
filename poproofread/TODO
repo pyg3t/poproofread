@@ -14,3 +14,19 @@ TODO
 Windows compatibility:
 * Remove hard coding of settings location
 * Change the parser to import (and save) windows style line endings
+
+NOTES:
+Open call structure (existing project):
+
+GUI->on_mnu_open()
+ get filename from dialog
+ GUI->open_file(filename)
+  save en close existing file
+  try:
+   warnings = ppr.open(filename)
+   show warnings
+  except error
+   show error
+
+ppr->open(filename)
+ ...
