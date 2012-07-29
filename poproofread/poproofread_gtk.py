@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# pylint: disable-msg=W0613,R0902,R0904
+# pylint: disable-msg=W0613,W0142,R0904
+#,R0904
 
 """
 poproofread-gtk.py
@@ -55,24 +56,19 @@ class PoProofReadGtkGUI:
         # Load gui and connect signals
         self.builder = gtk.Builder()
         moduledir = os.path.dirname(__file__)
-        self.gladefile = os.path.join(moduledir,
+        gladefile = os.path.join(moduledir,
                                       'gui/poproofread_gtk_gui.glade')
-        self.iconfile = os.path.join(moduledir, 'graphics/192.png')
-        self.helpdir = os.path.join(moduledir, 'doc', 'C')
+        iconfile = os.path.join(moduledir, 'graphics/192.png')
 
         try:
-            self.builder.add_from_file(self.gladefile)
+            self.builder.add_from_file(gladefile)
         except glib.GError as error:
             print "Your gtk version is not new enough:\n", error
             sys.exit(1)
 
         self.builder.connect_signals(self)
-        self.gui('poproofread').set_icon_from_file(self.iconfile)
+        self.gui('poproofread').set_icon_from_file(iconfile)
 
-        # tb short for textbuffer
-        self.tb_diff, self.tb_comment = gtk.TextBuffer(), gtk.TextBuffer()
-        self.gui('textview_diff').set_buffer(self.tb_diff)
-        self.gui('textview_comment').set_buffer(self.tb_comment)
         self.clipboard = gtk.Clipboard()
 
         # Color the background of the diff window grey
@@ -80,11 +76,11 @@ class PoProofReadGtkGUI:
             self.gui('textview_diff').get_state(),
             gtk.gdk.Color(red=58000, green=58000, blue=58000))
 
-        # Assign commonly used widgets local variable names
-        self.sw1 = self.builder.get_object('scrolledwindow1')
-        self.sw2 = self.builder.get_object('scrolledwindow2')
-        self.vbox1 = self.builder.get_object('vbox1')
-        self.sep1 = self.builder.get_object('hseparator1')
+        # Used for move callback, arguments for self.ppr.move()
+        self.moves = {self.gui('btn_first'):    {'goto': 0},
+                      self.gui('btn_previous'): {'amount': -1},
+                      self.gui('btn_next'):     {'amount': 1},
+                      self.gui('btn_last'):     {'goto': -1}}
 
         self.settings_to_gui()
         self.reset_gui()
@@ -113,28 +109,11 @@ class PoProofReadGtkGUI:
         self.ppr.set_inline_status(widget.get_active())
         self.update_gui()
 
-    def on_btn_first(self, widget):
-        """ Callback for "go to first message" button """
+    def on_move(self, widget):
+        """ Callback for all navigation buttons """
         self.check_for_new_comment_and_save()
-        self.ppr.move(goto=0)
-        self.update_gui()
-
-    def on_btn_previous(self, widget):
-        """ Callback for "go to previous message" button """
-        self.check_for_new_comment_and_save()
-        self.ppr.move(amount=-1)
-        self.update_gui()
-
-    def on_btn_next(self, widget):
-        """ Callback for "go to next message" button """
-        self.check_for_new_comment_and_save()
-        self.ppr.move(amount=1)
-        self.update_gui()
-
-    def on_btn_last(self, widget):
-        """ Callback for "go to last message" button """
-        self.check_for_new_comment_and_save()
-        self.ppr.move(goto=-1)
+        # ** passes all key=values in self.moves[widget] as arguments
+        self.ppr.move(**self.moves[widget])
         self.update_gui()
 
     def on_btn_jump_to(self, widget):
@@ -229,21 +208,24 @@ class PoProofReadGtkGUI:
         """ Callback for "paste" menu item """
         if not self.ppr.active:
             return
-        self.tb_comment.paste_clipboard(self.clipboard, None, True)
+        self.gui('textbuffer_comment').\
+            paste_clipboard(self.clipboard, None, True)
 
     def on_mnu_cut(self, widget):
         """ Callback for "cut" menu item """
         if not self.ppr.active:
             return
-        if self.get_textbuffer_with_selection() is self.tb_comment:
-            self.tb_comment.cut_clipboard(self.clipboard, True)
+        if self.get_textbuffer_with_selection() is\
+                self.gui('textbuffer_comment'):
+            self.gui('textbuffer_comment').cut_clipboard(self.clipboard, True)
 
     def on_mnu_delete(self, widget):
         """ Callback for "delete" menu item """
         if not self.ppr.active:
             return
-        if self.get_textbuffer_with_selection() is self.tb_comment:
-            self.tb_comment.delete_selection(True, True)
+        if self.get_textbuffer_with_selection() is\
+                self.gui('textbuffer_comment'):
+            self.gui('textbuffer_comment').delete_selection(True, True)
 
     ########################################
     # Help menu
@@ -251,11 +233,12 @@ class PoProofReadGtkGUI:
         """ Callback for "about" menu item """
         AboutDialog().run()
 
-    def on_mnu_help_activate(self, widget):
+    def on_mnu_help_activate(self, widget):  # pylint: disable=R0201
         """ Callback for "help" menu item """
         process = subprocess.Popen('which yelp > /dev/null', shell=True)
         if process.wait() == 0:
-            command = 'yelp {0} &'.format(self.helpdir)
+            command = 'yelp {0} &'.format(
+                os.path.join(os.path.dirname(__file__), 'doc', 'C'))
             subprocess.Popen(command, shell=True)
         else:
             warning = ('You need to have the program "yelp" installed to read '
@@ -267,16 +250,16 @@ class PoProofReadGtkGUI:
         """ Convinience method to get gui widget """
         return self.builder.get_object(name)
 
-    def write_to_textbuffer(self, textbuffer, text):
+    def write_to_textbuffer(self, textbuffer_name, text):
         """ Deletes anything in textbuffer and replaces it with text """
-        startiter, enditer = textbuffer.get_bounds()
-        textbuffer.delete(startiter, enditer)
-        textbuffer.insert(startiter, text)
+        startiter, enditer = self.gui(textbuffer_name).get_bounds()
+        self.gui(textbuffer_name).delete(startiter, enditer)
+        self.gui(textbuffer_name).insert(startiter, text)
 
     def read_comment(self):
         """ Return the content of the comment window """
-        startiter, enditer = self.tb_comment.get_bounds()
-        return self.tb_comment.get_text(startiter, enditer)
+        startiter, enditer = self.gui('textbuffer_comment').get_bounds()
+        return self.gui('textbuffer_comment').get_text(startiter, enditer)
 
     def settings_to_gui(self):
         """ Update the gui according to the settings """
@@ -308,8 +291,8 @@ class PoProofReadGtkGUI:
                    'If in doubt, just move the mouse over the button and the '
                    'keyboard shortcut will be in the tool tip.')\
                    .format(__init__.__version__)
-        self.write_to_textbuffer(self.tb_diff, welcome)
-        self.write_to_textbuffer(self.tb_comment, '')
+        self.write_to_textbuffer('textbuffer_diff', welcome)
+        self.write_to_textbuffer('textbuffer_comment', '')
         for label_name in ['lab_current_pos', 'lab_total', 'lab_percentage',
                                 'lab_comments']:
             self.gui(label_name).set_text('-')
@@ -335,14 +318,14 @@ class PoProofReadGtkGUI:
 
         # Update text content
         content = self.ppr.get_current_content()
-        self.write_to_textbuffer(self.tb_diff, content['diff_chunk'])
-        self.write_to_textbuffer(self.tb_comment, content['comment'])
+        self.write_to_textbuffer('textbuffer_diff', content['diff_chunk'])
+        self.write_to_textbuffer('textbuffer_comment', content['comment'])
         # Move cursor to end of comment
         # get_bounds returns (startiter, enditer)
-        enditer = self.tb_comment.get_bounds()[1]
+        enditer = self.gui('textbuffer_comment').get_bounds()[1]
         self.gui('textview_comment').grab_focus()
-        self.tb_comment.place_cursor(enditer)
-        mark = self.tb_comment.create_mark(None, enditer)
+        self.gui('textbuffer_comment').place_cursor(enditer)
+        mark = self.gui('textbuffer_comment').create_mark(None, enditer)
         self.gui('textview_comment').scroll_mark_onscreen(mark)
 
         # Get status and update sensitivity of buttons and the statusline
@@ -358,28 +341,31 @@ class PoProofReadGtkGUI:
         else:
             self.set_sensitive_nav_buttons([True, True, True, True])
 
-        self.tb_comment.set_modified(False)
+        self.gui('textbuffer_comment').set_modified(False)
 
         self.update_bookmark()
 
     def update_inline_gui(self, inline):
-        """ Update the gui to the current inline status """
-        # Update GUI according to inline status
-        par2 = self.vbox1.query_child_packing(self.sw2)
-        if inline and self.vbox1.children().count(self.sw1) == 1:
+        """ Update the gui to the current inline status
+        sw is short for scrolled window, sw1 is for diff and sw2 is for comment
+        hsep is the horizontal separator
+        par2 are the last ([1:]) sw2 packaging parameters in vbox
+        """
+        par2 = self.gui('vbox').query_child_packing(self.gui('sw2'))[1:]
+        if inline and self.gui('sw1') in self.gui('vbox').children():
             # If inline and not already in inline layout ...
-            self.vbox1.remove(self.sep1)
-            self.vbox1.remove(self.sw1)
-            self.sw2.set_size_request(-1, -1)
-            self.vbox1.set_child_packing(self.sw2, True, *par2[1:])
-        elif not inline and self.vbox1.children().count(self.sw1) == 0:
+            self.gui('vbox').remove(self.gui('hsep'))
+            self.gui('vbox').remove(self.gui('sw1'))
+            self.gui('sw2').set_size_request(-1, -1)
+            self.gui('vbox').set_child_packing(self.gui('sw2'), True, *par2)
+        elif not (inline or self.gui('sw1') in self.gui('vbox').children()):
             # ... and vice versa
-            self.vbox1.pack_start(self.sw1, True, True, 0)
-            self.vbox1.reorder_child(self.sw1, 2)
-            self.vbox1.pack_start(self.sep1, False, True, 0)
-            self.vbox1.reorder_child(self.sep1, 3)
-            self.sw2.set_size_request(-1, 100)
-            self.vbox1.set_child_packing(self.sw2, False, *par2[1:])
+            self.gui('vbox').pack_start(self.gui('sw1'), True, True, 0)
+            self.gui('vbox').reorder_child(self.gui('sw1'), 2)
+            self.gui('vbox').pack_start(self.gui('hsep'), False, True, 0)
+            self.gui('vbox').reorder_child(self.gui('hsep'), 3)
+            self.gui('sw2').set_size_request(-1, 100)
+            self.gui('vbox').set_child_packing(self.gui('sw2'), False, *par2)
 
     def update_bookmark(self):
         """ Update the book mark field """
@@ -413,12 +399,12 @@ class PoProofReadGtkGUI:
         update the comment with the new content. The return value indicates
         whether the file has been saved.
         """
-        if self.tb_comment.get_modified():
+        if self.gui('textbuffer_comment').get_modified():
             self.ppr.update_comment(self.read_comment())
             warning = self.ppr.save()[0]
             if warning is not None:
                 WarningDialogOK(warning.title, warning.msg).run()
-            self.tb_comment.set_modified(False)
+            self.gui('textbuffer_comment').set_modified(False)
             return True
         return False
 
@@ -449,10 +435,10 @@ class PoProofReadGtkGUI:
 
     def get_textbuffer_with_selection(self):
         """ Return the text buffer with an active text selection """
-        if self.tb_diff.get_has_selection():
-            return self.tb_diff
-        elif self.tb_comment.get_has_selection():
-            return self.tb_comment
+        if self.gui('textbuffer_diff').get_has_selection():
+            return self.gui('textbuffer_diff')
+        elif self.gui('textbuffer_comment').get_has_selection():
+            return self.gui('textbuffer_comment')
         else:
             return None
 

@@ -8,7 +8,7 @@
     <property name="default_height">700</property>
     <signal name="destroy" handler="on_window_destroy" swapped="no"/>
     <child>
-      <object class="GtkVBox" id="vbox1">
+      <object class="GtkVBox" id="vbox">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <child>
@@ -213,6 +213,7 @@
                         <property name="use_action_appearance">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
+                        <accelerator key="F1" signal="activate"/>
                         <signal name="activate" handler="on_mnu_help_activate" swapped="no"/>
                       </object>
                     </child>
@@ -231,7 +232,6 @@
                         <property name="use_action_appearance">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <accelerator key="F1" signal="activate"/>
                         <signal name="activate" handler="on_mnu_about" swapped="no"/>
                       </object>
                     </child>
@@ -340,9 +340,9 @@ Shortcut: Ctrl-i</property>
                 <property name="tooltip_text" translatable="yes">Go to first
 Shortcut: Ctrl-Home</property>
                 <property name="use_action_appearance">False</property>
-                <accelerator key="Home" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                <signal name="activate" handler="on_btn_first" swapped="no"/>
-                <signal name="clicked" handler="on_btn_first" swapped="no"/>
+                <accelerator key="Home" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <signal name="activate" handler="on_move" swapped="no"/>
+                <signal name="clicked" handler="on_move" swapped="no"/>
                 <child>
                   <object class="GtkImage" id="image1">
                     <property name="visible">True</property>
@@ -366,8 +366,8 @@ Shortcut: Ctrl-Home</property>
 Shortcut: PageUp</property>
                 <property name="use_action_appearance">False</property>
                 <accelerator key="Page_Up" signal="clicked"/>
-                <signal name="activate" handler="on_btn_previous" swapped="no"/>
-                <signal name="clicked" handler="on_btn_previous" swapped="no"/>
+                <signal name="activate" handler="on_move" swapped="no"/>
+                <signal name="clicked" handler="on_move" swapped="no"/>
                 <child>
                   <object class="GtkImage" id="image2">
                     <property name="visible">True</property>
@@ -391,8 +391,8 @@ Shortcut: PageUp</property>
 Shortcut: PageDown</property>
                 <property name="use_action_appearance">False</property>
                 <accelerator key="Page_Down" signal="clicked"/>
-                <signal name="activate" handler="on_btn_next" swapped="no"/>
-                <signal name="clicked" handler="on_btn_next" swapped="no"/>
+                <signal name="activate" handler="on_move" swapped="no"/>
+                <signal name="clicked" handler="on_move" swapped="no"/>
                 <child>
                   <object class="GtkImage" id="image3">
                     <property name="visible">True</property>
@@ -416,8 +416,8 @@ Shortcut: PageDown</property>
 Shortcut: Ctrl-End</property>
                 <property name="use_action_appearance">False</property>
                 <accelerator key="End" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                <signal name="activate" handler="on_btn_last" swapped="no"/>
-                <signal name="clicked" handler="on_btn_last" swapped="no"/>
+                <signal name="activate" handler="on_move" swapped="no"/>
+                <signal name="clicked" handler="on_move" swapped="no"/>
                 <child>
                   <object class="GtkImage" id="image4">
                     <property name="visible">True</property>
@@ -465,7 +465,7 @@ Shortcut: Ctrl-j</property>
           </packing>
         </child>
         <child>
-          <object class="GtkScrolledWindow" id="scrolledwindow1">
+          <object class="GtkScrolledWindow" id="sw1">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="border_width">1</property>
@@ -480,6 +480,7 @@ Shortcut: Ctrl-j</property>
                 <property name="editable">False</property>
                 <property name="wrap_mode">word</property>
                 <property name="cursor_visible">False</property>
+                <property name="buffer">textbuffer_diff</property>
               </object>
             </child>
           </object>
@@ -490,7 +491,7 @@ Shortcut: Ctrl-j</property>
           </packing>
         </child>
         <child>
-          <object class="GtkHSeparator" id="hseparator1">
+          <object class="GtkHSeparator" id="hsep">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
           </object>
@@ -501,7 +502,7 @@ Shortcut: Ctrl-j</property>
           </packing>
         </child>
         <child>
-          <object class="GtkScrolledWindow" id="scrolledwindow2">
+          <object class="GtkScrolledWindow" id="sw2">
             <property name="height_request">100</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -515,6 +516,7 @@ Shortcut: Ctrl-j</property>
                 <property name="can_focus">True</property>
                 <property name="border_width">1</property>
                 <property name="wrap_mode">word</property>
+                <property name="buffer">textbuffer_comment</property>
               </object>
             </child>
           </object>
@@ -638,4 +640,6 @@ Shortcut: Ctrl-j</property>
       </object>
     </child>
   </object>
+  <object class="GtkTextBuffer" id="textbuffer_comment"/>
+  <object class="GtkTextBuffer" id="textbuffer_diff"/>
 </interface>
