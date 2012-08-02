@@ -22,6 +22,8 @@ Now the poproofread code will live in ~/code/poproofread. In the future the code
 cd ~/code/poproofread
 bzr pull lp:poproofread
 
+### Setting poproofread up for execution from the terminal
+
 Now we must modify the .bashrc file to make sure that the PATH includes the executable, and the PYTHONPATH to make sure that the python modules can be imported. Open ~/.bashrc in you favorite editor and add the following lines:
 export PATH=$PATH:/home/username/code/poproofread/bin
 export PYTHONPATH=$PYTHONPATH:/home/username/code/poproofread
@@ -33,7 +35,36 @@ source ~/.bashrc
 and try and run:
 poproofread-gtk
 
-# Optional and experimental:
+### Setting poproofread up for execution from GUI programs
+
+If you wish to be able to start PoProofRead from GUI programs (and this GUI program allows you to specify the path directly) you need to do a little more work. This will enable you to use the "Open with" function on an attachment e.g. in the Thunderbird e-mail-client and have the file opened directly in PoProofRead.
+
+The reason that the approach above doesn't work is that GUI programs does not see the modification of the python path set in the .bashrc file. To fix this we will make a new executable and we will do it outside of the poproofread directory.
+
+Make a folder somewhere in the home folder that will contain this executable.
+
+mkdir -p ~/software/bin
+cd ~/software/bin
+
+The open a file in this directory in your favorite editor
+gedit poproofread-gtk
+
+and add the following content between the === lines:
+==============================================================================
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import sys
+sys.path.append('/home/username/code/poproofread')
+from poproofread import poproofread_gtk
+poproofread_gtk.main()
+==============================================================================
+and make this file executable
+chmod +x poproofread-gtk
+
+Now it should be possible to launch this program as described above.
+
+### Optional and experimental:
 To add PoProofRead to the menu system and to the context menus for .podiff and .podiff.ppr files add the .desktop and MIME-type file to your personal setup:
 cp ~/code/poproofread/poproofread_local.desktop ~/.local/share/applications/poproofread.desktop
 cp ~/code/poproofread/poproofread.xml ~/.local/share/mime/packages/poproofread.xml
