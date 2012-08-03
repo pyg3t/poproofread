@@ -8,6 +8,6 @@ Comment=A proofreader program for .po and .podiff files
 Categories=Development;Translation;
 MimeType=text/x-poproofread
 # Local installation, edit here
-Exec=/home/foo/code/poproofread/poproofread/poproofread_gtk.py %f
-Icon=/home/foo/code/poproofread/graphics/64.png
+Exec=/home/foo/code/poproofread/bin/poproofread-gtk-local %f
+Icon=/home/foo/code/poproofread/poproofread/graphics/64.png
 Path=/home/foo/code/poproofread/poproofread

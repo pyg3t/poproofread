@@ -1,0 +1,39 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+poproofread-gtk
+This file is a part of PoProofRead.
+
+Copyright (C) 2011 Kenneth Nielsen <k.nielsen81@gmail.com>
+
+PoProofRead is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+"""
+
+# This file is used as the main PoProofRead execution file instead of
+# poproofread-gtk in cases where the program is run directly from the source
+# code directory. The main difference is that in this case we need to manually
+# add the poproofread code path to the python path
+
+import sys
+import os
+# Get the directory two levels up from this file
+PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Check if we are indeed in source code mode before modifying the path
+if os.path.split(PATH)[1] == 'poproofread':
+    sys.path.append(PATH)
+
+from poproofread import poproofread_gtk
+poproofread_gtk.main()

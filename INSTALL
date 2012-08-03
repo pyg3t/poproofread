@@ -4,72 +4,62 @@ This file describes the installation of PoProofRead.
 
 BY PPA
 ------
-If you are on a system that can use ppa's, then the recommended way of installing PoProofRead is to use the pyg3t-dev-team ppa: https://launchpad.net/~pyg3t-dev-team/+archive/ppa
+If you are on a system that can use ppa's, then the recommended way of
+installing PoProofRead is to use the pyg3t-dev-team ppa:
+https://launchpad.net/~pyg3t-dev-team/+archive/ppa
 
 ON RPM BASED SYSTEMS
 --------------------
 To come
 
-MANUAL INSTALL FROM BZR
------------------------
-It is also possible to run PoProofRead directly from a folder with the bzr checkout. In the following it is assumed that the manually checked out code is kept in /home/username/code. (replace username with your own)
+MANUAL "INSTALL" FROM BZR CODE DIRECTORY
+----------------------------------------
 
-To get the code bzr make sure that you have the bzr command installed and execute the following commands:
+Please note, that this is an ALL user solution. No root access is necessary :)
+
+It is also possible to run PoProofRead directly from a folder with the bzr
+checkout and still get of of the functionality like dekstop integration. In
+the following it is assumed that the manually checked out code is kept in
+/home/username/code. (replace username with your own)
+
+To get the code bzr make sure that you have the bzr command installed and
+execute the following commands:
 cd ~/code
 bzr branch lp:poproofread
 
-Now the poproofread code will live in ~/code/poproofread. In the future the code can be kept up to date with any new upstream version by executing the commands:
+Now the poproofread code will live in ~/code/poproofread. In the future the
+code can be kept up to date with any new upstream version by executing the
+commands:
 cd ~/code/poproofread
 bzr pull lp:poproofread
 
 ### Setting poproofread up for execution from the terminal
 
-Now we must modify the .bashrc file to make sure that the PATH includes the executable, and the PYTHONPATH to make sure that the python modules can be imported. Open ~/.bashrc in you favorite editor and add the following lines:
+Now we must modify the .bashrc file to make sure that the PATH includes the
+executable, and the PYTHONPATH to make sure that the python modules can be
+imported. Open ~/.bashrc in you favorite editor and add the following lines:
 export PATH=$PATH:/home/username/code/poproofread/bin
 export PYTHONPATH=$PYTHONPATH:/home/username/code/poproofread
 
-If any of these lines already existed and adds a path to one of these variables simply add the relavant poproofread path to that line after a ":".
+If any of these lines already existed and adds a path to one of these
+variables simply add the relevant poproofread path to that line after a ":".
 
-Now the program should be ready to run. Open a new terminal or reload your .bashrc with:
+Now the program should be ready to run. Open a new terminal or reload your
+.bashrc with:
 source ~/.bashrc
 and try and run:
 poproofread-gtk
 
-### Setting poproofread up for execution from GUI programs
-
-If you wish to be able to start PoProofRead from GUI programs (and this GUI program allows you to specify the path directly) you need to do a little more work. This will enable you to use the "Open with" function on an attachment e.g. in the Thunderbird e-mail-client and have the file opened directly in PoProofRead.
-
-The reason that the approach above doesn't work is that GUI programs does not see the modification of the python path set in the .bashrc file. To fix this we will make a new executable and we will do it outside of the poproofread directory.
-
-Make a folder somewhere in the home folder that will contain this executable.
-
-mkdir -p ~/software/bin
-cd ~/software/bin
-
-The open a file in this directory in your favorite editor
-gedit poproofread-gtk
-
-and add the following content between the === lines:
-==============================================================================
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-import sys
-sys.path.append('/home/username/code/poproofread')
-from poproofread import poproofread_gtk
-poproofread_gtk.main()
-==============================================================================
-and make this file executable
-chmod +x poproofread-gtk
-
-Now it should be possible to launch this program as described above.
-
-### Optional and experimental:
-To add PoProofRead to the menu system and to the context menus for .podiff and .podiff.ppr files add the .desktop and MIME-type file to your personal setup:
+### Integrating PoProofRead into the desktop (program and context menus etc.):
+To add PoProofRead to the menu system and to the context menus for .podiff,
+.podiff.ppr, .txt, .diff and .po files add the .desktop and MIME-type file to
+your personal setup:
 cp ~/code/poproofread/poproofread_local.desktop ~/.local/share/applications/poproofread.desktop
 cp ~/code/poproofread/poproofread.xml ~/.local/share/mime/packages/poproofread.xml
 
-Afterwards edit the ~/.local/share/applications/poproofread.desktop file and make sure that the paths for Exec, Icon and Path points to the appropriate locations e.g.:
+Afterwards edit the ~/.local/share/applications/poproofread.desktop file and
+make sure that the paths for Exec, Icon and Path points to the appropriate
+locations e.g.:
 Exec=/home/username/code/poproofread/poproofread/poproofread_gtk.py %f
 Icon=/home/username/code/poproofread/poproofread/graphics/64.png
 Path=/home/username/code/poproofread/poproofread
@@ -77,3 +67,17 @@ Path=/home/username/code/poproofread/poproofread
 Afterwards update the relavant databases with the following commands:
 update-mime-database ~/.local/share/mime/
 update-desktop-database  ~/.local/share/applications/
+
+### Setting poproofread up for execution from GUI programs
+
+Most of the work here has already been done, since poproofread includes a
+special executeable (poproofread/bin/poproofread_gtk_local) that are used for
+execution from the source code directory.
+
+If you want to be able to open poproofread with a file from the context menus
+from one of the programs that looks in the desktop information (e.g. nautilus)
+simply follow the directions above.
+
+If you want to do it with a program that allows you to set the executable file
+directly, simply use the file mentioned above.
+
