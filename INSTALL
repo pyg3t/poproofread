@@ -60,7 +60,7 @@ cp ~/code/poproofread/poproofread.xml ~/.local/share/mime/packages/poproofread.x
 Afterwards edit the ~/.local/share/applications/poproofread.desktop file and
 make sure that the paths for Exec, Icon and Path points to the appropriate
 locations e.g.:
-Exec=/home/username/code/poproofread/poproofread/poproofread_gtk.py %f
+Exec=/home/username/code/poproofread/bin/poproofread-gtk-local %f
 Icon=/home/username/code/poproofread/poproofread/graphics/64.png
 Path=/home/username/code/poproofread/poproofread
 
