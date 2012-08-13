@@ -16,6 +16,18 @@ Windows compatibility:
 * Change the parser to import (and save) windows style line endings
 
 NOTES:
+Rewrite of open structure
+core->open() calls fileio.read(), this method should change to return the file
+content. Parsing of new content or json should be done i core.
+
+fileio->read_new_from_text and fileio->__default_structure should be moved to
+core
+
+core->import_from_text calls fileio->read_new_from_text, see above
+
+core->set_new_save_location calls fileio->check and set new file locations
+
+=========================
 Open call structure (existing project):
 
 GUI->on_mnu_open()

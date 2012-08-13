@@ -20,6 +20,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+import json
+import os
+from time import strftime
 from fileio import FileIO
 
 
@@ -34,18 +37,29 @@ class PoProofRead():
         self.active = False
         self.content = None
 
+    ##############################
+    ### "File operation" functions
     def open(self, filename):
         """ Open a file """
-        self.content, actual_file, warning = self.fileio.read(filename)
+        text, enc, actual_file, warnings, ppr = self.fileio.read(filename)
         # The next line will only be executed if open was succesfull, because
         # errors will raise exceptions
         self.active = True
-        return actual_file, warning
+        if ppr:
+            self.content = json.loads(text)
+        else:
+            self.content = self._parse_text(text, enc)
+        return actual_file, warnings
 
     def import_from_text(self, text):
         """ Import text as the diff to be proofread """
-        self.content = self.fileio.read_new_from_text(text)
+        self.content = self._parse_text(text)
+        tmpfilename = strftime('poproofread-{0}-%Y-%m-%d_%H:%M:%S').\
+            format(os.getlogin())
+        filename = \
+            self.fileio.check_and_set_new_file_location(tmpfilename, True)[1]
         self.active = True
+        return filename
 
     def close(self):
         """ Close or reset functionality """
@@ -68,6 +82,8 @@ class PoProofRead():
             self.fileio.check_and_set_new_file_location(filename)
         return ok_to_save, actual_filename
 
+    #############################
+    ### PoProofRead-ing functions
     def move(self, amount=None, goto=None):
         """ Move to a different diff part. Either by 'amount' or to 'goto' """
         if amount != None:
@@ -117,14 +133,6 @@ class PoProofRead():
         """ Update the comment for the current diff part """
         self.content['text'][self.content['current']]['comment'] = new_comment
 
-    def __count_comments(self):
-        """ Return the number of comments in the proofreading """
-        number = 0
-        for element in self.content['text']:
-            if element['comment'] != '':
-                number += 1
-        return number
-
     def set_bookmark(self):
         """ Set the bookmark to the current diff part """
         self.content['bookmark'] = self.content['current']
@@ -136,3 +144,34 @@ class PoProofRead():
     def get_no_chunks(self):
         """ Return the number of diff parts """
         return self.content['no_chunks']
+
+    #####################
+    ### Utility functions
+    def __count_comments(self):
+        """ Return the number of comments in the proofreading """
+        number = 0
+        for element in self.content['text']:
+            if element['comment'] != '':
+                number += 1
+        return number
+
+    @staticmethod
+    def _parse_text(text, encoding='utf-8'):
+        """ Parse text and return the default content data structure
+        Keyword arguments:
+        encoding (str)  The encoding of the original content
+        text (str)      The text to be parsed
+        Return          Returns the default data structure dictionary
+        """
+        diff_chunks = text.split('\n\n')
+        diff_list = [{'diff_chunk': diff, 'comment': '', 'inline': False}
+                    for diff in diff_chunks]
+        # This dictionary represents the default data structure version 1
+        default_datastructure = {
+            'text': diff_list,
+            'encoding': encoding,
+            'bookmark': None,
+            'current': 0,
+            'no_chunks': len(diff_list)
+        }
+        return default_datastructure

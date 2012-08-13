@@ -169,7 +169,8 @@ class PoProofReadGtkGUI:
         # code information is lost
         text = self.clipboard.wait_for_text()
         if text is not None:
-            self.ppr.import_from_text(text)
+            filename = self.ppr.import_from_text(text)
+            # FIXME add filename to window title
             self.gui('poproofread').set_title('PoProofRead - Unnamed document')
             self.gui('hbox_buttons').set_sensitive(True)
             self.gui('hbox_statusline').set_sensitive(True)

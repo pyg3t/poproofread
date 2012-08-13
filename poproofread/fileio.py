@@ -39,25 +39,25 @@ class FileIO():
 
     def read(self, input_file):
         """ Read content dependent on filetype """
-        warnings = []
+        warnings, ppr, enc = [], True, 'utf-8'
         if os.path.splitext(input_file)[1] == '.out':
             if os.path.splitext(os.path.splitext(input_file)[0])[1] == '.ppr':
                 # We have tried to open the out file, overwrite and try to open
                 # the .ppr file
-                content = self.__read_ppr(os.path.splitext(input_file)[0])
                 actual_file = os.path.splitext(input_file)[0]
+                text = self.__read_ppr(actual_file)
                 warning_text = ('Loaded .ppr instead of .ppr.out since that '
                                 'is the one we need to load to continue '
                                 'previous work')
                 warnings.append(FileWarning(input_file, warning_text))
         elif os.path.splitext(input_file)[1] == '.ppr':
-            content = self.__read_ppr(input_file)
             actual_file = input_file
+            text = self.__read_ppr(actual_file)
             print 'Loaded .ppr'
         else:
             if os.access(input_file + '.ppr', os.F_OK):
                 actual_file = input_file + '.ppr'
-                content = self.__read_ppr(actual_file)
+                text = self.__read_ppr(actual_file)
                 warning_text = ('Loaded .ppr instead of source to prevent '
                                 'overwriting existing work in the .ppr file'
                                 '\n\nIf you wish to reset your proofreading '
@@ -65,17 +65,18 @@ class FileIO():
                 warnings.append(FileWarning(input_file, warning_text))
             else:
                 # get warnings
-                content = self.__read_new(input_file)
+                text, enc = self.__read_new(input_file)
                 actual_file = input_file + '.ppr'
+                ppr = False
                 print 'Loaded new diff'
-        return (content, actual_file, warnings)
+        return text, enc, actual_file, warnings, ppr
 
     def __read_ppr(self, input_file):
         """ Read content from .ppr file """
         self._set_new_file_location(input_file, existing=True, ppr=True)
-
         with open(input_file) as file_:
-            return json.loads(file_.read())
+            text = file_.read()
+        return text
 
     def __read_new(self, input_file):
         """ Read content from new file """
@@ -89,24 +90,18 @@ class FileIO():
         encoding = self.__detect_character_encoding(input_file)
 
         with codecs.open(input_file, encoding=encoding) as file_:
-            diff_chunks = file_.read().split('\n\n')
+            text = file_.read()
 
-        return self.__default_structure(diff_chunks, encoding)
+        return text, encoding
 
-    def read_new_from_text(self, text):
-        """ Read new content from text """
-        diff_chunks = text.split('\n\n')
-        return self.__default_structure(diff_chunks, 'utf-8')
+    def check_and_set_new_file_location(self, filename, tmp=False):
+        """ Check if file exists and then set new file locations. Save as. If
+        tmp is true we only get a filename that needs to have a temporary save
+        location prefixed """
+        # Think about what to do about platform independence
+        if tmp:
+            filename = '/tmp/' + filename
 
-    def __default_structure(self, diff_chunks, encoding):
-        """ This method defines the default content structure """
-        diff_list = [{'diff_chunk': diff, 'comment': '', 'inline': False}
-                     for diff in diff_chunks]
-        return {'text': diff_list, 'encoding': encoding, 'bookmark': None,
-                'current': 0, 'no_chunks': len(diff_list)}
-
-    def check_and_set_new_file_location(self, filename):
-        """ Check if file exists and the set new file locations """
         if os.path.splitext(filename)[1] != '.ppr':
             filename += '.ppr'
         outfile = filename + '.out'
@@ -179,7 +174,8 @@ class FileIO():
                     os.access(dirname, os.X_OK)):
                 raise FileError(out_file, 'The file cannot be created.')
 
-    def __detect_character_encoding(self, input_file):
+    @staticmethod
+    def __detect_character_encoding(input_file):
         """ Detect the character encoding of a new file """
         # First try to read it from a po type file
         # Search for diff type (+- ) line and charset in Content-Type line
