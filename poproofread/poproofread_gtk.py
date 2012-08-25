@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # pylint: disable-msg=W0613,W0142,R0904
-#,R0904
 
 """
 poproofread-gtk.py
@@ -134,27 +133,21 @@ class PoProofReadGtkGUI:
             self.open_file(filename)
 
     def on_mnu_save(self, widget):
-        """ Callback for "save" menu item """
-        if self.ppr.active:
-            if not self.check_for_new_comment_and_save():
-                warning = self.ppr.save()[0]
-                if warning is not None:
-                    WarningDialogOK(warning.title, warning.msg).run()
+        """ Callback for "save" menu item. Insensitive if inactive """
+        self.check_for_new_comment_and_save()
 
     def on_mnu_save_as(self, widget):
-        """ Callback for "save as" menu item """
-        if self.ppr.active:
-            new_filename, current_dir = \
-                SaveAsDialog(self.settings['current_dir']).run()
-            if new_filename is not None:
-                if current_dir is not None:
-                    self.settings['current_dir'] = current_dir
-                ok_to_save, actual_filename = \
-                    self.ppr.set_new_save_location(new_filename)
-                self.gui('poproofread').set_title('PoProofRead - {0}'\
-                    .format(os.path.basename(actual_filename)))
-                if ok_to_save:
-                    self.on_mnu_save(None)
+        """ Callback for "save as" menu item. Insensitive if inactive """
+        new_filename, current_dir = \
+            SaveAsDialog(self.settings['current_dir']).run()
+        if new_filename is not None:
+            if current_dir is not None:
+                self.settings['current_dir'] = current_dir
+            ok_to_save, actual_filename = \
+                self.ppr.set_new_save_location(new_filename)
+            if ok_to_save:
+                self.toggle_active_and_set_filename(True, actual_filename)
+                self.check_for_new_comment_and_save()
 
     def on_mnu_close(self, widget):
         """ Callback for "close" menu item """
@@ -165,32 +158,27 @@ class PoProofReadGtkGUI:
 
     def on_mnu_import_clipboard(self, widget):
         """ Import the contents of the clipboard """
-        # This method below converts into utf-8 which means that character
+        # The method below converts into utf-8 which means that character
         # code information is lost
         text = self.clipboard.wait_for_text()
         if text is not None:
+            self.on_mnu_close(None)
+
             filename = self.ppr.import_from_text(text)
-            # FIXME add filename to window title
-            self.gui('poproofread').set_title('PoProofRead - Unnamed document')
-            self.gui('hbox_buttons').set_sensitive(True)
-            self.gui('hbox_statusline').set_sensitive(True)
+            self.toggle_active_and_set_filename(True, filename)
             self.update_gui()
 
     def on_mnu_export_clipboard(self, widget):
         """ Callback for "Export to clipoard" menu item """
-        if self.ppr.active:
-            warning, text = self.ppr.save(clipboard=True)
-            if warning is not None:
-                WarningDialogOK(warning.title, warning.msg).run()
-            self.clipboard.set_text(text)
+        warning, text = self.ppr.save(clipboard=True)
+        if warning is not None:
+            WarningDialogOK(warning.title, warning.msg).run()
+        self.clipboard.set_text(text)
 
     def on_mnu_quit(self, widget):
         """ Callback for "quit" menu item """
         if self.ppr.active:
             self.check_for_new_comment_and_save()
-            warning = self.ppr.save()[0]
-            if warning is not None:
-                WarningDialogOK(warning.title, warning.msg).run()
 
         self.settings.write()
         gtk.main_quit()
@@ -199,31 +187,23 @@ class PoProofReadGtkGUI:
     # Edit menu
     def on_mnu_copy(self, widget):
         """ Callback for "copy" menu item """
-        if not self.ppr.active:
-            return
         tb_with_selection = self.get_textbuffer_with_selection()
         if tb_with_selection is not None:
             tb_with_selection.copy_clipboard(self.clipboard)
 
     def on_mnu_paste(self, widget):
         """ Callback for "paste" menu item """
-        if not self.ppr.active:
-            return
         self.gui('textbuffer_comment').\
             paste_clipboard(self.clipboard, None, True)
 
     def on_mnu_cut(self, widget):
         """ Callback for "cut" menu item """
-        if not self.ppr.active:
-            return
         if self.get_textbuffer_with_selection() is\
                 self.gui('textbuffer_comment'):
             self.gui('textbuffer_comment').cut_clipboard(self.clipboard, True)
 
     def on_mnu_delete(self, widget):
         """ Callback for "delete" menu item """
-        if not self.ppr.active:
-            return
         if self.get_textbuffer_with_selection() is\
                 self.gui('textbuffer_comment'):
             self.gui('textbuffer_comment').delete_selection(True, True)
@@ -239,7 +219,8 @@ class PoProofReadGtkGUI:
         process = subprocess.Popen('which yelp > /dev/null', shell=True)
         if process.wait() == 0:
             command = 'yelp {0} &'.format(
-                os.path.join(os.path.dirname(__file__), 'doc', 'C'))
+                os.path.join(os.path.dirname(__file__), 'doc', 'C')
+                )
             subprocess.Popen(command, shell=True)
         else:
             warning = ('You need to have the program "yelp" installed to read '
@@ -294,12 +275,8 @@ class PoProofReadGtkGUI:
                    .format(__init__.__version__)
         self.write_to_textbuffer('textbuffer_diff', welcome)
         self.write_to_textbuffer('textbuffer_comment', '')
-        for label_name in ['lab_current_pos', 'lab_total', 'lab_percentage',
-                                'lab_comments']:
-            self.gui(label_name).set_text('-')
-        self.gui('hbox_buttons').set_sensitive(False)
-        self.gui('hbox_statusline').set_sensitive(False)
-        self.gui('poproofread').set_title('PoProofRead')
+        self.update_status_line()
+        self.toggle_active_and_set_filename(False)
         self.update_inline_gui(False)
 
     def update_gui(self):
@@ -314,13 +291,13 @@ class PoProofReadGtkGUI:
         self.gui('checkbutton_inline').set_active(inline)
         self.gui('checkbutton_inline').handler_unblock_by_func(
             self.on_checkbutton_inline)
-
         self.update_inline_gui(inline)
 
         # Update text content
         content = self.ppr.get_current_content()
         self.write_to_textbuffer('textbuffer_diff', content['diff_chunk'])
         self.write_to_textbuffer('textbuffer_comment', content['comment'])
+        self.gui('textbuffer_comment').set_modified(False)
         # Move cursor to end of comment
         # get_bounds returns (startiter, enditer)
         enditer = self.gui('textbuffer_comment').get_bounds()[1]
@@ -341,8 +318,6 @@ class PoProofReadGtkGUI:
             self.set_sensitive_nav_buttons([True, True, False, False])
         else:
             self.set_sensitive_nav_buttons([True, True, True, True])
-
-        self.gui('textbuffer_comment').set_modified(False)
 
         self.update_bookmark()
 
@@ -374,26 +349,20 @@ class PoProofReadGtkGUI:
             if self.ppr.get_bookmark() is not None else 'N/A'
         self.gui('lab_current_bookmark').set_text(bookmark)
 
-    def update_status_line(self, position=None, total=None, percentage=None,
-                           comments=None):
-        """ Update the statue line part of the gui """
-        if position is not None:
-            self.gui('lab_current_pos').set_text(str(position))
-        if total is not None:
-            self.gui('lab_total').set_text(str(total))
-        if percentage is not None:
-            self.gui('lab_percentage').set_text(str(percentage))
-        if comments is not None:
-            self.gui('lab_comments').set_text(str(comments))
-
-    def set_sensitive_nav_buttons(self, btn_status):
-        """ Sets the sensitivity of the navigation buttons in accordance with
-        the position
+    def update_status_line(self, current_pos='-', total='-', percentage='-',
+                           comments='-'):
+        """ Update the statue line part of the gui. The '-' strings are used
+        if no proofreading is loaded
         """
-        self.gui('btn_first').set_sensitive(btn_status[0])
-        self.gui('btn_previous').set_sensitive(btn_status[1])
-        self.gui('btn_next').set_sensitive(btn_status[2])
-        self.gui('btn_last').set_sensitive(btn_status[3])
+        for name in ['current_pos', 'total', 'percentage', 'comments']:
+            self.gui('lab_{0}'.format(name)).set_text(locals()[name])
+
+    def set_sensitive_nav_buttons(self, statuses):
+        """ Sets the sensitivity of the navigation buttons in accordance with
+        the position. statuses are ['first', 'previous', 'next', 'last']
+        """
+        for num, name in enumerate(['first', 'previous', 'next', 'last']):
+            self.gui('btn_{0}'.format(name)).set_sensitive(statuses[num])
 
     def check_for_new_comment_and_save(self):
         """ Check if the comment text buffer has been modified and if it has
@@ -402,32 +371,19 @@ class PoProofReadGtkGUI:
         """
         if self.gui('textbuffer_comment').get_modified():
             self.ppr.update_comment(self.read_comment())
-            warning = self.ppr.save()[0]
-            if warning is not None:
-                WarningDialogOK(warning.title, warning.msg).run()
             self.gui('textbuffer_comment').set_modified(False)
-            return True
-        return False
+        warning = self.ppr.save()[0]
+        if warning is not None:
+            WarningDialogOK(warning.title, warning.msg).run()
 
     def open_file(self, filename):
         """ Open file logic, factored out for use both from gui and cli """
-        if self.ppr.active:
-            warning = self.ppr.save()[0]
-            if warning is not None:
-                WarningDialogOK(warning.title, warning.msg).run()
-            # close ???
-
+        self.on_mnu_close(None)
         # This call loads the file and sets active state,
         # it may generate exceptions
         try:
             actual_file, warnings = self.ppr.open(filename)
-            self.gui('poproofread').set_title(
-                'PoProofRead - %s' % os.path.basename(actual_file))
-
-            self.gui('hbox_buttons').set_sensitive(True)
-            self.gui('hbox_statusline').set_sensitive(True)
-            self.update_gui()
-
+            self.toggle_active_and_set_filename(True, actual_file)
             for warning in warnings:
                 WarningDialogOK(warning.title, warning.msg).run()
 
@@ -442,6 +398,18 @@ class PoProofReadGtkGUI:
             return self.gui('textbuffer_comment')
         else:
             return None
+
+    def toggle_active_and_set_filename(self, active, filename=None):
+        """ Set filename in title and activate buttons and statusline """
+        title = 'PoProofRead {0}'.format(__init__.__version__)
+        if filename is not None:
+            title = '{0} - PoProofRead'.format(filename)
+        self.gui('poproofread').set_title(title)
+        self.gui('hbox_buttons').set_sensitive(active)
+        self.gui('hbox_statusline').set_sensitive(active)
+        for button in ['save', 'save_as', 'export_clipboard', 'cut', 'copy',
+                        'paste', 'delete']:
+            self.gui('mnu_{0}'.format(button)).set_sensitive(active)
 
 
 def main():
