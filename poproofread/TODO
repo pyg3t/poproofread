@@ -42,3 +42,7 @@ GUI->on_mnu_open()
 
 ppr->open(filename)
  ...
+
+=========================
+
+any method that closes the pop object should reset the gui!
