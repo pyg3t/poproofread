@@ -38,8 +38,9 @@ class FileIO():
     def read(self, input_file):
         """ Read content dependent on filetype """
         warnings, ppr, enc = [], True, 'utf-8'
-        if os.path.splitext(input_file)[1] == '.out':
-            if os.path.splitext(os.path.splitext(input_file)[0])[1] == '.ppr':
+        if os.path.splitext(input_file)[1].lower() == '.out':
+            if os.path.splitext(os.path.splitext(input_file)[0])[1].lower()\
+                    == '.ppr':
                 # We have tried to open the out file, overwrite and try to open
                 # the .ppr file
                 actual_file = os.path.splitext(input_file)[0]
@@ -48,7 +49,7 @@ class FileIO():
                                 'is the one we need to load to continue '
                                 'previous work')
                 warnings.append(FileWarning(input_file, warning_text))
-        elif os.path.splitext(input_file)[1] == '.ppr':
+        elif os.path.splitext(input_file)[1].lower() == '.ppr':
             actual_file = input_file
             text = self.__read_ppr(actual_file)
             print 'Loaded .ppr'
