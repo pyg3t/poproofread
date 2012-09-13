@@ -170,9 +170,7 @@ class PoProofReadGtkGUI:
 
     def on_mnu_export_clipboard(self, widget):
         """ Callback for "Export to clipoard" menu item """
-        warning, text = self.ppr.save(clipboard=True)
-        if warning is not None:
-            WarningDialogOK(warning.title, warning.msg).run()
+        text = self.ppr.save(clipboard=True)[1]
         self.clipboard.set_text(text)
 
     def on_mnu_quit(self, widget):
@@ -384,6 +382,7 @@ class PoProofReadGtkGUI:
         try:
             actual_file, warnings = self.ppr.open(filename)
             self.toggle_active_and_set_filename(True, actual_file)
+            self.update_gui()
             for warning in warnings:
                 WarningDialogOK(warning.title, warning.msg).run()
 

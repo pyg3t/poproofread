@@ -38,8 +38,8 @@ bzr pull lp:poproofread
 Now we must modify the .bashrc file to make sure that the PATH includes the
 executable, and the PYTHONPATH to make sure that the python modules can be
 imported. Open ~/.bashrc in you favorite editor and add the following lines:
-export PATH=$PATH:/home/username/code/poproofread/bin
-export PYTHONPATH=$PYTHONPATH:/home/username/code/poproofread
+export PATH=$PATH:$HOME/code/poproofread/bin
+export PYTHONPATH=$PYTHONPATH:$HOME/code/poproofread
 
 If any of these lines already existed and adds a path to one of these
 variables simply add the relevant poproofread path to that line after a ":".
@@ -56,6 +56,9 @@ To add PoProofRead to the menu system and to the context menus for .podiff,
 your personal setup:
 cp ~/code/poproofread/poproofread_local.desktop ~/.local/share/applications/poproofread.desktop
 cp ~/code/poproofread/poproofread.xml ~/.local/share/mime/packages/poproofread.xml
+
+if any of these folders don't exist you will need to create them e.g. with
+mkdir -p ~/.local/share/mime/packages
 
 Afterwards edit the ~/.local/share/applications/poproofread.desktop file and
 make sure that the paths for Exec, Icon and Path points to the appropriate
@@ -79,5 +82,5 @@ from one of the programs that looks in the desktop information (e.g. nautilus)
 simply follow the directions above.
 
 If you want to do it with a program that allows you to set the executable file
-directly, simply use the file mentioned above.
+directly, use the file mentioned above with the _local suffix.
 

@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import json
 import os
+import StringIO
 from time import strftime
 from fileio import FileIO
 
@@ -68,12 +69,20 @@ class PoProofRead():
         self.content = None
 
     def save(self, clipboard=False):
-        """ Save. If 'clipboard' the output is returned in 'text' """
-        if self.fileio.get_file_locations() == (None, None):
-            return None, ''
-        charset_warning, text = self.fileio.write(self.content, clipboard)
-        if charset_warning is not None:
-            self.content['encoding'] = 'utf-8'
+        """ Save. If 'clipboard' the output is returned in 'text'
+
+        Return  : returns warning, text
+        """
+        #if self.fileio.get_file_locations() == (None, None):
+        #    return None, ''
+        text = self._create_output_text()
+        charset_warning = None
+        if not clipboard:
+            charset_warning = self.fileio.write(json.dumps(self.content),
+                                                text,
+                                                self.content['encoding'])
+            if charset_warning is not None:
+                self.content['encoding'] = 'utf-8'
         return charset_warning, text
 
     def set_new_save_location(self, filename):
@@ -175,3 +184,16 @@ class PoProofRead():
             'no_chunks': len(diff_list)
         }
         return default_datastructure
+
+    def _create_output_text(self):
+        """ Create the output text in a StringIO buffer """
+        file_ = StringIO.StringIO()
+        for comment in self.content['text']:
+            if comment['comment'] != '':
+                if not comment['inline']:
+                    file_.write(comment['diff_chunk'] + '\n\n')
+                file_.write(comment['comment'] + '\n\n')
+
+        text = file_.getvalue()
+        file_.close()
+        return text

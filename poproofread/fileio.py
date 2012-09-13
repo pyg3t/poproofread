@@ -21,10 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os
-import json
 import codecs
 import re
-import StringIO
 from dialogs_gtk import EncodingDialogOK, QuestionWarningDialog
 from custom_exceptions import FileError, FileWarning, UnhandledException
 
@@ -88,6 +86,7 @@ class FileIO():
             raise FileError(input_file, 'The file is not readable.')
 
         encoding = self.__detect_character_encoding(input_file)
+        print encoding
 
         with codecs.open(input_file, encoding=encoding) as file_:
             text = file_.read()
@@ -100,7 +99,7 @@ class FileIO():
         location prefixed """
         # Think about what to do about platform independence
         if tmp:
-            filename = '/tmp/' + filename
+            filename = os.path.join(os.sep + 'tmp', filename)
 
         if os.path.splitext(filename)[1] != '.ppr':
             filename += '.ppr'
@@ -235,55 +234,44 @@ class FileIO():
                 if selected_enc is None:
                     raise FileError(input_file, aborted_text)
 
-    def write(self, content, clipboard=False):
-        """ Write content to ppr and out file """
-        self.__write_to_ppr(content)
-        charset_warning, text = \
-            self.__write_to_out(content, clipboard=clipboard)
-        return charset_warning, text
+    def write(self, content_json_dump, text, encoding):
+        """ Write content to ppr and out file
 
-    def __write_to_ppr(self, content):
+        Returns:    charset warning or None
+        """
+        self.__write_to_ppr(content_json_dump)
+        charset_warning = self.__write_to_out(text, encoding)
+        return charset_warning
+
+    def __write_to_ppr(self, content_json_dump):
         """ Write json representation of content to .ppr file """
         with open(self.ppr_file, 'w') as file_:
-            file_.write(json.dumps(content))
+            file_.write(content_json_dump)
 
-    def __write_to_out(self, content, override_encoding=False,
-                       clipboard=False):
+    def __write_to_out(self, text, encoding, override_encoding=False):
         """ Write out file
 
-        Returns warning or None and text or None"""
-        encoding = 'utf-8' if override_encoding else content['encoding']
-        if clipboard:
-            file_ = StringIO.StringIO()
-        else:
-            file_ = codecs.open(self.out_file, encoding=encoding, mode='w')
+        Returns:    charset warning or None
+        """
+        enc = 'utf-8' if override_encoding else encoding
+        file_ = codecs.open(self.out_file, encoding=enc, mode='w')
 
-        for comment in content['text']:
-            if comment['comment'] != '':
-                try:
-                    if not comment['inline']:
-                        file_.write(comment['diff_chunk'] + '\n\n')
-                    file_.write(comment['comment'] + '\n\n')
-                except UnicodeEncodeError:
-                    if not override_encoding:
-                        text = self.__write_to_out(content,
-                                                   override_encoding=True)[1]
-                    else:
-                        file_.close()
-                        raise UnhandledException('Char set save loop')
-                    warning = ('It was not possible to save the content '
-                               'to the .ppr.out-file in the detected '
-                               'encoding "{0}". Falling back to "utf-8" '
-                               'for this file.\n\nPlease check if the '
-                               'output looks correct!'
-                               '').format(content['encoding'])
-                    file_.close()
-                    return FileWarning(self.out_file, warning), text
+        try:
+            file_.write(text)
+        except UnicodeEncodeError:
+            if not override_encoding:
+                file_.close()
+                self.__write_to_out(text, enc, override_encoding=True)
+            else:
+                file_.close()
+                raise UnhandledException('Char set save loop')
+            warning = ('It was not possible to save the content '
+                       'to the .ppr.out-file in the detected '
+                       'encoding "{0}". Falling back to "utf-8" '
+                       'for this file.\n\nPlease check if the '
+                       'output looks correct!'
+                       '').format(enc)
+            return FileWarning(self.out_file, warning)
 
-        if clipboard:
-            text = file_.getvalue()
-            file_.close()
-        else:
-            text = None
-
-        return None, text
+        file_.close()
+        return None
