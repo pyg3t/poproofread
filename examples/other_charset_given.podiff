@@ -1,0 +1,1387 @@
+ # Danish translations for GNU Solfege.
+ # Copyright (C) 2001, 2002  Tom Cato Amundsen.
+ # Tom Cato Amundsen <tca@gnu.org>, 2001.
+ # Keld Simonsen <keld@dkuug.dk>, 2001.
+ # Reviewed: 2001-09-28 Rune Zedeler <rz@daimi.au.dk>
++# Joe Hansen <joedalton2@yahoo.dk>, 2009.
+ # 
++# beat -> slag
++# chord -> akkord
++# lession fil -> lektionsfil (husk s'et)
++#
+ msgid ""
+ msgstr ""
+ "Project-Id-Version: Solfege 1.9.0\n"
+ "Report-Msgid-Bugs-To: \n"
+ "POT-Creation-Date: 2009-03-13 23:11+0100\n"
+-"PO-Revision-Date: 2002-04-20 12:29+0200\n"
+-"Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
++"PO-Revision-Date: 2009-06-05 12:29+0200\n"
++"Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
+ "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=iso-8859-1\n"
+ "Content-Transfer-Encoding: 8bit\n"
+
+ #: src/abstract.py:105
+ msgid "The lessonfile contain potentially dangerous code because it run external programs. Run anyway?"
+-msgstr ""
++msgstr "Denne lektionsfil indeholder potentiel farlig kode da den kører eksterne programmer. Kør alligevel?"
+
+ #: src/abstract.py:382
+ msgid "_Cancel test"
+-msgstr ""
++msgstr "_Afbryd test"
+
+ #: src/abstract.py:394
+ #, python-format
+ msgid ""
+ "Test completed!\n"
+ "Your score was %(score).1f%%.\n"
+ "The test requirement was %(requirement).1f%%."
+ msgstr ""
++"Test færdig!\n"
++"Dine point blev %(score).1f%%.\n"
++"Testens krav var %(requirement).1f%%."
+
+ #: src/abstract.py:397
+ #, python-format
+ msgid ""
+ "Test failed.\n"
+ "Your score was %(score).1f%%.\n"
+ "The test requirement was %(requirement).1f%%."
+ msgstr ""
++"Test mislykkedes.\n"
++"Dine point blev %(score).1f%%.\n"
++"Testens krav var %(requirement).1f%%."
+
+ #: src/abstract.py:473
+ #, python-format
+ msgid "Please check question number %(idx)i in the lesson file \"%(lf)s\"."
+-msgstr ""
++msgstr "Undersøg venligst spørgsmålnummer %(idx)i i lektionsfil \"%(lf)s\"."
+
+ #: src/abstract.py:480 src/abstract.py:498 src/mainwin.py:536
+ #, python-format
+ msgid ""
+ "The exception was caught in\n"
+ "\"%(filename)s\", line %(lineno)i."
+ msgstr ""
++"Undtagelsen opstod i\n"
++"\"%(filename)s\", linje %(lineno)i."
+
+ #: src/abstract.py:637 src/harmonicinterval.py:345 src/melodicinterval.py:294
+ #: src/singinterval.py:93 src/singinterval.py:217
+-#, fuzzy
+ msgid "_New interval"
+-msgstr "Nyt interval"
++msgstr "_Nyt interval"
+
+ #: src/abstract.py:639 src/chord.py:95 src/chordvoicing.py:140
+ #: src/compareintervals.py:129 src/elembuilder.py:100
+ #: src/harmonicprogressiondictation.py:49 src/idbyname.py:107
+ #: src/idproperty.py:97 src/idtone.py:137 src/rhythm.py:196
+ #: src/rhythmtapping.py:143 src/singanswer.py:46
+-#, fuzzy
+ msgid "_Repeat"
+-msgstr "Gentag"
++msgstr "_Gentag"
+
+ #: src/abstract.py:662
+ msgid "_Disable unused buttons"
+-msgstr ""
++msgstr "_Slå ubrugte knappe fra"
+
+ #: src/abstract.py:737 src/specialwidgets.py:180
+ msgid "Yes"
+-msgstr ""
++msgstr "Ja"
+
+ #: src/abstract.py:739 src/specialwidgets.py:177
+ msgid "No"
+-msgstr ""
++msgstr "Nej"
+
+ #: src/app.py:166
+ msgid "MIDI setup"
+-msgstr ""
++msgstr "MIDI-opsætning"
+
+ #: src/app.py:166
+ #, python-format
+ msgid "MIDI Device %(olddev)i not available. Will use device %(newdev)i."
+-msgstr ""
++msgstr "MIDI-enhed %(olddev)i er ikke tilgængelig. Vil bruge enhed %(newdev)i."
+
+ #: src/app.py:321 src/mainwin.py:524 src/mainwin.py:812
+ msgid "Error opening web browser"
+-msgstr ""
++msgstr "Fejl under åbning af internetbrowser"
+
+ #: src/app.py:330
+ msgid "You have not selected email program. You can do so in the preferences window."
+-msgstr ""
++msgstr "Du har ikke valgt e-post-program. Det kan du gøre i indstillingsvinduet."
+
+ #: src/app.py:357
+ #, python-format
+ msgid ""
+ "Lessonfile not found:\n"
+ "%s"
+ msgstr ""
++"Lektionsfil blev ikke fundet:\n"
++"%s"
+
+ #: src/app.py:368
+ #, python-format
+ msgid ""
+ "Bad url parameter in link: '%s'.\n"
+ "Trying to continue anyway."
+ msgstr ""
++"Ugyldig urlparameter i henvisning: '%s'.\n"
++"Forsøger at fortsætte alligevel."
+
+ #: src/chord.py:93 src/chordvoicing.py:138 src/lessonfile.py:1363
+-#, fuzzy
+ msgid "_New chord"
+-msgstr "Ny akkord"
++msgstr "_Ny akkord"
+
+ #: src/chord.py:98 src/chordvoicing.py:142 src/idbyname.py:110
+ #: src/idproperty.py:100 src/singanswer.py:49
+-#, fuzzy
+ msgid "Repeat _arpeggio"
+-msgstr "Gentag arpeggio"
++msgstr "Gentag _arpeggio"
+
+ #: src/chord.py:100 src/chordvoicing.py:143 src/compareintervals.py:132
+ #: src/elembuilder.py:106 src/harmonicinterval.py:161
+ #: src/harmonicprogressiondictation.py:62 src/idbyname.py:115
+ #: src/identifybpm.py:126 src/idproperty.py:102 src/idtone.py:140
+ #: src/melodicinterval.py:94 src/rhythm.py:198 src/rhythmtapping.py:145
+-#, fuzzy
+ msgid "_Give up"
+-msgstr "Giv op"
++msgstr "_Giv op"
+
+ #: src/chord.py:198 src/lessonfile.py:1365 lesson-files/altered-1:14
+ #: lesson-files/chord-7b9-maj79:13 lesson-files/chord-dim-aug:13
+ #: lesson-files/chord-dim-aug-min-major:10 lesson-files/chord-m7-7:13
+ #: lesson-files/chord-m7-7-maj7-m7b5-dim7:13 lesson-files/chord-m9-9:13
+ #: lesson-files/chord-m9-9-7b9-maj79:13 lesson-files/chord-maj7-m7b5-dim7:13
+ #: lesson-files/chord-min-major:13 lesson-files/chord-min-major-7:13
+-#, fuzzy
+ msgid "Identify the chord"
+-msgstr "Id_entificér tone"
++msgstr "Identificér akkorden"
+
+ #: src/chord.py:229 src/chordvoicing.py:232 src/idbyname.py:227
+ #: src/idbyname.py:336 src/idproperty.py:243
+ msgid "Right click is not allowed for this lesson file."
+-msgstr ""
++msgstr "Højreklik er ikke tilladt i denne lektionsfil."
+
+ #: src/chord.py:295 src/chord.py:300 src/chordvoicing.py:235
+ #: src/chordvoicing.py:261 src/chordvoicing.py:330
+-#, fuzzy
+ msgid "Click 'New chord' to begin."
+-msgstr "Klik på 'Ny' for at begynde."
++msgstr "Klik på 'Ny akkord' for at begynde."
+
+ #: src/chordvoicing.py:110
+ msgid "Identify chord type"
+-msgstr ""
++msgstr "Identifer akkordtype"
+
+ #: src/chordvoicing.py:238 src/idbyname.py:235 src/idbyname.py:239
+ #: src/idbyname.py:337 src/idbyname.py:338
+ msgid "You should try to guess before right-clicking."
+-msgstr ""
++msgstr "Du bør forsøge at gætte før du højreklikker."
+
+ #: src/compareintervals.py:119
+-#, fuzzy
+ msgid ""
+ "F_irst interval\n"
+ "is largest"
+ msgstr ""
+ "Det første\n"
+-"interval er størst"
++"_interval er størst"
+
+ #: src/compareintervals.py:122
+-#, fuzzy
+ msgid ""
+ "The intervals\n"
+ "are _equal"
+ msgstr ""
+-"Intervallerne er\n"
++"Intervallerne _er\n"
+ "lige store"
+
+ #: src/compareintervals.py:125
+-#, fuzzy
+ msgid ""
+ "_Last interval\n"
+ "is largest"
+ msgstr ""
+ "Det sidste\n"
+-"interval er størst"
++"interva_l er størst"
+
+ #: src/compareintervals.py:128 src/elembuilder.py:95
+ #: src/harmonicprogressiondictation.py:48 src/idbyname.py:102
+ #: src/idbyname.py:387 src/idproperty.py:95 src/idproperty.py:206
+ #: src/nameinterval.py:131 src/rhythm.py:195 src/rhythmtapping.py:137
+ #: src/singanswer.py:45 src/singchord.py:41 src/twelvetone.py:63
+-#, fuzzy
+ msgid "_New"
+-msgstr "Ny"
++msgstr "_Ny"
+
+ #: src/compareintervals.py:148
+-#, fuzzy
+ msgid "Melodic"
+-msgstr "Melodisk op"
++msgstr "Melodisk"
+
+ #: src/configwindow.py:45
+-#, fuzzy
+ msgid "GNU Solfege Preferences"
+-msgstr "GNU Solfege"
++msgstr "Indstillinger for GNU-Solfege"
+
+ #: src/configwindow.py:62
+-#, fuzzy
+ msgid "Instruments"
+-msgstr "Midterste instrument"
++msgstr "Instrumenter"
+
+ #: src/configwindow.py:64
+-#, fuzzy
+ msgid "Tempo"
+-msgstr "_Tempo"
++msgstr "Tempo"
+
+ #: src/configwindow.py:82 lesson-files/bpm:6
+-#, fuzzy
+ msgid "Beats per minute"
+-msgstr "Slag per minut:"
++msgstr "Slag per minut"
+
+ #: src/configwindow.py:106
+-#, fuzzy
+ msgid "Rhythm:"
+-msgstr "Rytme"
++msgstr "Rytme:"
+
+ #: src/configwindow.py:138
+ msgid "Sex"
+-msgstr ""
++msgstr "Køn"
+
+ #: src/configwindow.py:140
+-#, fuzzy
+ msgid "_Male"
+-msgstr "Mand"
++msgstr "_Mand"
+
+ #: src/configwindow.py:143
+ msgid "_Female or child"
+-msgstr ""
++msgstr "_Kvinde eller barn"
+
+ #: src/configwindow.py:152
+-#, fuzzy
+ msgid "External Programs"
+-msgstr "Epostprogram:"
++msgstr "Eksterne programmer"
+
+ #: src/configwindow.py:168
+ msgid "MIDI to WAV:"
+-msgstr ""
++msgstr "MIDI til WAV:"
+
+ #: src/configwindow.py:192
+ msgid "WAV to MP3:"
+-msgstr ""
++msgstr "WAV til MP3:"
+
+ #: src/configwindow.py:216
+ msgid "WAV to OGG:"
+-msgstr ""
++msgstr "WAV til OGG:"
+
+ #: src/configwindow.py:242
+-#, fuzzy
+ msgid "CSound:"
+-msgstr "Antal"
++msgstr "CSound:"
+
+ #: src/configwindow.py:259
+ msgid "Not found. Much of GNU Solfege will run fine without this program. You will get a message when the program is required, and the user manual will explain what you need it for."
+-msgstr ""
++msgstr "Ikke fundet. Det meste af GNU-Solfege vil køre fint uden dette program. Du vil få en besked når programmet kræves, og brugermanualen vil forklare hvad du skal bruge den til."
+
+ #: src/configwindow.py:278
+-#, fuzzy
+ msgid "_Mail:"
+-msgstr "Mand"
++msgstr "_Post:"
+
+ #: src/configwindow.py:286 src/configwindow.py:288
+-#, fuzzy
+ msgid "Interface"
+-msgstr "Inddatagrænseflade:"
++msgstr "Grænseflade"
+
+ #: src/configwindow.py:292
+ msgid "_Display the user manual in web browser"
+-msgstr ""
++msgstr "_Vis brugermanualen i internetbrowser"
+
+ #: src/configwindow.py:295
+-#, fuzzy
+ msgid "_Resizeable main window"
+-msgstr "_Bruger kan forandre vinduesstørrelse"
++msgstr "Hovedvinduets stø_rrelse kan ændres"
+
+ #: src/configwindow.py:302
+ msgid "Select _language:"
+-msgstr ""
++msgstr "Væ_lg sprog:"
+
+ #: src/configwindow.py:331
+ msgid "You have to restart the program for the language change to take effect."
+-msgstr ""
++msgstr "Du skal genstarte programmet for at sprogændringen slår igennem."
+
+ #: src/configwindow.py:343
+-#, fuzzy
+ msgid "_Not allow new question before the old is solved"
+-msgstr "Tillad ikke nyt spørgsmål før det gamle er besvaret"
++msgstr "T_illad ikke nyt spørgsmål før det gamle er besvaret"
+
+ #: src/configwindow.py:346
+-#, fuzzy
+ msgid "_Repeat question if the answer was wrong"
+-msgstr "Gentag spørgsmålet hvis svaret er forkert"
++msgstr "Gentag spørgsmålet hvis sva_ret er forkert"
+
+ #: src/configwindow.py:350
+ msgid "E_xpert mode"
+-msgstr ""
++msgstr "Eks_pertilstand"
+
+ #: src/configwindow.py:364
+ msgid "Audio File Players"
+-msgstr ""
++msgstr "Lydfilafspillere"
+
+ #: src/configwindow.py:371
+ msgid "WAV:"
+-msgstr ""
++msgstr "WAV:"
+
+ #: src/configwindow.py:387
+ msgid "MIDI:"
+-msgstr ""
++msgstr "MIDI:"
+
+ #: src/configwindow.py:398
+ msgid "MP3:"
+-msgstr ""
++msgstr "MP3:"
+
+ #: src/configwindow.py:408
+ msgid "OGG:"
+-msgstr ""
++msgstr "OGG:"
+
+ #: src/configwindow.py:422
+ msgid "Enter the name of the program. An absolute path is required only if the executable is not found on the PATH."
+-msgstr ""
++msgstr "Indtast navnet på programmet. En absolut sti er kun krævet hvis den udførbare ikke findes i STIEN."
+
+ #: src/configwindow.py:449
+-#, fuzzy
+ msgid "Test"
+-msgstr "Tekst"
++msgstr "Test"
+
+ #: src/configwindow.py:450
+ msgid "This button is clickable only if the binary is found."
+-msgstr ""
++msgstr "Der kan kun klikkes på denne knap hvis den binære er fundet."
+
+ #: src/configwindow.py:467 src/configwindow.py:471 src/configwindow.py:516
+-#, fuzzy
+ msgid "Sound Setup"
+ msgstr "Lydopsætning"
+
+ #: src/configwindow.py:474 src/configwindow.py:524
+-#, fuzzy
+ msgid "_No sound"
+-msgstr "Ingen lyd"
++msgstr "I_ngen lyd"
+
+ #: src/configwindow.py:479
+-#, fuzzy
+ msgid "Use _device"
+-msgstr "Brug enhed"
++msgstr "Brug enhe_d"
+
+ #: src/configwindow.py:496 src/configwindow.py:545
+-#, fuzzy
+ msgid "Use _external MIDI player"
+-msgstr "Brug eksternt midiprogram"
++msgstr "Brug _eksternt midiprogram"
+
+ #: src/configwindow.py:508 src/configwindow.py:555
+-#, fuzzy
+ msgid "_Test"
+-msgstr "Tekst"
++msgstr "_Test"
+
+ #: src/configwindow.py:512
+ msgid "MIDI Setup"
+-msgstr ""
++msgstr "MIDI-opsætning"
+
+ #: src/configwindow.py:518
+-#, fuzzy
+ msgid "Solfege has two ways to play MIDI files. It is recommended to use Windows multimedia output. An external MIDI player can be useful if your soundcard lacks a hardware synth, in which case you have to use a program like timidity to play the music."
+-msgstr "Solfege har to måder at spille musik. Det anbefales at bruge Windows multimedieuddata. Understøttelse for ekstern midiafspiller er kun med fordi dette var den eneste måde til at få lyd på Windows i tidligere versioner af dette program."
++msgstr "Solfege har to måder at spille MIDI-musik. Det anbefales at bruge Windows multimedieuddata. En ekstern MIDI-afspiller kan være brugbar hvis dit lydkort mangler en hardware synth, i hvilket tilfælde du kan bruge et program som timidity til at afspille musik med."
+
+ #: src/configwindow.py:529
+-#, fuzzy
+ msgid "_Windows multimedia output:"
+-msgstr "Windows multimedieuddata, synth nummer:"
++msgstr "_Windows multimedieuddata:"
+
+ #: src/dataparser.py:153
+ #, python-format
+ msgid "Unknown name \"%(name)s\" in line %(line)i of file \"%(filename)s\":"
+-msgstr ""
++msgstr "Ukendt navn \"%(name)s\" i linje %(line)i på fil \"%(filename)s\":"
+
+ #: src/dataparser.py:174
+ #, python-format
+ msgid "Syntax error in file \"%(filename)s\". %(expected)s"
+-msgstr ""
++msgstr "Syntaksfejl i fil \"%(filename)s\". %(expected)s"
+
+ #: src/dataparser.py:181
+ #, python-format
+ msgid "Assignment to the reserved word \"%(word)s\""
+-msgstr ""
++msgstr "Tildel til det reserverede ord \"%(word)s\""
+
+ #: src/dictation.py:60
+-#, fuzzy
+ msgid "_Play the whole music"
+-msgstr "Spil hele musikken"
++msgstr "S_pil hele musikken"
+
+ #: src/dictation.py:62 src/harmonicprogressiondictation.py:60
+ #: src/idbyname.py:123
+-#, fuzzy
+ msgid "_Show"
+-msgstr "Vis"
++msgstr "Vi_s"
+
+ #: src/dictation.py:192
+ #, python-format
+ msgid "The lesson file '%s' contains no questions."
+-msgstr ""
++msgstr "Lektionsfilen '%s' indeholder ingen spørgsmål."
+
+ #: src/elembuilder.py:96 src/idbyname.py:103 src/rhythmtapping.py:139
+-#, fuzzy
+ msgid "P_lay music"
+-msgstr "Spil hele musikken"
++msgstr "Spi_l musik"
+
+ #: src/elembuilder.py:98 src/idbyname.py:105 src/rhythmtapping.py:141
+ msgid "_Display music"
+-msgstr ""
++msgstr "_Vis musik"
+
+ #: src/elembuilder.py:102 src/harmonicprogressiondictation.py:56
+-#, fuzzy
+ msgid "Guess _answer"
+-msgstr "Gæt svar"
++msgstr "Gæt sv_ar"
+
+ #: src/elembuilder.py:152 src/harmonicinterval.py:212
+ #: src/harmonicinterval.py:318 src/idbyname.py:259 src/idbyname.py:356
+ #: src/melodicinterval.py:166 src/melodicinterval.py:269
+-#, fuzzy
+ msgid "Click 'Start test' to begin."
+-msgstr "Klik på 'Start' for at begynde."
++msgstr "Klik på 'Start test' for at begynde."
+
+ #: src/exceptiondialog.py:74
+ msgid "Visit http://www.solfege.org/support if you need help."
+-msgstr ""
++msgstr "Besøg http://www.solfege.org/support hvis du har brug for hjælp."
+
+ #: src/gu.py:560
+ #, python-format
+ msgid "Save changes to \"%s\" before closing?"
+-msgstr ""
++msgstr "Gem ændringer til \"%s\" før lukning?"
+
+ #: src/gu.py:563
+ #, python-format
+ msgid "If you don't save, changes from the past %i seconds will be permanently lost."
+-msgstr ""
++msgstr "Hvis du ikke gemmer, vil ændringer fra de sidste %i sekunder blive tabt."
+
+ #: src/gu.py:565
+ #, python-format
+ msgid "If you don't save, changes from the past %i minutes will be permanently lost."
+-msgstr ""
++msgstr "Hvis du ikke gemmer, vil ændringer fra de sidste %i minutter blive tabt."
+
+ #: src/gu.py:567
+ msgid "_Close without Saving"
+-msgstr ""
++msgstr "_Luk uden at gemme"
+
+ #: src/gu.py:623
+ msgid "Save As..."
+-msgstr ""
++msgstr "Gem som..."
+
+ #: src/gu.py:648
+ msgid "File exists. Overwrite?"
+-msgstr ""
++msgstr "Fil eksisterer allerede. Overskriv?"
+
+ #: src/gu.py:655
+ msgid "Error saving file"
+-msgstr ""
++msgstr "Fejl under gemning af fil"
+
+ #: src/gu.py:680
+ msgid "Select an empty directory, since we want to fill it with files."
+-msgstr ""
++msgstr "Vælg en tom mappe, da vi ønsker at fylde den med filer."
+
+ #: src/harmonicinterval.py:157
+-#, fuzzy
+ msgid "Repeat _melodic"
+-msgstr "Gentag melodisk"
++msgstr "Gentag _melodisk"
+
+ #: src/harmonicinterval.py:308 src/melodicinterval.py:259
+-#, fuzzy
+ msgid "Identify the interval"
+-msgstr "Id_entificér tone"
++msgstr "Identificér intervallet"
+
+ #: src/harmonicinterval.py:336 src/idbyname.py:378 src/melodicinterval.py:286
+ #: src/singinterval.py:208
+-#, fuzzy
+ msgid "_Start test"
+-msgstr "Start"
++msgstr "_Start test"
+
+ #: src/helpbrowser.py:107
+ msgid "Close the window"
+-msgstr ""
++msgstr "Luk vinduet"
+
+ #: src/idbyname.py:112
+-#, fuzzy
+ msgid "Repeat _slowly"
+-msgstr "Gentag langsomt"
++msgstr "Gentag lang_somt"
+
+ #: src/idbyname.py:134
+ msgid "Questions to ask"
+-msgstr ""
++msgstr "Spørgsmål der skal stilles"
+
+ #: src/idbyname.py:341
+-#, fuzzy
+ msgid "You have to select some questions to practise."
+-msgstr "Du skal vælge nogen skalaer at træne på."
++msgstr "Du skal vælge nogle spørgsmål at træne på."
+
+ #: src/identifybpm.py:125
+-#, fuzzy
+ msgid "_New tempo"
+-msgstr "Nyt tempo"
++msgstr "_Nyt tempo"
+
+ #: src/identifybpm.py:164
+-#, fuzzy
+ msgid "You have to select some tempos to practise."
+-msgstr "Du skal vælge nogen skalaer at træne på."
++msgstr "Du skal vælge nogen tempi at træne på."
+
+ #: src/idproperty.py:309 src/idproperty.py:315
+-#, fuzzy, python-format
++#, python-format
+ msgid "Click '%s' to begin."
+-msgstr "Klik på 'Ny' for at begynde."
++msgstr "Klik på '%s' for at begynde."
+
+ #: src/idtone.py:112
+ msgid "This exercise is disabled because some required features are missing from your computer. You should install PyGTK 2.8.0 or newer."
+-msgstr ""
++msgstr "Denne øvelse er slået fra da nogle krævede egenskaber mangler i din computer. Du bør installere PyGTK 2.8.0 eller nyere."
+
+ #: src/idtone.py:135
+-#, fuzzy
+ msgid "_New tone"
+-msgstr "Ny node"
++msgstr "_Ny node"
+
+ #: src/idtone.py:195 src/idtone.py:301 learningtrees/learningtree.txt:365
+-#, fuzzy
+ msgid "Identify tone"
+-msgstr "Id_entificér tone"
++msgstr "Identificér tone"
+
+ #: src/instrumentselector.py:115
+ msgid "Highest:"
+-msgstr ""
++msgstr "Højest:"
+
+ #: src/instrumentselector.py:118
+ msgid "Middle:"
+-msgstr ""
++msgstr "I midten:"
+
+ #: src/instrumentselector.py:123
+ msgid "Lowest:"
+-msgstr ""
++msgstr "Lavest:"
+
+ #: src/learning_tree_editor.py:499
+-#, fuzzy
+ msgid "Select lesson file"
+-msgstr "Lektionsfil"
++msgstr "Vælg lektionsfil"
+
+ #: src/learning_tree_editor.py:517
+-#, fuzzy
+ msgid "Used"
+-msgstr "Bruger"
++msgstr "Brugt"
+
+ #: src/learning_tree_editor.py:525
+-#, fuzzy
+ msgid "Filename"
+-msgstr "_Fil"
++msgstr "Filnavn"
+
+ #: src/learning_tree_editor.py:539
+ msgid "Module:"
+-msgstr ""
++msgstr "Modul:"
+
+ #: src/learning_tree_editor.py:588
+ msgid "_Show files used in other topics"
+-msgstr ""
++msgstr "_Vis filer brugt i andre emner"
+
+ #: src/learning_tree_editor.py:591
+-#, fuzzy
+ msgid "_Search for new lesson files"
+-msgstr "Statistik for lektionsfil '%s'"
++msgstr "_Søg efter nye lektionsfiler"
+
+ #: src/learning_tree_editor.py:648
+ msgid "Delete learning tree"
+-msgstr ""
++msgstr "Slet indlæringstræ"
+
+ #: src/learning_tree_editor.py:656
+ msgid "Learning tree:"
+-msgstr ""
++msgstr "Indlæringstræ:"
+
+ #: src/learning_tree_editor.py:675 src/practisesheetdlg.py:299
+-#, fuzzy
+ msgid "Title:"
+-msgstr "Titel"
++msgstr "Titel:"
+
+ #: src/learning_tree_editor.py:698
+ msgid "New toplevel menu"
+-msgstr ""
++msgstr "Ny topniveaumenu"
+
+ #: src/learning_tree_editor.py:699
+ msgid "New submenu"
+-msgstr ""
++msgstr "Ny undermenu"
+
+ #: src/learning_tree_editor.py:701
+ msgid "Add lesson"
+-msgstr ""
++msgstr "Tilføj lektion"
+
+ #: src/learning_tree_editor.py:704
+ msgid "Delete"
+-msgstr ""
++msgstr "Slet"
+
+ #: src/learning_tree_editor.py:707
+-#, fuzzy
+ msgid "Move topic up"
+-msgstr "Melodisk op"
++msgstr "Flyt emne op"
+
+ #: src/learning_tree_editor.py:710
+-#, fuzzy
+ msgid "Move topic down"
+-msgstr "Melodisk ned"
++msgstr "Flyt emne ned"
+
+ #: src/learning_tree_editor.py:713
+ msgid "Move lesson up"
+-msgstr ""
++msgstr "flyt lektion op"
+
+ #: src/learning_tree_editor.py:717
+-#, fuzzy
+ msgid "Move lesson down"
+-msgstr "Melodisk ned"
++msgstr "Flyt lektion ned"
+
+ #: src/learning_tree_editor.py:738
+-#, fuzzy
+ msgid "Lesson filename:"
+-msgstr "Lektionsfil"
++msgstr "Lektionsfilnavn:"
+
+ #: src/learning_tree_editor.py:744
+-#, fuzzy
+ msgid "Exercise module:"
+-msgstr "Øvelser"
++msgstr "Øvelsesmodul:"
+
+ #: src/learning_tree_editor.py:755
+ msgid "New dependency"
+-msgstr ""
++msgstr "Ny afhængighed"
+
+ #: src/learning_tree_editor.py:759
+ msgid "Delete dependency"
+-msgstr ""
++msgstr "Slet afhængighed"
+
+ #: src/learning_tree_editor.py:812 src/learning_tree_editor.py:893
+ msgid "The file is not saved. Save before changing?"
+-msgstr ""
++msgstr "Filen er ikke gemt. Gem før ændring?"
+
+ #: src/learning_tree_editor.py:843
+ msgid "Name"
+-msgstr ""
++msgstr "Navn"
+
+ #: src/learning_tree_editor.py:845
+ msgid "Type"
+-msgstr ""
++msgstr "Type"
+
+ #: src/learning_tree_editor.py:857 src/learning_tree_editor.py:1084
+ msgid "Menu"
+-msgstr ""
++msgstr "Menu"
+
+ #: src/learning_tree_editor.py:859 src/learning_tree_editor.py:1127
+ msgid "Submenu"
+-msgstr ""
++msgstr "Undermenu"
+
+ #: src/learning_tree_editor.py:866 src/learning_tree_editor.py:1228
+-#, fuzzy
+ msgid "Lesson"
+-msgstr "Session"
++msgstr "Lektion"
+
+ #: src/learning_tree_editor.py:872
+ #, python-format
+ msgid "The file '%s' is part of GNU Solfege. Delete the file?"
+-msgstr ""
++msgstr "Filen '%s' er en del af GNU-Solfge. Slet denne fil?"
+
+ #: src/learning_tree_editor.py:874
+ #, python-format
+ msgid "Delete the learning tree '%s'"
+-msgstr ""
++msgstr "Slet indlæringstræet '%s'"
+
+ #: src/learning_tree_editor.py:879
+ msgid "Failed to delete file"
+-msgstr ""
++msgstr "Mislykkedes i at slette fil"
+
+ #: src/learning_tree_editor.py:895 src/learning_tree_editor.py:902
+ msgid "Create new learning tree"
+-msgstr ""
++msgstr "Opret nyt indlæringstræ"
+
+ #: src/learning_tree_editor.py:909
+ msgid "Do not enter any directory names, only the filename."
+-msgstr ""
++msgstr "Indtast ingen mappenavne, kun filnavne."
+
+ #: src/learning_tree_editor.py:911
+ msgid "File name:"
+-msgstr ""
++msgstr "Filnavn:"
+
+ #: src/learning_tree_editor.py:926
+ msgid "The file already exists."
+-msgstr ""
++msgstr "Filen eksisterer allerede."
+
+ #: src/learning_tree_editor.py:947 src/learning_tree_editor.py:1018
+ #, python-format
+ msgid ""
+ "An error occurred while saving the file:\n"
+ "%s"
+ msgstr ""
++"En fejl opstod mens filen blev gemt:\n"
++"%s"
+
+ #: src/learning_tree_editor.py:956
+ msgid "Save changes?"
+-msgstr ""
++msgstr "Gem ændringer?"
+
+ #: src/learning_tree_editor.py:992
+-#, fuzzy, python-format
++#, python-format
+ msgid "No dependencies for the lesson '%s'."
+-msgstr "Statistik for lektionsfil '%s'"
++msgstr "Ingen afhængigheder for lektionen '%s'."
+
+ #: src/learning_tree_editor.py:1036 src/lessonfile_editor_main.py:303
+ msgid "Save as..."
+-msgstr ""
++msgstr "Gem som..."
+
+ #: src/learning_tree_editor.py:1049 src/learning_tree_editor.py:1056
+ msgid "Create new menu"
+-msgstr ""
++msgstr "Opret ny menu"
+
+ #: src/learning_tree_editor.py:1063
+ msgid "Menu name:"
+-msgstr ""
++msgstr "Menunavn:"
+
+ #: src/learning_tree_editor.py:1076 src/learning_tree_editor.py:1121
+ msgid "The menu name is already used."
+-msgstr ""
++msgstr "Menunavnet er allerede anvendt."
+
+ #: src/learning_tree_editor.py:1080 src/learning_tree_editor.py:1118
+ msgid "An empty string is not allowed."
+-msgstr ""
++msgstr "En tom streng er ikke tilladt."
+
+ #: src/learning_tree_editor.py:1091
+-#, fuzzy
+ msgid "New topic"
+-msgstr "Ny node"
++msgstr "Nyt emne"
+
+ #: src/learning_tree_editor.py:1098
+ msgid "Create new topic"
+-msgstr ""
++msgstr "Opret nyt emne"
+
+ #: src/learning_tree_editor.py:1105
+ msgid "Topic name:"
+-msgstr ""
++msgstr "Emnenavn:"
+
+ #: src/learning_tree_editor.py:1266
+ msgid "Some lessons depend on this lesson. Delete anyway, and update the dependency list for lessons that depend on this lesson?"
+-msgstr ""
++msgstr "Nogle lektioner afhænger af denne lektion. Slet alligevel, og opdater afhængighedslisten for lektioner som afhænger af denne lektion?"
+
+ #: src/lessonfile_editor_main.py:86
+-#, fuzzy
+ msgid "Go to the first question"
+-msgstr "Rytmer til at bruge i spørgsmål"
++msgstr "Gå til det første spørgsmål"
+
+ #: src/lessonfile_editor_main.py:88
+-#, fuzzy
+ msgid "Go to the previous question"
+-msgstr "Rytmer til at bruge i spørgsmål"
++msgstr "Gå til det foregående spørgsmål"
+
+ #: src/lessonfile_editor_main.py:90
+-#, fuzzy
+ msgid "Go to the next question"
+-msgstr "Rytmer til at bruge i spørgsmål"
++msgstr "Gå til det næste spørgsmål"
+
+ #: src/lessonfile_editor_main.py:92
+-#, fuzzy
+ msgid "Go to the last question"
+-msgstr "Repeter spørgsmålet"
++msgstr "Gå til det sidste spørgsmål"
+
+ #: src/lessonfile_editor_main.py:94
+-#, fuzzy
+ msgid "Add a new question"
+-msgstr "Repeter spørgsmålet"
++msgstr "Tilføj et nyt spørgsmål"
+
+ #: src/lessonfile_editor_main.py:187
+-#, fuzzy
+ msgid "Questions"
+-msgstr "Knapper"
++msgstr "Spørgsmål"
+
+ #: src/lessonfile_editor_main.py:188
+ msgid "Enter new chords using the mouse"
+-msgstr ""
++msgstr "Indtast nye akkorder med musen"
+
+ #: src/lessonfile_editor_main.py:198
+-#, fuzzy
+ msgid "Question title:"
+-msgstr "Lektionsfil"
++msgstr "Spørgsmåltitel:"
+
+ #: src/lessonfile_editor_main.py:209
+ msgid "File title:"
+-msgstr ""
++msgstr "Filtitel:"
+
+ #: src/lessonfile_editor_main.py:218
+-#, fuzzy
+ msgid "Content:"
+-msgstr "Antal"
++msgstr "Antal:"
+
+ #: src/lessonfile_editor_main.py:230
+ msgid "You have unsaved data. Proceed anyway?"
+-msgstr ""
++msgstr "Du har data der ikke er gemt. Fortsæt alligevel?"
+
+ #: src/lessonfile_editor_main.py:249
+-#, fuzzy
+ msgid "No file"
+-msgstr "Lektionsfil"
++msgstr "Ingen fil"
+
+ #: src/lessonfile_editor_main.py:250
+ #, python-format
+ msgid "question %(idx)i of %(count)i"
+-msgstr ""
++msgstr "spørgsmål %(idx)i af %(count)i"
+
+ #: src/lessonfile_editor_main.py:270
+ #, python-format
+ msgid "The exercise module '%s' is not supported yet. Cannot edit this file."
+-msgstr ""
++msgstr "Øvelsesmodulet '%s' er ikke understøttet endnu. Kan ikke redigere denne fil."
+
+ #: src/lessonfile_editor_main.py:276
+ msgid "Open..."
+-msgstr ""
++msgstr "Åbn..."
+
+ #: src/lessonfile_editor_main.py:289
+ #, python-format
+ msgid "Loading file '%(filename)s' failed: %(msg)s"
+-msgstr ""
++msgstr "Henter fil '%(filename)s' mislykkedes: %(msg)s"
+
+ #: src/lessonfile_editor_main.py:316
+ msgid "Save..."
+-msgstr ""
++msgstr "Gem..."
+
+ #: src/lessonfile.py:59
+ msgid "The lesson file contains no questions"
+-msgstr ""
++msgstr "Lektionsfilen indeholder ingen spørgsmål"
+
+ #: src/lessonfile.py:63
+ #, python-format
+ msgid "The external file '%s' was not found"
+-msgstr ""
++msgstr "Den eksterne fil '%s' blev ikke fundet"
+
+ #: src/lessonfile.py:72
+ msgid "No questions selected"
+-msgstr ""
++msgstr "Ingen spørgsmål valgt"
+
+ #: src/lessonfile.py:73
+ msgid "You can select questions on the config page of the exercise."
+-msgstr ""
++msgstr "Du kan vælge spørgsmål på konfigurationssiden for øvelsen."
+
+ #: src/lessonfile.py:1373
+-#, fuzzy, python-format
++#, python-format
+ msgid "Missing qprops variable in the lesson file %s."
+-msgstr "Statistik for lektionsfil '%s'"
++msgstr "Mangler qpropsvariabel for lektionsfilen %s."
+
+ #: src/mainwin.py:78
+ msgid "Do not show the startup window."
+-msgstr ""
++msgstr "Vis ikke opstartsvinduet."
+
+ #: src/mainwin.py:83
+ msgid "Display more info about the sound setup."
+-msgstr ""
++msgstr "Vis yderligere information om lydopsætningen."
+
+ #: src/mainwin.py:306
+ #, python-format
+ msgid "Learning tree '%s' not found. Using default tree."
+-msgstr ""
++msgstr "Indlæringstræ '%s' er ikke fundet. Bruger standardtræ."
+
+ #: src/mainwin.py:317 learningtrees/learningtree.txt:9
+-#, fuzzy
+ msgid "_Intervals"
+-msgstr "Interval"
++msgstr "Intervaller"
+
+ #: src/mainwin.py:319
+-#, fuzzy
+ msgid "_Edit"
+-msgstr "_Bidragsydere"
++msgstr "R_ediger"
+
+ #: src/mainwin.py:320
+ msgid "Edit learning tree"
+-msgstr ""
++msgstr "Rediger indlæringstræ"
+
+ #: src/mainwin.py:322
+-#, fuzzy
+ msgid "_Tests"
+-msgstr "Tekst"
++msgstr "_Test"
+
+ #: src/mainwin.py:330
+-#, fuzzy
+ msgid "_Help on the current exercise"
+-msgstr "_Hjælp til denne øvelse"
++msgstr "_Hjælp til den aktuelle øvelse"
+
+ #: src/mainwin.py:333
+ msgid "_User manual"
+-msgstr ""
++msgstr "Br_ugermanual"
+
+ #: src/mainwin.py:344
+ msgid "See your bug reports"
+-msgstr ""
++msgstr "Se dine fejlrapporter"
+
+ #: src/mainwin.py:370
+ msgid "Learning tree"
+-msgstr ""
++msgstr "Indlæringstræ"
+
+ #: src/mainwin.py:389
+ msgid "Failed to load learning tree"
+-msgstr ""
++msgstr "Mislykkedes i at indlæse indlæringstræ"
+
+ #: src/mainwin.py:390
+ #, python-format
+ msgid "Ignoring the file \"%(filename)s\" because of this error: %(error)s"
+-msgstr ""
++msgstr "Ignorer filen \"%(filename)s\" på grund af denne fejl: %(error)s"
+
+ #: src/mainwin.py:440 src/mainwin.py:442 src/practisesheetdlg.py:397
+ #: src/practisesheetdlg.py:400 src/practisesheetdlg.py:402
+ #: src/practisesheetdlg.py:407 src/trainingsetdlg.py:206
+ #: src/trainingsetdlg.py:209 src/trainingsetdlg.py:211
+ #: src/trainingsetdlg.py:216
+-#, fuzzy
+ msgid "name"
+-msgstr "Aktivér"
++msgstr "navn"
+
+ #: src/mainwin.py:500
+-#, fuzzy
+ msgid "Question"
+-msgstr "Session"
++msgstr "Spørgsmål"
+
+ #: src/mainwin.py:507
+ msgid "Please enter the email used when you submitted the bugs:"
+-msgstr ""
++msgstr "Indtast venligst den e-post-adresse du brugte, da du indsendte fejlene:"
+
+ #: src/mainwin.py:534
+-#, fuzzy, python-format
++#, python-format
+ msgid "Please check the lesson file %s."
+-msgstr "Statistik for lektionsfil '%s'"
++msgstr "Undersøg venligst lektionsfilen %s."
+
+ #: src/mainwin.py:595
+ msgid "Solfege config file:"
+-msgstr ""
++msgstr "Konfigurationsfil for Solfege"
+
+ #: src/mainwin.py:596
+-#, fuzzy
+ msgid "Solfege standard lesson files:"
+-msgstr "Alle installerede _lektionsfiler"
++msgstr "Standard lektionsfiler for Solfege:"
+
+ #: src/mainwin.py:597
+ msgid "The users private lesson files:"
+-msgstr ""
++msgstr "Brugerens private lektionsfiler:"
+
+ #: src/mainwin.py:742 src/mainwin.py:745
+ msgid "Filename:"
+-msgstr ""
++msgstr "Filnavn:"
+
+ #: src/nameinterval.py:177
+-#, fuzzy, python-format
++#, python-format
+ msgid "Correct, the interval is a %s"
+-msgstr "Korrekt, det er %i"
++msgstr "Korrekt, intervallet er et %s"
+
+ #: src/nameinterval.py:186
+-#, fuzzy
+ msgid "Name the interval"
+-msgstr "Nyt interval"
++msgstr "Navngiv intervallet"
+
+ #: src/nameinterval.py:189
+-#, fuzzy, python-format
++#, python-format
+ msgid "interval|%s"
+-msgstr "u"
++msgstr "%s"
+
+ #: src/practisesheetdlg.py:290
+ msgid "Output format:"
+-msgstr ""
++msgstr "Uddataformat:"
+
+ #: src/practisesheetdlg.py:326
+ msgid "Section title:"
+-msgstr ""
++msgstr "Afsnitstitel:"
+
+ #: src/practisesheetdlg.py:334
+-#, fuzzy
+ msgid "Name the music"
+-msgstr "Spil hele musikken"
++msgstr "Navngiv musikken"
+
+ #: src/practisesheetdlg.py:338
+-#, fuzzy
+ msgid "Type of question:"
+-msgstr "Repeter spørgsmålet"
++msgstr "Spørgsmålstype:"
+
+ #: src/practisesheetdlg.py:342
+-#, fuzzy
+ msgid "Intervals:"
+-msgstr "Interval"
++msgstr "Intervaller:"
+
+ #: src/practisesheetdlg.py:351
+-#, fuzzy
+ msgid "Questions per line:"
+-msgstr "Slag per minut:"
++msgstr "Spørgsmål per linje:"
+
+ #: src/practisesheetdlg.py:357
+-#, fuzzy
+ msgid "Number of questions:"
+-msgstr "Antal slag i spørgsmålet:"
++msgstr "Antal spørgsmål:"
+
+ #: src/practisesheetdlg.py:462 src/trainingsetdlg.py:322
+ msgid "Select where to export the files"
+-msgstr ""
++msgstr "Vælg hvor filerne skal eksporteres til"
+
+ #: src/reportbug.py:35
+ msgid "Bug report"
+-msgstr ""
++msgstr "Fejlrapport"
+
+ #: src/reportbug.py:37 src/reportbug.py:56
+ msgid "_Send"
+-msgstr ""
++msgstr "_Send"
+
+ #: src/reportbug.py:61
+ msgid "_Email:"
+-msgstr ""
++msgstr "_E-post:"
+
+ #: src/reportbug.py:71
+ msgid "S_hort description:"
+-msgstr ""
++msgstr "Kort beskr_ivelse:"
+
+ #: src/reportbug.py:73
+ msgid "_Describe how to produce the error message:"
+-msgstr ""
++msgstr "_Beskriv hvordan fejlbeskeden fremkommer:"
+
+ #: src/rhythm.py:221
+ msgid "Don't start the question with a rest"
+-msgstr "start ikke spørgsmålet med en pause"
++msgstr "Start ikke spørgsmålet med en pause"
+
+ #: src/singanswer.py:52 src/singchord.py:43 src/singinterval.py:100
+-#, fuzzy
+ msgid "_Play answer"
+-msgstr "Afspil svar"
++msgstr "Afs_pil svar"
+
+ #: src/singchord.py:42
+-#, fuzzy
+ msgid "440h_z"
+-msgstr "440 Hz"
++msgstr "440 H_z"
+
+ #: src/singinterval.py:96
+-#, fuzzy
+ msgid "_Repeat first tone"
+-msgstr "Repeter første tone"
++msgstr "_Repeter første tone"
+
+ #: src/singinterval.py:104
+-#, fuzzy
+ msgid "Play _last tone"
+-msgstr "Spil sidste tone"
++msgstr "Spi_l sidste tone"
+
+ #: src/singinterval.py:160
+-#, fuzzy
+ msgid "Sing the interval"
+-msgstr "Syng interval"
++msgstr "Syng intervallet"
+
+ #: src/tracebackwindow.py:46
+ msgid "_Make automatic bug report"
+-msgstr ""
++msgstr "_Udfør automatisk fejlrapport"
+
+ #: mpd/interval.py:111
+ #, python-format
+ msgid "Invalid interval name: %s"
+-msgstr ""
++msgstr "Ugyldig intervalnavn: %s"
+
+ #: lesson-files/hear-tones-1:13 lesson-files/hear-tones-1:19
+ #: lesson-files/hear-tones-2:13 lesson-files/hear-tones-2:19
+ #: lesson-files/hear-tones-3:13 lesson-files/hear-tones-3:19
+ #: lesson-files/hear-tones-4:13 lesson-files/hear-tones-4:19
+ #: lesson-files/hear-tones-4:25 lesson-files/hear-tones-4:31
+ #: lesson-files/hear-tones-5:13 lesson-files/hear-tones-5:19
+ #: lesson-files/hear-tones-5:25 lesson-files/hear-tones-5:31
+ #: lesson-files/hear-tones-5:37 lesson-files/hear-tones-5:43
+ #: lesson-files/hear-tones-5:49 lesson-files/hear-tones-5:55
+ #: lesson-files/hear-tones-5:61 lesson-files/hear-tones-5:67
+ #: lesson-files/hear-tones-5:73 lesson-files/hear-tones-6:13
+ #: lesson-files/hear-tones-6:19 lesson-files/hear-tones-6:25
+ #: lesson-files/hear-tones-6:31 lesson-files/hear-tones-6:37
+ #: lesson-files/hear-tones-6:43 lesson-files/hear-tones-6:49
+ #: lesson-files/hear-tones-6:55 lesson-files/hear-tones-6:61
+ #: lesson-files/hear-tones-6:67 lesson-files/hear-tones-6:73
+ #: lesson-files/hear-tones-6:79
+-#, fuzzy
+ msgid "Sing the two tones"
+-msgstr "Syng _tolvtonerække"
++msgstr "Syng de to toner"
+
+ #: lesson-files/hear-tones-5:7
+ msgid "Intervals smaller than an octave"
+-msgstr ""
++msgstr "Intervaller mindre end en oktav"
+
+ #: lesson-files/hear-tones-6:7
+ msgid "Intervals larger than an octave"
+-msgstr ""
++msgstr "Intervaller større end en oktav"
+
+ #: lesson-files/id-tone-cde-12:8
+ msgid "All"
+-msgstr ""
++msgstr "Alle"
+
+ #: lesson-files/id-tone-cde-3:7
+ msgid "C to E"
+-msgstr ""
++msgstr "C til E"
+
+ #: lesson-files/id-tone-cde-4:7
+ msgid "C to F"
+-msgstr ""
++msgstr "C til F"
+
+ #: lesson-files/id-tone-cde-5:7
+ msgid "C to G"
+-msgstr ""
++msgstr "C til G"
+
+ #: lesson-files/id-tone-cde-6:7
+ msgid "C to A"
+-msgstr ""
++msgstr "C til A"
+
+ #: lesson-files/id-tone-cde-7:7
+ msgid "C to B"
+-msgstr ""
++msgstr "C til B"
+
+ #: lesson-files/id-tone-cde-8:8
+ msgid "C to B and C#"
+-msgstr ""
++msgstr "C til B og C#"
+
+ #: lesson-files/id-tone-cde-9:8
+ msgid "C to B, C# and D#"
+-msgstr ""
++msgstr "C til B, C# og D#"
+
+ #: lesson-files/sing-intervals-self-config:8
+-#, fuzzy
+ msgid "Sing intervals"
+-msgstr "Syng interval"
++msgstr "Syng intervaller"
+
+ ===============================================================================
+ Diff created and cleaned up                                                    
+ ---------------------------                                                    
+ Total number of messages minus fake ones equals total number of real messages. 
+ 230 - 0 = 230
+                                                                                
+ Messages that did not need clean up: Changed: 136            
+                                    : Fyzzy  : 94            
+ Messages that was cleaned up       : Changed: 0            
+                                    : Fyzzy  : 0            
+                                             : ---------------------------------
+                                      Total  : 230     
+ ===============================================================================
+

@@ -1,0 +1,1470 @@
+ # Danish translation of: / Dansk oversættelse af: GnomeICU.
+-# Copyright (C) 1999 Free Software Foundation, Inc.
++# Copyright (C) 2009 Free Software Foundation, Inc. og nedenstående oversættere.
+ # Kenneth Christiansen <kenneth@ripen.dk>, 1999, 2k.
+ # Keld Simonsen <keld@dkuug.dk>, 2000-2003.
+-#
+ # Review by Ole Laursen <olau@hardworking.dk> 2003-01-17
++# Joe Hansen <joedalton2@yahoo.dk>, 2009.
+ #
+ msgid ""
+ msgstr ""
+ "Project-Id-Version: gnomeicu 0.96.3\n"
+ "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+ "product=gnomeicu&component=general\n"
+ "POT-Creation-Date: 2009-04-17 15:21+0000\n"
+-"PO-Revision-Date: 2003-02-03 23:29+01:00\n"
+-"Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
+-"Language-Team: Dansk/Danish <dansk@klid.dk>\n"
++"PO-Revision-Date: 2009-11-28 19:55+0200\n"
++"Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
++"Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
+ "MIME-Version: 1.0\n"
+-"Content-Type: text/plain; charset=iso-8859-1\n"
++"Content-Type: text/plain; charset=UTF-8\n"
+ "Content-Transfer-Encoding: 8bit\n"
+
++# oversætter vi instant messenger
+ #: ../GnomeICU.desktop.in.h:2 ../src/gnomeicu.c:624
+-#, fuzzy
+-#| msgid "GnomeICU contact list filename"
+ msgid "GnomeICU ICQ Instant Messenger"
+-msgstr "Filnavn for kontaktliste i GnomeICU"
++msgstr "GnomeICU ICQ-kvikbeskedhåndtering"
+
+ #: ../gnomeicu-applet/GNOME_GnomeICUApplet.server.in.in.h:1
+ msgid "An applet to control the GNOME Internet Communication Utility."
+-msgstr "Et panelprogram til at styre GNOME internetkommunikationsværktøj"
++msgstr "Et panelprogram til at styre internetkommunikationsværktøjet til GNOME."
+
+ #. Translator credits
+ #: ../gnomeicu-applet/applet.c:196 ../src/gnomeicu.c:809
+ msgid "translator_credits"
+ msgstr ""
+-"Keld Simonsen\n"
+-"Send synspunkter på oversættelsen til dansk@klid.dk"
++"Kenneth Christiansen <kenneth@ripen.dk>, 1999.\n"
++"Keld Simonsen <keld@dkuug.dk>, 2000-2003.\n"
++"Joe Hansen <joedalton2@yahoo.dk>, 2009.\n"
++"\n"
++"Dansk-gruppen <dansk@dansk-gruppen.dk>\n"
++"Mere info: http://www.dansk-gruppen.dk"
+
+ #: ../gnomeicu.schemas.in.h:1
+ msgid "Enable highlighting of wrongly spelled messages"
+-msgstr ""
++msgstr "Slå fremhævning til på forkert stavede beskeder"
+
+ #: ../gnomeicu.schemas.in.h:2
+ msgid "Enter sends message, control-enter inputs new line"
+-msgstr ""
++msgstr "Retur afsender besked, control-retur indsætter ny linje"
+
+ #: ../gnomeicu.schemas.in.h:7
+-#, fuzzy
+-#| msgid "GnomeICU main window width"
+ msgid "GnomeICU main window X coordinate"
+-msgstr "Bredde på GnomeICU-hovedvinduet"
++msgstr "X-koordinat på GnomeICU-hovedvinduet"
+
+ #: ../gnomeicu.schemas.in.h:8
+ msgid ""
+ "GnomeICU main window X coordinate, used upon startup. It can be overridden "
+ "by command line options. The value 0 means automatic position."
+ msgstr ""
++"X-koordinat på GnomeICU-hovedvinduet, brugt ved opstart. Den kan overskrives "
++"af kommandolinjetilvalg. Værdien 0 betyder automatisk position."
+
+ #: ../gnomeicu.schemas.in.h:9
+-#, fuzzy
+-#| msgid "GnomeICU main window width"
+ msgid "GnomeICU main window Y"
+-msgstr "Bredde på GnomeICU-hovedvinduet"
++msgstr "Y-koordinat på GnomeICU-hovedvinduet"
+
++# engelsk fejl, manglende punktum.
+ #: ../gnomeicu.schemas.in.h:10
+ msgid ""
+ "GnomeICU main window Y coordinate, used upon startup. It can be overridden "
+ "by command line options. The value 0 means automatic position"
+ msgstr ""
++"Y-koordinat på GnomeICU-hovedvinduet, brugt ved opstart. Den kan overskrives "
++"af kommandolinjetilvalg. Værdien 0 betyder automatisk position."
+
+ #: ../gnomeicu.schemas.in.h:12
+ msgid ""
+ "GnomeICU main window height, used upon startup. It can be overridden by "
+ "command line options."
+ msgstr ""
++"Højde på GnomeICU-hovedvinduet, brugt ved opstart. Den kan overskrives af "
++"kommandolinjetilvalg."
+
+ #: ../gnomeicu.schemas.in.h:14
+ msgid ""
+ "GnomeICU main window width, used upon startup. It can be overridden by "
+ "command line options."
+ msgstr ""
++"Bredde på GnomeICU-hovedvinduet, brugt ved opstart. Den kan overskrives af "
++"kommandolinjetilvalg."
+
+ #: ../gnomeicu.schemas.in.h:24
+ msgid ""
+ "When this key is set to \"true\", the enter key sends a message and control-"
+ "enter puts a newline into the buffer. When it is set to false, control-enter "
+ "sends a message and enter inputs a new line. Shift-enter has the same "
+ "behavior as control-enter."
+ msgstr ""
++"Når denne tast er angivet som \"sand\", sender returtasten en besked og "
++"control-retur indsætter et linjeskift i mellemlageret. Når den er angivet "
++"som falsk, sender control-retur en besked og retur indsætter en ny linje. "
++"Skift-retur har den samme opførsel som control-retur."
+
+ #: ../src/auth.c:68
+-#, fuzzy, c-format
+-#| msgid ""
+-#| "User %s (%s) need authorization. GnomeICU is going to send an "
+-#| "authorization message to your friend."
++#, c-format
+ msgid ""
+ "User %s (%s) needs authorization. GnomeICU is going to send an authorization "
+ "message to your friend."
+ msgstr ""
+ "Brugeren %s (%s) kræver autorisering. GnomeICU vil sende en "
+ "autoriseringsforespørgsel til din ven."
+
+ #: ../src/auth.c:79
+-#, fuzzy, c-format
+-#| msgid "Request Authorization"
++#, c-format
+ msgid "Request Authorization from %s (%s)"
+-msgstr "Anmod om autorisering"
++msgstr "Anmod om autorisering fra %s (%s)"
+
+ #: ../src/auth.c:184
+-#, fuzzy, c-format
+-#| msgid ""
+-#| "User %s is requesting authorization. Do you want to grant the "
+-#| "authorization so he/she can add you?"
++#, c-format
+ msgid ""
+ "User %s (%s) is requesting authorization. Do you want to grant the "
+ "authorization so he/she can add you?"
+ msgstr ""
+-"Brugeren %s beder om autorisering. Ønsker du at give tilladelsen så "
++"Brugeren %s (%s) beder om autorisering. Ønsker du at give tilladelsen så "
+ "vedkommende kan tilføje dig?"
+
+ #: ../src/auth.c:194
+-#, fuzzy, c-format
+-#| msgid "Authorization request"
++#, c-format
+ msgid "Authorization request from %s"
+-msgstr "Autorisationsforespørgsel"
++msgstr "Autorisationsforespørgsel fra %s"
+
+ #: ../src/auth.c:276
+ msgid "You can not grant authorization while disconnected."
+-msgstr "Du kan ikke bevilge autorisering når du er frakoblet."
++msgstr "Du kan ikke bevilge autorisering, når du er frakoblet."
+
+ #: ../src/auth.c:289
+ msgid "You can not deny authorization while disconnected."
+-msgstr "Du kan ikke nægte autorisering når du er frakoblet."
++msgstr "Du kan ikke nægte autorisering, når du er frakoblet."
+
+ #: ../src/auth.c:303 ../src/gtkfunc.c:113 ../src/gtkfunc.c:157
+ #: ../src/search.c:287
+ msgid "You can not add a contact while disconnected."
+-msgstr "Du kan ikke tilføje en kontakt når du er frakoblet."
++msgstr "Du kan ikke tilføje en kontakt, når du er frakoblet."
+
+ #: ../src/changeinfo.c:142
+ msgid "Email"
+-msgstr "Epost"
++msgstr "E-post"
+
+ #: ../src/changeinfo.c:378
+ msgid "An email address can't be empty."
+-msgstr "En e-postadresse kan ikke være tom."
++msgstr "En e-post-adresse kan ikke være tom."
+
+ #: ../src/changeinfo.c:469
+-#, fuzzy
+-#| msgid "You can not update your informations while disconnected."
+ msgid "You can not update your information while disconnected."
+-msgstr "Du kan ikke opdatere din information når du er frakoblet."
++msgstr "Du kan ikke opdatere din information, når du er frakoblet."
+
+ #: ../src/changeinfo.c:483
+ msgid "You can not save your informations while disconnected."
+-msgstr "Du kan ikke gemme din information når du er frakoblet."
++msgstr "Du kan ikke gemme din information, når du er frakoblet."
+
+ #: ../src/changeinfo.c:551
+ msgid "New e-mail address"
+-msgstr "Ny epostadresse"
++msgstr "Ny e-post-adresse"
+
+ #: ../src/changenick.c:57
+-#, fuzzy, c-format
+-#| msgid "_Enter a new alias for %s:"
++#, c-format
+ msgid "_Enter a new nickname for %s (%s):"
+-msgstr "_Indtast et nyt alias for %s:"
++msgstr "_Indtast et nyt alias for %s (%s):"
+
+ #: ../src/cl_migrate.c:43
+ msgid ""
+ "Starting with ICQ protocol version 8. ICQ server now supports server side "
+ "contacts list.\n"
+ "\n"
+ "GnomeICU is about to send your contacts list to the server.\n"
+ "\n"
+ "\n"
+ "\n"
+ "Warning: you have an existing server contacts list, GnomeICU will add your "
+ "local users to this list. This will likely create duplicate contacts."
+ msgstr ""
+ "Fra og med ICQ-protokolversion 8 understøtter nu ICQ-serveren kontaktlister "
+ "på serveren.\n"
+ "\n"
+ "GnomeICU vil nu sende din kontaktliste til serveren.\n"
+ "\n"
+ "\n"
+ "\n"
+-"Advarsel: du har en eksisterende serverkontaktliste. GnomeICU vil føje dine "
++"Advarsel: Du har en eksisterende serverkontaktliste. GnomeICU vil føje dine "
+ "lokale brugere til denne liste. Dette vil formentlig give dubletkontakter."
+
+ #: ../src/gnomeicu-client.c:171
+-#, fuzzy
+-#| msgid "GnomeICU contact list filename"
+ msgid "show all contact list entries"
+-msgstr "Filnavn for kontaktliste i GnomeICU"
++msgstr "vis alle elementer i kontaktliste"
+
+ #: ../src/gnomeicu-client.c:172
+-#, fuzzy
+-#| msgid "GnomeICU contact list filename"
+ msgid "show online contact list entries"
+-msgstr "Filnavn for kontaktliste i GnomeICU"
++msgstr "vis alle elementer i kontaktlisten der er på nettet"
+
+ #: ../src/gnomeicu.c:533
+-#, fuzzy
+-#| msgid "IP"
+ msgid "<IP>"
+-msgstr "IP"
++msgstr "<IP>"
+
+ #: ../src/gnomeicu.c:540 ../src/gnomeicu.c:578
+-#, fuzzy
+-#| msgid "%s status"
+ msgid "Initial status"
+-msgstr "%s-status"
++msgstr "Oprindelig status"
+
+ #: ../src/gnomeicu.c:541
+ msgid "<STATUS>"
+-msgstr ""
++msgstr "<STATUS>"
+
+ #: ../src/gnomeicu.c:549
+ msgid "<WIDTH>x<HEIGHT>+<X>+<Y>"
+-msgstr ""
++msgstr "<BREDDE>x<HØJDE>+<X>+<Y>"
+
+ #: ../src/gnomeicu.c:556 ../src/gnomeicu.c:594
+-#, fuzzy
+-#| msgid "hide GnomeICU main window"
+ msgid "Hide the GnomeICU main window upon startup"
+-msgstr "Skjul GnomeICUs hovedvindue"
++msgstr "Skjul GnomeICUs hovedvindue ved opstart"
+
+ #: ../src/gnomeicu.c:579
+ msgid "STATUS"
+-msgstr ""
++msgstr "STATUS"
+
+ #: ../src/gnomeicu.c:587
+ msgid "WIDTHxHEIGHT+X+Y"
+-msgstr ""
++msgstr "BREDDExHØJDE+X+Y"
+
+ #: ../src/gnomeicu.c:828
+ msgid ""
+ "This program is free software; you can redistribute it and/or modify it "
+ "under the terms of the GNU General Public License as published by the Free "
+ "Software Foundation; either version 2 of the License, or (at your option) "
+ "any later version."
+ msgstr ""
++"Dette program er frit software; du kan distribuere det og/eller ændre det "
++"under betingelserne i GNU General Public License som udgivet af the Free "
++"Software Foundation; enten version 2 af licensen, eller (efter dit valg) "
++"enhver senere version."
+
+ #: ../src/group_popup.c:50
+ msgid "Re_move Group"
+-msgstr "Fjern gruppe"
++msgstr "_Fjern gruppe"
+
+ #: ../src/grpmgr.c:221
+-#, fuzzy
+-#| msgid "Cannot delete non-empty group."
+ msgid "Cannot delete the last remaining group."
+-msgstr "Kan ikke fjerne ikke-tom gruppe."
++msgstr "Kan ikke slette den sidste tilbageværende gruppe."
+
+ #: ../src/gtkfunc.c:104
+ msgid "Add User"
+-msgstr ""
++msgstr "Tilføj bruger"
+
+ #: ../src/gtkfunc.c:119
+-#, fuzzy
+-#| msgid "Pick a color"
+ msgid "Pick a Group"
+-msgstr "Vælg en farve"
++msgstr "Vælg en gruppe"
+
+ #: ../src/gtkfunc.c:134
+ msgid "Pick a group for this user:"
+-msgstr ""
++msgstr "Vælg en gruppe for denne bruger:"
+
+ #: ../src/gtkfunc.c:194
+-#, fuzzy, c-format
+-#| msgid "You are authorized to add %s to your list"
++#, c-format
+ msgid "You are NOT authorized to add %s to your list"
+-msgstr "Du har godkendelse til at tilføje %s til din liste"
++msgstr "Du har IKKE godkendelse til at tilføje %s til din liste"
+
+ #: ../src/history.c:428
+ msgid "No more occurrences found."
+-msgstr "Ikke flere forekomster fundet"
++msgstr "Ikke flere forekomster fundet."
+
+ #: ../src/history.c:491
+-#, fuzzy
+-#| msgid "Received"
+ msgid "Received at"
+-msgstr "Modtaget"
++msgstr "Modtaget den"
+
+ #: ../src/history.c:491
+-#, fuzzy
+-#| msgid "Sent"
+ msgid "Sent at"
+-msgstr "Afsendt"
++msgstr "Afsendt den"
+
+ #: ../src/history.c:532
+ msgid ""
+ "Your history is now being converted to the new format, this will happen only "
+ "once."
+ msgstr ""
++"Din historik bliver nu konverteret til det nye format, det vil kun ske en "
++"gang."
+
+ #: ../src/ignore.c:47
+ msgid "Ignore List"
+-msgstr "_Ignorér-liste"
++msgstr "Ignorerliste"
+
+ #: ../src/ignore.c:48
+-#, fuzzy
+-#| msgid ""
+-#| "Drag the users you wish to add to your\n"
+-#| "ignore list into this window, and then click\n"
+-#| "the \"Apply\" button below."
+ msgid ""
+ "Drag the users you wish to add to your\n"
+ "ignore list into this window."
+ msgstr ""
+ "Træk de brugere du gerne vil tilføje til\n"
+-"din ignorérliste ind i dette vindue og klik\n"
+-"derefter på \"Udfør\"-knappen nedenunder."
++"din ignorerliste ind i dette vindue."
+
+ #: ../src/invisible.c:44
+ msgid "Invisible List"
+-msgstr "Usynlig-listen"
++msgstr "Usynliglisten"
+
+ #: ../src/invisible.c:45
+-#, fuzzy
+-#| msgid ""
+-#| "Drag the users you wish to add to your\n"
+-#| "invisible list into this window, and then click\n"
+-#| "the \"Apply\" button below."
+ msgid ""
+ "Drag the users you wish to add to your\n"
+ "invisible list into this window"
+ msgstr ""
+ "Træk de brugere du gerne vil tilføje til\n"
+-"din \"usynlig\"-liste ind i dette vindue og klik\n"
+-"derefter på \"Udfør\"-knappen nedenunder."
++"din usynligliste ind i dette vindue"
+
+ #: ../src/listwindow.c:440 ../src/listwindow.c:509
+ msgid "You can not request user information while disconnected."
+-msgstr "Du kan ikke anmode om brugerinformation når du er frakoblet."
++msgstr "Du kan ikke anmode om brugerinformation, når du er frakoblet."
+
+ #: ../src/msg.c:547
+ msgid "You can not send messages while disconnected."
+-msgstr "Du kan ikke sende meddelelser når du er frakoblet."
++msgstr "Du kan ikke sende meddelelser, når du er frakoblet."
+
+ #: ../src/msg.c:582
+ msgid ""
+ "You can not send messages over 450 characters to offline contacts. Your "
+ "message was not sent."
+ msgstr ""
+-"Du kan ikke sende meddelelser som er længere endnu 450 tegn til frakoblede "
++"Du kan ikke sende meddelelser, som er længere endnu 450 tegn til frakoblede "
+ "brugere. Din meddelelse blev ikke sendt."
+
+ #: ../src/notify.c:41
+-#, fuzzy
+-#| msgid ""
+-#| "Drag the users you wish to add to your\n"
+-#| "notify list into this window, and then click\n"
+-#| "the \"Apply\" button below."
+ msgid ""
+ "Drag the users you wish to add to your\n"
+ "notify list into this window"
+ msgstr ""
+ "Træk de brugere du vil tilføje til din\n"
+-"notificeringsliste ind i dette vindue og\n"
+-"klik på \"Udfør\" knappen herunder."
++"notificeringsliste ind i dette vindue"
+
+ #: ../src/personal_info.c:83
+ msgid "E-mail"
+-msgstr "Epost"
++msgstr "E-post"
+
+ #: ../src/personal_info.c:254
+-#, fuzzy, c-format
+-#| msgid " minutes"
++#, c-format
+ msgid "%d minutes"
+-msgstr " minutter"
++msgstr "%d minutter"
+
+ #: ../src/personal_info.c:256
+ #, c-format
+ msgid "%d hours %d minutes"
+-msgstr ""
++msgstr "%d timer %d minutter"
+
+ #: ../src/personal_info.c:260
+ #, c-format
+ msgid "%d days %d hours %d minutes"
+-msgstr ""
++msgstr "%d dage %d timer %d minutter"
+
+ #: ../src/personal_info.c:281
+-#, fuzzy
+-#| msgid "Server"
+ msgid "Never"
+-msgstr "Server"
++msgstr "Aldrig"
+
+ #: ../src/personal_info.c:283
+-#, fuzzy
+-#| msgid "Norway"
+ msgid "Now"
+-msgstr "Norge"
++msgstr "Nu"
+
+ #: ../src/prefs_ui.c:201
+-#, fuzzy, c-format
+-#| msgid ""
+-#| "%s is not a valid character set for conversion to and from UTF-8, it was "
+-#| "reset with your previous setting"
++#, c-format
+ msgid ""
+ "%s is not a valid character set for conversion to and from UTF-8 so it was "
+ "reset with your previous setting"
+ msgstr ""
+ "%s er ikke en gyldig tegntabel for konvertering fra og til UTF-8, det "
+ "genskabtes med din tidligere indstilling"
+
+ #: ../src/prefs_ui.c:422
+-#, fuzzy
+-#| msgid "Authorized by user"
+ msgid "Authorized/Rejected by user"
+-msgstr "Autoriseret af bruger"
++msgstr "Autoriseret/nægtet af bruger"
+
+ #: ../src/response.c:416
+-#, fuzzy, c-format
+-#| msgid "Away Messages"
++#, c-format
+ msgid "Away Message: %s"
+-msgstr "Fraværsbeskeder"
++msgstr "Fraværsbesked: %s"
+
+ #: ../src/response.c:559
+-#, fuzzy, c-format
+-#| msgid ""
+-#| "Other users require authorization\n"
+-#| " to add me to their contact list"
++#, c-format
+ msgid ""
+ "%s (%s) has granted you authorization to add him to your contact list%s%s"
+ msgstr ""
+-"Andre brugere kræver autorisation\n"
+-" for at tilføje mig til deres kontaktliste"
++"%s (%s) har tildelt dig autorisation til at tilføje ham til din kontaktliste%s%s"
+
+ #: ../src/response.c:564
+-#, fuzzy, c-format
+-#| msgid ""
+-#| "Other users require authorization\n"
+-#| " to add me to their contact list"
++#, c-format
+ msgid ""
+ "%s (%s) has denied you authorization to add him to your contact list%s%s"
+ msgstr ""
+-"Andre brugere kræver autorisation\n"
+-" for at tilføje mig til deres kontaktliste"
++"%s (%s) har nægtet dig autorisation til at tilføje ham til din kontaktliste%s%s"
+
+ #: ../src/search.c:398
+ #, c-format
+ msgid "%d results not displayed"
+-msgstr ""
++msgstr "%d resultater er ikke vist"
+
+ #: ../src/sendcontact.c:145
+ msgid "You can not send contacts while disconnected."
+-msgstr "Du kan ikke sende kontakter når du er frakoblet."
++msgstr "Du kan ikke sende kontakter, når du er frakoblet."
+
+ #: ../src/showlist.c:405
+-#, fuzzy
+-#| msgid ""
+-#| "User asked for authorization:\n"
+-#| "%s"
+ msgid "Waiting for authorization"
+-msgstr ""
+-"Bruger bad om bemyndigelse:\n"
+-"%s"
++msgstr "Venter på autorisation"
+
+ #: ../src/showlist.c:434
+-#, fuzzy
+-#| msgid "Group Name:"
+ msgid "Unknown Group Name"
+-msgstr "Gruppenavn:"
++msgstr "Ukendt gruppenavn"
+
+ #: ../src/user_popup.c:130
+ msgid "_Read Do Not Disturb Message"
+-msgstr "Læs forstyr ikke-besked"
++msgstr "_Læs forstyr ikke-besked"
+
+ #: ../src/user_popup.c:298
+-#, fuzzy
+-#| msgid "Request Authorization"
+ msgid "Re-request a_uthorization"
+-msgstr "Anmod om autorisering"
++msgstr "Genanmod om a_utorisering"
+
+ #: ../src/user_popup.c:545
+ msgid "You can not retrieve away messages while disconnected."
+-msgstr "Du kan ikke hente fraværsmeddelelser når du er frakoblet."
++msgstr "Du kan ikke hente fraværsmeddelelser, når du er frakoblet."
+
+ #: ../src/user_popup.c:571
+ msgid "You can not add a user to a list while disconnected."
+-msgstr "Du kan ikke tilføje en bruger til en liste når du er frakoblet."
++msgstr "Du kan ikke tilføje en bruger til en liste, når du er frakoblet."
+
+ #: ../src/user_popup.c:589
+ msgid "You can not authorize a contact while disconnected."
+-msgstr "Du kan ikke autorisere en kontakt når du er frakoblet."
++msgstr "Du kan ikke autorisere en kontakt, når du er frakoblet."
+
+ #: ../src/user_popup.c:642
+ #, c-format
+ msgid "Are you sure you wish to remove %s from your contact list?"
+-msgstr "Er du sikker på at du vil fjerne %s fra din kontaktliste?"
++msgstr "Er du sikker på, at du vil fjerne %s fra din kontaktliste?"
+
+ #: ../src/user_popup.c:656
+ msgid "Remove User's _History file"
+-msgstr "Fjern brugers historikfil"
++msgstr "Fjern brugers _historikfil"
+
+ #: ../src/user_popup.c:700
+ msgid "You can not change a list while disconnected."
+-msgstr "Du kan ikke ændre en liste når du er frakoblet."
++msgstr "Du kan ikke ændre en liste, når du er frakoblet."
+
+ #: ../src/user_popup.c:764
+-#, fuzzy
+-#| msgid "Send _File..."
+ msgid "Send Files..."
+-msgstr "Send _fil..."
++msgstr "Send filer..."
+
+ #: ../src/user_popup.c:857
+ msgid "You can not remove a contact while disconnected."
+-msgstr "Du kan ikke fjerne en kontakt når du er frakoblet."
++msgstr "Du kan ikke fjerne en kontakt, når du er frakoblet."
+
+ #: ../src/user_popup.c:897
+ msgid "You can not change the group of a user while disconnected."
+-msgstr "Du kan ikke skifte en brugeres gruppe når du er frakoblet."
++msgstr "Du kan ikke skifte en brugeres gruppe, når du er frakoblet."
+
+ #: ../src/util.c:125
+ msgid "INMARSAT (Atlantic-East)"
+-msgstr "INMARSAT Østatlantisk"
++msgstr "INMARSAT (Østatlantisk)"
+
+ #: ../src/util.c:126
+ msgid "INMARSAT (Atlantic-West)"
+-msgstr "INMARSAT Vestatlantisk"
++msgstr "INMARSAT (Vestatlantisk)"
+
+ #: ../src/util.c:128
+ msgid "INMARSAT (Pacific)"
+-msgstr "INMARSAT (USAs Vestkyst)"
++msgstr "INMARSAT (Stillehavet)"
+
+ #: ../src/util.c:200
+ msgid "Peru"
+-msgstr "Perú"
++msgstr "Peru"
+
+ #: ../src/util.c:302
+ msgid "UTC-0030"
+-msgstr "UTC-0300"
++msgstr "UTC-0030"
+
+ #: ../src/util.c:480
+ msgid "Manufacturing"
+-msgstr "fremstilling"
++msgstr "Fremstilling"
+
+ #: ../src/util.c:481
+ msgid "Medical/Health"
+-msgstr "Medicin/Sundhed"
++msgstr "Medicin/sundhed"
+
+ #: ../src/util.c:1123
+ #, c-format
+ msgid ""
+ "Unable to load Glade user interface file: %s.\n"
+ "Make sure the file is accessible."
+ msgstr ""
++"Kan ikke indlæse brugergrænsefladefil for Glade: %s.\n"
++"Vær sikker på at filen er tilgængelig."
+
+ #: ../src/v7base.c:671
+ msgid "Invalid SNAC header."
+-msgstr ""
++msgstr "Ugyldig SNAC-hoved."
+
+ #: ../src/v7base.c:673
+ msgid "Server rate limit exceeded"
+-msgstr ""
++msgstr "Begrænsning på server overskredet"
+
+ #: ../src/v7base.c:675
+-#, fuzzy
+-#| msgid "Contact list received"
+ msgid "Client rate limit exceeded"
+-msgstr "Du har modtaget kontaktlisten"
++msgstr "Begrænsning på kontaktliste overskredet"
+
+ #: ../src/v7base.c:677
+ msgid "Recipient is not logged in"
+-msgstr ""
++msgstr "Modtager er ikke logget ind"
+
+ #: ../src/v7base.c:679
+ msgid "Requested service unavailable"
+-msgstr ""
++msgstr "Forespurgt tjeneste utilgængelig"
+
+ #: ../src/v7base.c:681
+ msgid "Requested service not defined"
+-msgstr ""
++msgstr "Forespurgt tjeneste ikke defineret"
+
+ #: ../src/v7base.c:683
+ msgid "You sent obsolete SNAC"
+-msgstr ""
++msgstr "Du sendte forældet SNAC"
+
+ #: ../src/v7base.c:685
+ msgid "Not supported by server"
+-msgstr ""
++msgstr "Ikke understøttet af server"
+
+ #: ../src/v7base.c:687
+ msgid "Not supported by client"
+-msgstr ""
++msgstr "Ikke understøttet af klient"
+
+ #: ../src/v7base.c:689
+ msgid "Refused by client"
+-msgstr ""
++msgstr "Nægtet af klient"
+
+ #: ../src/v7base.c:691
+ msgid "Reply too big"
+-msgstr ""
++msgstr "Svar for stort"
+
+ #: ../src/v7base.c:693
+ msgid "Responses lost"
+-msgstr ""
++msgstr "Svar tabt"
+
+ #: ../src/v7base.c:695
+-#, fuzzy
+-#| msgid "Required"
+ msgid "Request denied"
+-msgstr "Påkrævet"
++msgstr "Forespørgsel nægtet"
+
+ #: ../src/v7base.c:697
+ msgid "Incorrect SNAC format"
+-msgstr ""
++msgstr "Ugyldigt SNAC-format"
+
+ #: ../src/v7base.c:699
+ msgid "Insufficient rights"
+-msgstr ""
++msgstr "Utilstrækkelige rettigheder"
+
+ #: ../src/v7base.c:701
+ msgid "In local permit/deny (recipient blocked)"
+-msgstr ""
++msgstr "I lokal tillad/nægt (modtager blokeret)"
+
+ #: ../src/v7base.c:703
+ msgid "Sender too evil"
+-msgstr ""
++msgstr "Afsender for ond"
+
+ #: ../src/v7base.c:705
+-#, fuzzy
+-#| msgid "Received Files"
+ msgid "Receiver too evil"
+-msgstr "Modtog filer"
++msgstr "Modtager for ond"
+
+ #: ../src/v7base.c:707
+ msgid "User temporarily unavailable"
+-msgstr ""
++msgstr "Bruger midlertidig utilgængelig"
+
+ #: ../src/v7base.c:709
+-#, fuzzy
+-#| msgid "No matches found"
+ msgid "No match"
+-msgstr "Ingen træffere fundet"
++msgstr "Ingen træffere"
+
+ #: ../src/v7base.c:711
+ msgid "List overflow"
+-msgstr ""
++msgstr "Listeoverløb"
+
+ #: ../src/v7base.c:713
+ msgid "Request ambiguous"
+-msgstr ""
++msgstr "Tvetydig forespørgsel"
+
+ #: ../src/v7base.c:715
+ msgid "Server queue full"
+-msgstr ""
++msgstr "Serverkø fuld"
+
+ #: ../src/v7base.c:717
+ msgid "Not while on AOL"
+-msgstr ""
++msgstr "Ikke mens tilkoblet AOL"
+
+ #: ../src/v7base.c:720
+-#, fuzzy
+-#| msgid ""
+-#| "Unknown error\n"
+-#| " %s"
+ msgid "Unknown error\n"
+-msgstr ""
+-"Ukendt fejl\n"
+-" %s"
++msgstr "Ukendt fejl\n"
+
+ #: ../src/v7login.c:68
+ #, c-format
+ msgid ""
+ "Cannot resolve address of ICQ login server (%s):\n"
+ "%s"
+ msgstr ""
++"Kan ikke løse adresse på ICQ-logindserver (%s):\n"
++"%s"
+
+ #: ../src/v7login.c:252
+ #, c-format
+ msgid "Unknown TLV on login type: %d\n"
+-msgstr ""
++msgstr "Ukendt TLV på logindtype: %d\n"
+
+ #: ../src/v7login.c:264
+ #, c-format
+ msgid "No UIN in login message"
+-msgstr ""
++msgstr "Ingen UIN i logindbesked"
+
+ #: ../src/v7login.c:267
+ #, c-format
+ msgid "No Server Address in login message"
+-msgstr ""
++msgstr "Ingen serveradresse i logindbesked"
+
+ #: ../src/v7login.c:270
+-#, fuzzy, c-format
+-#| msgid "Check spelling in messages"
++#, c-format
+ msgid "No cookie in login message"
+-msgstr "Tjek stavning i beskeder"
++msgstr "Ingen cookie i loginbesked"
+
+ #: ../src/v7login.c:278
+ #, c-format
+ msgid "Can't parse server name returned by server (%s)\n"
+-msgstr ""
++msgstr "Kan ikke fortolke servernavn returneret af server (%s)\n"
+
+ #: ../src/v7login.c:313
+ #, c-format
+ msgid "Error %x on connection: please try again"
+-msgstr "Fejl %x ved forbindelse: prøv igen"
++msgstr "Fejl %x ved forbindelse: Prøv igen"
+
+ #: ../src/v7login.c:352
+-#, fuzzy
+-#| msgid "Very very bizzare error when connecting.\n"
+ msgid "Very very bizarre error when connecting.\n"
+ msgstr "Meget meget mærkelig fejl ved opkobling.\n"
+
+ #: ../src/v7newuser.c:106
+-#, fuzzy, c-format
+-#| msgid ""
+-#| "Can't connect to server\n"
+-#| " Adding new user failed"
++#, c-format
+ msgid ""
+ "Can't connect to server\n"
+ "Creating new user failed\n"
+ " Error: %s (%d)"
+ msgstr ""
+ "Kan ikke forbinde til server\n"
+-" Tilføjelse af ny bruger mislykkedes"
++"Tilføjelse af ny bruger mislykkedes\n"
++" Fejl: %s (%d)"
+
+ #: ../src/v7newuser.c:247
+-#, fuzzy, c-format
+-#| msgid "The ICQ server does not allow you to create a new user"
++#, c-format
+ msgid ""
+ "The ICQ server does not allow you to create a new user\n"
+ "Exiting GnomeICU\n"
+ "%s"
+-msgstr "ICQ-serveren tillader dig ikke at oprette en ny bruger"
++msgstr ""
++"ICQ-serveren tillader dig ikke at oprette en ny bruger\n"
++"Afslutter GnomeICU\n"
++"%s"
+
+ #: ../src/v7recv.c:2215
+-#, fuzzy
+-#| msgid ""
+-#| "You are sending messages too fast, your last message has been dropped, "
+-#| "please wait 10 seconds and resend. If you continue sending messages at "
+-#| "that speed, you will be disconnect by the server. Please give it a break."
+ msgid ""
+ "You are sending messages too fast, your last message has been dropped, "
+ "please wait 10 seconds and resend. If you continue sending messages at that "
+ "speed, you will be disconnected by the server. Please give it a break."
+ msgstr ""
+ "Du sender meddelelser for hurtigt, din seneste meddelelse er blevet droppet, "
+ "vent 10 sekunder og send igen. Hvis du fortsætter med at sende meddelelser "
+-"med den hastighed vil du blive frakoblet af serveren. Hold op med det."
++"med den hastighed, vil du blive frakoblet af serveren. Hold op med det."
+
+ #: ../src/visible.c:48
+ msgid "Visible List"
+-msgstr "S_ynlig-listen"
++msgstr "Synliglisten"
+
+ #: ../src/visible.c:49
+-#, fuzzy
+-#| msgid ""
+-#| "Drag the users you wish to add to your\n"
+-#| "visible list into this window, and then click\n"
+-#| "the \"Apply\" button below."
+ msgid ""
+ "Drag the users you wish to add to your\n"
+ "visible list into this window"
+ msgstr ""
+ "Træk de brugere du gerne vil tilføje til\n"
+-"din \"synlig\"-liste ind i dette vindue og klik\n"
+-"derefter på \"Udfør\"-knappen nedenunder."
++"din synligliste ind i dette vindue"
+
+ #: ../ui/addcontact.glade.h:1
+ msgid "<span weight=\"bold\">Contact Information</span>"
+-msgstr ""
++msgstr "<span weight=\"bold\">Kontaktinformation</span>"
+
+ #: ../ui/addcontact.glade.h:2
+ msgid "<span weight=\"bold\">Search Results</span>"
+-msgstr ""
++msgstr "<span weight=\"bold\">Søgeresultater</span>"
+
+ #: ../ui/addcontact.glade.h:3
+ msgid "Add Contact"
+-msgstr "_Tilføj kontakt"
++msgstr "Tilføj kontakt"
+
+ #: ../ui/addcontact.glade.h:5
+ msgid "_E-Mail Address:"
+-msgstr "_Epostadresse:"
++msgstr "_E-post-adresse:"
+
+ #: ../ui/auth.glade.h:1
+-#, fuzzy
+-#| msgid "_Add to Group"
+ msgid "Add to Group:"
+-msgstr "_Tilføj i gruppe"
++msgstr "Tilføj til gruppe:"
+
+ #: ../ui/auth.glade.h:3
+-#, fuzzy
+-#| msgid "_Add Group"
+ msgid "_Add User"
+-msgstr "_Tilføj gruppe"
++msgstr "_Tilføj bruger"
+
+ #: ../ui/auto_respond.glade.h:1
+ msgid ""
+ "<b>Enter your auto respond message in the area below or select one of the "
+ "predefined message from the list.</b>"
+ msgstr ""
++"<b>Indtast din automatiske svarbesked i området nedenfor eller vælg en af "
++"de foruddefinerede beskeder fra listen.</b>"
+
+ #: ../ui/auto_respond.glade.h:2
+-#, fuzzy
+-#| msgid "Auto N/A message: "
+ msgid "Auto Respond Message"
+-msgstr "Besked for automatisk ikke til stede"
++msgstr "Automatisk svarbesked"
+
+ #: ../ui/auto_respond.glade.h:3
+-#, fuzzy
+-#| msgid "Receive Message"
+ msgid "Predefined Message List:"
+-msgstr "Modtag besked"
++msgstr "Foruddefineret beskedliste:"
+
+ #: ../ui/filexfer.glade.h:1
+ msgid "<span weight=\"bold\">Files</span>"
+-msgstr ""
++msgstr "<span weight=\"bold\">Filer</span>"
+
+ #: ../ui/filexfer.glade.h:2
+ msgid "<span weight=\"bold\">Reason</span>"
+-msgstr ""
++msgstr "<span weight=\"bold\">Årsag</span>"
+
+ #: ../ui/filexfer.glade.h:5
+-#, fuzzy
+-#| msgid "Send File"
+ msgid "Send Files"
+-msgstr "Send fil"
++msgstr "Send filer"
+
+ #: ../ui/grpmgr.glade.h:3
+-#, fuzzy
+-#| msgid "_Rename"
+ msgid "Re_name"
+ msgstr "_Omdøb"
+
+ #: ../ui/grpmgr.glade.h:4
+-#, fuzzy
+-#| msgid ""
+-#| "Type a group name to add a new group, or select a group from the list "
+-#| "below to delete."
+ msgid ""
+ "Type a group name to add a new group, or select a group from the list below "
+ "to delete or rename."
+ msgstr ""
+ "Indtast et gruppenavn for at tilføje en ny gruppe, eller vælg en gruppe fra "
+-"listen nedenfor for at fjerne."
++"listen nedenfor for at fjerne eller omdøbe."
+
+ #: ../ui/history.glade.h:2
+-#, fuzzy
+-#| msgid "Clear"
+ msgid "C_lear"
+-msgstr "Tøm"
++msgstr "_Tøm"
+
+ #: ../ui/listwindow.glade.h:1
+-#, fuzzy
+-#| msgid "User's Info"
+ msgid "User's _Info"
+-msgstr "Brugerinfo"
++msgstr "Bruger_info"
+
+ #: ../ui/listwindow.glade.h:2
+-#, fuzzy
+-#| msgid "Remove User"
+ msgid "_Remove User"
+-msgstr "Fjern bruger"
++msgstr "_Fjern bruger"
+
+ #: ../ui/main.glade.h:2
+-#, fuzzy
+-#| msgid "Change User _Info..."
+ msgid "Change Account _Info..."
+-msgstr "Redigér bruger_info..."
++msgstr "Redigér konto_info..."
+
+ #: ../ui/main.glade.h:9
+-#, fuzzy
+-#| msgid "_About:"
+ msgid "_Account"
+-msgstr "_Om:"
++msgstr "_Konto"
+
+ #: ../ui/main.glade.h:13
+ msgid "_Online Notify List..."
+-msgstr "_På nettet-notifikationsliste"
++msgstr "_På nettet-notifikationsliste..."
+
+ #: ../ui/main.glade.h:14
+-#, fuzzy
+-#| msgid "Togo"
+ msgid "_Tools"
+-msgstr "Togo"
++msgstr "_Værktøjer"
+
+ #: ../ui/message.glade.h:4
+ msgid "_Don't close on send"
+-msgstr ""
++msgstr "_Luk ikke ved afsendelse"
+
+ #: ../ui/prefs.glade.h:3
+ msgid "<span weight=\"bold\">Colors</span>"
+-msgstr ""
++msgstr "<span weight=\"bold\">Farver</span>"
+
+ #: ../ui/prefs.glade.h:4
+ msgid "<span weight=\"bold\">File transfers</span>"
+-msgstr ""
++msgstr "<span weight=\"bold\">Filoverførsler</span>"
+
+ #: ../ui/prefs.glade.h:5
+-#, fuzzy
+-#| msgid "Run Program on Events"
+ msgid "<span weight=\"bold\">Run Program on Events</span>"
+-msgstr "Kør program ved hændelser"
++msgstr "<span weight=\"bold\">Kør program ved hændelser</span>"
+
+ #: ../ui/prefs.glade.h:6
+ msgid "<span weight=\"bold\">Sounds</span>"
+-msgstr ""
++msgstr "<span weight=\"bold\">Lyde</span>"
+
+ #: ../ui/prefs.glade.h:13
+-#, fuzzy
+-#| msgid "Character set to use when there is no encoding info:"
+ msgid ""
+ "Character set to use when no encoding\n"
+ "information is provided with a message:"
+ msgstr ""
+-"Tegntabel der skal bruges når der ikke findes nogen kodningsinformation:"
++"Tegntabel der skal bruges, når der ikke\n"
++"findes nogen kodningsinformation med en\n"
++"besked:"
+
+ #: ../ui/prefs.glade.h:17
+ msgid "Control-Enter"
+-msgstr ""
++msgstr "Control-Retur"
+
+ #: ../ui/prefs.glade.h:18
+-#, fuzzy
+-#| msgid "GnomeICU Download folder"
+ msgid "Default Downloads Folder"
+-msgstr "Hentningskatalog for GnomeICU"
++msgstr "Standardmappe for overførsler"
+
+ #: ../ui/prefs.glade.h:19
+-#, fuzzy
+-#| msgid "Enable sounds only when online"
+ msgid "Disable sounds when away"
+-msgstr "Brug kun lyde når på nettet"
++msgstr "Slå lyde fra under fravær"
+
+ #: ../ui/prefs.glade.h:21
+ msgid "Do not close message window when sending a message"
+-msgstr ""
++msgstr "Luk ikke beskedvindue under afsendelse af en besked"
+
+ #: ../ui/prefs.glade.h:22
+-#, fuzzy
+-#| msgid "GnomeICU Download folder"
+ msgid "Downloads folder: "
+-msgstr "Hentningskatalog for GnomeICU"
++msgstr "Overførelsesmappe: "
+
+ #: ../ui/prefs.glade.h:25
+-#, fuzzy
+-#| msgid "Internet"
+ msgid "Enter"
+-msgstr "Internet"
++msgstr "Retur"
+
+ #: ../ui/prefs.glade.h:28
+-#, fuzzy
+-#| msgid "Launch Gnome Sound Preferences"
+ msgid "Go To GNOME Sound Preferences"
+-msgstr "Start lydindstillinger for Gnome"
++msgstr "Gå til lydindstillinger for Gnome"
+
+ #: ../ui/prefs.glade.h:29
+ msgid "Highlight misspelled words"
+-msgstr ""
++msgstr "Fremhæv stavefejl"
+
+ #: ../ui/prefs.glade.h:40
+ msgid "To send a mesage press (the other one inserts a new line):"
+-msgstr ""
++msgstr "For at sende en besked tryk (den anden indsætter en ny linje):"
+
+ #: ../ui/prefs.glade.h:42
+-#, fuzzy
+-#| msgid "Qatar"
+ msgid "after"
+-msgstr "Qatar"
++msgstr "efter"
+
+ #: ../ui/user_info.glade.h:2
+ msgid "<big><b>Passwords do not match!!!</b></big>"
+-msgstr ""
++msgstr "<big><b>Adgangskoder er ikke ens!!!</b></big>"
+
+ #: ../ui/user_info.glade.h:3
+ msgid "<span weight=\"bold\">About</span>"
+-msgstr ""
++msgstr "<span weight=\"bold\">Om</span>"
+
+ #: ../ui/user_info.glade.h:4
+ msgid "<span weight=\"bold\">Organizations</span>"
+-msgstr ""
++msgstr "<span weight=\"bold\">Organisationer</span>"
+
+ #: ../ui/user_info.glade.h:5
+ msgid "<span weight=\"bold\">Past Affiliations</span>"
+-msgstr ""
++msgstr "<span weight=\"bold\">Tidligere kontakter</span>"
+
+ #: ../ui/user_info.glade.h:6
+ msgid "<span weight=\"bold\">Personal Interests</span>"
+-msgstr ""
++msgstr "<span weight=\"bold\">Personlige interesser</span>"
+
+ #: ../ui/user_info.glade.h:7
+ msgid "About"
+-msgstr "Om..."
++msgstr "Om"
+
+ #: ../ui/user_info.glade.h:18
+-#, fuzzy
+-#| msgid "_Confirm new password:"
+ msgid "Confirm Password:"
+-msgstr "_Bekræft ny adgangskode:"
++msgstr "Bekræft adgangskode:"
+
+ #: ../ui/user_info.glade.h:21
+ msgid "E-mail Address:"
+-msgstr "Epostadresse:"
++msgstr "E-post-adresse:"
+
+ #: ../ui/user_info.glade.h:27
+ msgid "H_ide E-mail"
+-msgstr "_Skjul epost"
++msgstr "_Skjul e-post"
+
+ #: ../ui/user_info.glade.h:32
+ msgid "Idle for:"
+-msgstr ""
++msgstr "Inaktiv i:"
+
+ #: ../ui/user_info.glade.h:38
+-#, fuzzy
+-#| msgid "Last Name:"
+ msgid "Last Seen:"
+-msgstr "Efternavn:"
++msgstr "Sidst set:"
+
+ #: ../ui/user_info.glade.h:40
+-#, fuzzy
+-#| msgid "_Web site:"
+ msgid "Member since:"
+-msgstr "Websted:"
++msgstr "Medlem siden:"
+
+ #: ../ui/user_info.glade.h:43
+-#, fuzzy
+-#| msgid "_New password:"
+ msgid "New Password:"
+-msgstr "_Ny Adgangskode:"
++msgstr "Ny Adgangskode:"
+
+ #: ../ui/user_info.glade.h:48
+-#, fuzzy
+-#| msgid "Online"
+ msgid "Online since:"
+-msgstr "Tilsluttet"
++msgstr "Tilsluttet siden:"
+
+ #: ../ui/user_info.glade.h:49
+-#, fuzzy
+-#| msgid "Be visible on _websites"
+ msgid "Online status visible on _websites"
+-msgstr "Vær synlig på _websteder"
++msgstr "Status for tilslutning synlig på _websteder"
+
+ #: ../ui/user_info.glade.h:50
+ msgid "Other E-mail Addresses:"
+-msgstr "Andre e-postadresser:"
++msgstr "Andre e-post-adresser:"
+
+ #: ../ui/user_info.glade.h:53
+-#, fuzzy
+-#| msgid "Password:"
+ msgid "Password"
+-msgstr "Adgangskode:"
++msgstr "Adgangskode"
+
+ #: ../ui/user_info.glade.h:66
+ msgid "User Info"
+-msgstr "_Brugerinfo"
++msgstr "Brugerinfo"
+
+ #: ../ui/user_info.glade.h:68
+ msgid ""
+ "You can change your ICQ account password here by putting it in the New "
+ "Password and Confirm Password field."
+ msgstr ""
++"Du kan her ændre din adgangskode for din ICQ-konto ved at indtaste i "
++"felterne Ny adgangskode og Bekræft adgangskode."
+
+ #: ../ui/user_info.glade.h:75
+ msgid "_E-mail Address:"
+-msgstr "_Epostadresse:"
++msgstr "_E-post-adresse:"
+
+ #: ../ui/user_info.glade.h:84
+ msgid "_Other E-mail Addresses:"
+-msgstr "_Andre e-postadresser:"
++msgstr "_Andre e-post-adresser:"
+
+ #: ../ui/user_info.glade.h:87
+ msgid "_Web site:"
+-msgstr "Websted:"
++msgstr "_Hjemmeside:"
+
+ #: ../ui/welcome.glade.h:3
+-#, fuzzy
+-#| msgid "Create New UIN"
+ msgid "<b>Create New UIN</b>"
+-msgstr "Opret ny UIN"
++msgstr "<b>Opret ny UIN</b>"
+
+ #: ../ui/welcome.glade.h:4
+-#, fuzzy
+-#| msgid ""
+-#| "The UIN or password is incorrect. Click OK to rerun the new user druid, "
+-#| "or click Retreive to have your password e-mailed to you."
+ msgid ""
+ "<b>Incorrect UIN or Password.</b>\n"
+ "\n"
+ "The UIN or password is incorrect. Click OK to restart the process, or click "
+ "Retrieve to have your password e-mailed to you."
+ msgstr ""
++"<b>Ukorrekt UIN eller adgangskode.</b>\n"
++"\n"
+ "UIN'et eller adgangskoden er ugyldig. Klik på O.k. for at køre hjælpen igen, "
+ "eller klik på Hent for at få adgangskoden sendt til dig med e-post."
+
+ #: ../ui/welcome.glade.h:7
+-#, fuzzy
+-#| msgid "Use Existing UIN"
+ msgid "<b>Use Existing UIN</b>"
+-msgstr "Brug eksisterende UIN"
++msgstr "<b>Brug eksisterende UIN</b>"
+
+ #: ../ui/welcome.glade.h:13
+-#, fuzzy
+-#| msgid ""
+-#| "<big>Success!</big>\n"
+-#| "\n"
+-#| "Your account has been activated for use with GnomeICU."
+ msgid "Congratulations! Your account has been activated for use with GnomeICU."
+-msgstr ""
+-"<big>Lykkedes!</big>\n"
+-"\n"
+-"Din konto er aktiveret for brug med GnomeICU."
++msgstr "Tillykke! Din konto er aktiveret for brug med GnomeICU."
+
+ #: ../ui/welcome.glade.h:16
+-#, fuzzy
+-#| msgid "Create New UIN"
+ msgid "Create _New ICQ Account"
+-msgstr "Opret ny UIN"
++msgstr "Opret _ny ICQ-konto"
+
+ #: ../ui/welcome.glade.h:20
+-#, fuzzy
+-#| msgid "GnomeICU not running"
+ msgid "GnomeICU Account Setup"
+-msgstr "GnomeICU kører ikke"
++msgstr "Opsætning af GnomeICU-konto"
+
+ #: ../ui/welcome.glade.h:21
+ msgid ""
+ "GnomeICU setup is finished! If you created\n"
+ "a new account, don't forget to edit your user\n"
+ "information so that others can identify you.\n"
+ "\n"
+ "Click \"Apply\" button to start GnomeICU."
+ msgstr ""
+ "GnomeICU-konfigurationen er færdig! Hvis du oprettede\n"
+-"en ny konto bør du ikke glemme at redigere\n"
+-"din brugerinformation så andre kan finde\n"
++"en ny konto, bør du ikke glemme at redigere\n"
++"din brugerinformation, så andre kan finde\n"
+ "dig.\n"
+ "\n"
+ "Klik på \"Udfør\"-knappen for at starte GnomeICU."
+
+ #: ../ui/welcome.glade.h:29
+-#, fuzzy
+-#| msgid "Please enter a password for your new ICQ account"
+ msgid "Please enter a password for your new ICQ account."
+-msgstr "Indtast venligst en adgangskode til din nye ICQ-konto"
++msgstr "Indtast venligst en adgangskode til din nye ICQ-konto."
+
+ #: ../ui/welcome.glade.h:30
+-#, fuzzy
+-#| msgid "Please enter your UIN (ICQ number) and password"
+ msgid "Please enter your UIN (ICQ number) and password."
+-msgstr "Indtast dit UIN (ICQ-nummer) og din adgangskode"
++msgstr "Indtast dit UIN (ICQ-nummer) og din adgangskode."
+
+ #: ../ui/welcome.glade.h:32
+-#, fuzzy
+-#| msgid ""
+-#| "<small>Select this if you already have an account which you'd like to use "
+-#| "with GnomeICU.</small>"
+ msgid ""
+ "Select this if you already have an ICQ account which you'd like to use with "
+ "GnomeICU."
+ msgstr ""
+-"<small>Vælg dette hvis du allerede har en konto, som du gerne vil benytte "
+-"med\n"
+-"GnomeICU.</small>"
++"Vælg dette hvis du allerede har en ICQ-konto, som du gerne vil benytte "
++"med GnomeICU."
+
+ #: ../ui/welcome.glade.h:36
+-#, fuzzy
+-#| msgid ""
+-#| "<big>Failure!</big>\n"
+-#| "\n"
+-#| "There was a problem activating your account. You can go back and try "
+-#| "again, or go to http://gnomeicu.sourceforge.net to find more information."
+ msgid ""
+ "There is a problem activating your account. You can go back and try again, "
+ "or visit http://gnomeicu.sourceforge.net to find more information."
+ msgstr ""
+-"<big>Mislykkedes!</big>\n"
+-"\n"
+ "Der opstod problemer ved aktiveringen af din konto. Du kan gå tilbage og "
+ "forsøge igen, eller gå til http://gnomeicu.sourceforge.net for at finde mere "
+ "information."
+
+ #: ../ui/welcome.glade.h:37
+-#, fuzzy
+-#| msgid ""
+-#| "<small>This will create a new ICQ account. If you've never used ICQ "
+-#| "before, you will need to select this.</small>"
+ msgid ""
+ "This will create a new ICQ account. If you've never used ICQ before, pick "
+ "this option."
+ msgstr ""
+-"<small>Dette vil oprette en ny ICQ-konto. Hvis du aldrig har brugt ICQ før "
+-"skal du vælge dette.</small>"
++"Dette vil oprette en ny ICQ-konto. Hvis du aldrig har brugt ICQ før "
++"skal du vælge dette."
+
+ #: ../ui/welcome.glade.h:40
+-#, fuzzy
+-#| msgid "_Confirm new password:"
+ msgid "_Confirm Password:"
+-msgstr "_Bekræft ny adgangskode:"
++msgstr "_Bekræft adgangskode:"
+
+ #: ../ui/welcome.glade.h:41
+-#, fuzzy
+-#| msgid "_Existing UIN"
+ msgid "_Existing ICQ User"
+-msgstr "_Eksisterende UIN"
++msgstr "_Eksisterende ICQ-bruger"
+
+ #: ../ui/welcome.glade.h:43
+-#, fuzzy
+-#| msgid "Retreive"
+ msgid "_Retrieve"
+-msgstr "Modtag"
++msgstr "_Modtag"
+
+ #: ../ui/welcome.glade.h:44
+-#, fuzzy
+-#| msgid "UIN:"
+ msgid "_UIN:"
+-msgstr "UIN:"
++msgstr "_UIN:"
+
+ ===============================================================================
+ Diff created and cleaned up                                                    
+ ---------------------------                                                    
+ Total number of messages minus fake ones equals total number of real messages. 
+ 202 - 0 = 202
+                                                                                
+ Messages that did not need clean up: Changed: 114            
+                                    : Fyzzy  : 88            
+ Messages that was cleaned up       : Changed: 0            
+                                    : Fyzzy  : 0            
+                                             : ---------------------------------
+                                      Total  : 202     
+ ===============================================================================
+
