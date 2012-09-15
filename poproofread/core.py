@@ -173,6 +173,13 @@ class PoProofRead():
         Return          Returns the default data structure dictionary
         """
         diff_chunks = text.split('\n\n')
+        diff_chunks_crlf = text.split('\r\n\r\n')
+        # Check for CLRF line endings
+        if len(diff_chunks_crlf) > len(diff_chunks):
+            # .. and remove them in the output<
+            diff_chunks = [chunk.replace('\r\n', '\n')
+                           for chunk in diff_chunks_crlf]
+
         diff_list = [{'diff_chunk': diff, 'comment': '', 'inline': False}
                     for diff in diff_chunks]
         # This dictionary represents the default data structure version 1

@@ -1,0 +1,228 @@
+--- Line 22 (baobab.master.da.po) 
+ # Danish Translation of gnome-utils.
+ # Copyright (C) 1999-2011 Free Software Foundation, Inc.
+ # This file is distributed under the same license as the gnome-utils package.
+ # Kenneth Christiansen <kenneth@ripen.dk>, 1998-2000.
+ # Kim Schulz <kim@schulz.dk>, 1999.
+ # Birger Langkjer <birger.langkjer@image.dk>, 1999.
+ # Keld Simonsen <keld@dkuug.dk>, 2000-2001.
+ # Ole Laursen <olau@hardworking.dk>, 2001, 02, 03, 04.
+ # Martin Willemoes Hansen <mwh@sysrq.dk>, 2004, 05.
+ # Kenneth Nielsen <k.nielsen81@gmail.com>, 2008.
+ # Ask Hjorth Larsen <asklarsen@gmail.com>, 2007, 08, 09, 10, 11.
+ # Joe Hansen <joedalton2@yahoo.dk>, 2011.
+ #
+ #
+ # Husk at tilføje dig i credit-listen (besked id "translator-credits")
+ #
+ # Konventioner:
+ #
+ #   bad block -> ugyldig blok
+ #
+ msgid ""
+ msgstr ""
+ "Project-Id-Version: gnome-utils\n"
+ "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+ "product=baobab&keywords=I18N+L10N&component=general\n"
+ "POT-Creation-Date: 2012-09-11 16:34+0000\n"
+-"PO-Revision-Date: 2012-03-21 17:45+0100\n"
++"PO-Revision-Date: 2012-09-13 19:04+0200\n"
+ "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
+ "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
+ "Language: da\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=UTF-8\n"
+ "Content-Transfer-Encoding: 8bit\n"
+ "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+--- Line 62 (baobab.master.da.po) 
+ #: ../src/baobab-application.vala:30
+ msgid "Print version information and exit"
+-msgstr ""
++msgstr "Vis versionsinformation og afslut"
+
+--- Line 66 (baobab.master.da.po) 
+ #: ../src/baobab-application.vala:104
+-#, fuzzy
+-#| msgid "Disk Usage Analyzer"
+ msgid "- Disk Usage Analyzer"
+-msgstr "Diskforbrugsanalyse"
++msgstr "- Diskforbrugsanalyse"
+
+--- Line 71 (baobab.master.da.po) 
+ #: ../src/baobab-cellrenderers.vala:54
+-#, fuzzy, c-format
+-#| msgid "%5d item"
+-#| msgid_plural "%5d items"
++#, c-format
+ msgid "%d item"
+ msgid_plural "%d items"
+-msgstr[0] "%5d objekt"
+-msgstr[1] "%5d objekter"
++msgstr[0] "%d objekt"
++msgstr[1] "%d objekter"
+
+--- Line 101 (baobab.master.da.po) 
+ #: ../src/baobab-chart.c:898
+-#, fuzzy
+-#| msgid "Move to parent folder"
+ msgid "_Move to parent folder"
+-msgstr "Gå til mappen et niveau over"
++msgstr "_Gå til mappen et niveau over"
+
+--- Line 105 (baobab.master.da.po) 
+ #: ../src/baobab-chart.c:902
+-#, fuzzy
+-#| msgid "Zoom in"
+ msgid "Zoom _in"
+-msgstr "Førstør"
++msgstr "For_stør"
+
+--- Line 109 (baobab.master.da.po) 
+ #: ../src/baobab-chart.c:906
+-#, fuzzy
+-#| msgid "Zoom out"
+ msgid "Zoom _out"
+-msgstr "Formindsk"
++msgstr "For_mindsk"
+
+--- Line 113 (baobab.master.da.po) 
+ #: ../src/baobab-location.vala:52
+-#, fuzzy
+-#| msgid "Scan home folder"
+ msgid "Home folder"
+-msgstr "Skan hjemmemappe"
++msgstr "Skan mappe"
+
+--- Line 117 (baobab.master.da.po) 
+ #: ../src/baobab-location.vala:91
+ msgid "Main volume"
+-msgstr ""
++msgstr "Primære diskenhed"
+
+--- Line 129 (baobab.master.da.po) 
+ #: ../src/baobab-main-window.ui.h:3
+-#, fuzzy
+-#| msgid "Scan Remote Folder"
+ msgid "Scan a remote folder"
+ msgstr "Skan fjern mappe"
+
+--- Line 137 (baobab.master.da.po) 
+ #: ../src/baobab-main-window.ui.h:5 ../src/baobab-window.vala:474
+-#, fuzzy
+-#| msgid "Cannot scan location \"%s\""
+ msgid "Show all locations"
+-msgstr "Kan ikke skanne placeringen \"%s\""
++msgstr "Vis alle placeringen"
+
+--- Line 141 (baobab.master.da.po) 
+ #: ../src/baobab-main-window.ui.h:6
+ msgid "Reload"
+-msgstr ""
++msgstr "Genindlæs"
+
+--- Line 145 (baobab.master.da.po) 
+ #: ../src/baobab-main-window.ui.h:7
+ msgid "Close"
+-msgstr ""
++msgstr "Luk"
+
+--- Line 165 (baobab.master.da.po) 
+ #: ../src/baobab-main-window.ui.h:12
+-#, fuzzy
+-#| msgid "View as Rings Chart"
+ msgid "Rings Chart"
+-msgstr "Vis som ringdiagram"
++msgstr "Ringdiagram"
+
+--- Line 169 (baobab.master.da.po) 
+ #: ../src/baobab-main-window.ui.h:13
+-#, fuzzy
+-#| msgid "View as Treemap Chart"
+ msgid "Treemap Chart"
+-msgstr "Vis som træafbildning"
++msgstr "Træafbildning"
+
+--- Line 177 (baobab.master.da.po) 
+ #: ../src/baobab-main-window.ui.h:15
+ msgid "_Copy Path to Clipboard"
+-msgstr ""
++msgstr "_Kopiér sti til klippebordet"
+
+--- Line 189 (baobab.master.da.po) 
+ #: ../src/baobab-menu.ui.h:2
+ msgid "_About"
+-msgstr ""
++msgstr "_Om"
+
+--- Line 193 (baobab.master.da.po) 
+ #: ../src/baobab-menu.ui.h:3
+ msgid "_Quit"
+-msgstr ""
++msgstr "_Afslut"
+
+--- Line 202 (baobab.master.da.po) 
+ #: ../src/baobab-menu.ui.h:5
+-#, fuzzy
+-#| msgid "Scan Home"
+ msgid "_Scan Home"
+-msgstr "Skan hjemmemappe"
++msgstr "_Skan hjemmemappe"
+
+--- Line 206 (baobab.master.da.po) 
+ #: ../src/baobab-menu.ui.h:6
+ msgid "Scan F_older…"
+-msgstr "Skan m_appe…"
++msgstr "Skan _mappe…"
+
+--- Line 210 (baobab.master.da.po) 
+ #: ../src/baobab-menu.ui.h:7
+-#, fuzzy
+-#| msgid "S_can Remote Folder…"
+ msgid "Scan Remote Fo_lder…"
+ msgstr "S_kan fjern mappe…"
+
+--- Line 218 (baobab.master.da.po) 
+ #: ../src/baobab-menu.ui.h:9
+ msgid "_Stop"
+-msgstr ""
++msgstr "_Stop"
+
+--- Line 222 (baobab.master.da.po) 
+ #: ../src/baobab-menu.ui.h:10
+ msgid "_Reload"
+-msgstr ""
++msgstr "_Genindlæs"
+
+--- Line 226 (baobab.master.da.po) 
+ #: ../src/baobab-menu.ui.h:11
+-#, fuzzy
+-#| msgid "All_ocated Space"
+ msgid "_Allocated Space"
+-msgstr "All_okeret plads"
++msgstr "_Allokeret plads"
+
+--- Line 242 (baobab.master.da.po) 
+ #: ../src/baobab-window.vala:250
+-#, fuzzy
+-#| msgid "Could not analyze disk usage."
+ msgid "Could not analyze volume."
+-msgstr "Kunne ikke analysere diskforbrug."
++msgstr "Kunne ikke analysere diskenhed."
+
+--- Line 270 (baobab.master.da.po) 
+ #: ../src/baobab-window.vala:465
+ msgid "Cancel"
+-msgstr ""
++msgstr "Afbryd"
+
+--- Line 275 (baobab.master.da.po) 
+ #: ../src/baobab-window.vala:557
+ #, c-format
+ msgid "Could not scan folder \"%s\" or some of the folders it contains."
+-msgstr ""
++msgstr "Kunne ikke skanne mappen \"%s\" eller nogle af de mapper den indeholder."
+
+ =============================================================================
+ Number of messages: 26
+ =============================================================================
