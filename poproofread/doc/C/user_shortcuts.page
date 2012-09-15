@@ -40,8 +40,8 @@
 	<td><p>Toggle inline mode:</p></td><td><p>Ctrl-i</p></td>
       </tr>
       <tr>
-	<td><p>Export to clipboard</p></td><td><p>Ctrl-e</p></td>
-	<td></td><td></td>
+	<td><p>Export to clipboard</p></td><td><p>Ctrl-shift-e</p></td>
+	<td><p>Import from clipboard</p></td><td><p>Ctrl-shift-i</p></td>
       </tr>
       <tr>
 	<td colspan="4"><p></p></td>
@@ -52,7 +52,14 @@
       </tr>
       <tr>
 	<td><p>Close file:</p></td><td><p>Ctrl-w</p></td>
+	<td><p>Save file as:</p></td><td><p>Ctrl-shift-s</p></td>
+      </tr>
+      <tr>
 	<td><p>Quit:</p></td><td><p>Ctrl-q</p></td>
+	<td></td><td></td>
+      </tr>
+      <tr>
+	<td colspan="4"><p></p></td>
       </tr>
       <tr>
 	<td><p>Copy:</p></td><td><p>Ctrl-c</p></td>
