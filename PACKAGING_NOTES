@@ -1,0 +1,31 @@
+This file contains notes on how to make the deb packages and upload
+them to the PPA.
+
+cd ~/code
+### Export
+bzr export --format tgz poproofread-0.1.3.tar.gz poproofread
+
+### move this tarball into packaging location and unpack
+mv poproofread-0.1.3.tar.gz packaging/poproofread/
+cd packaging/poproofread/
+tzr zxvf poproofread-0.1.3.tar.gz
+
+### Get old source:
+apt-get source poproofread
+
+### Copy debian folder from old to new package
+cp -r poproofread-0.1.2/debian/ poproofread-0.1.3/
+
+### Rename tar-ball
+mv poproofread-0.1.3.tar.gz poproofread_0.1.3.orig.tar.gz
+
+### move into folder:
+cd poproofread-0.1.3/
+
+### Increment version and build
+dch -i
+debuild -S -sa -k916E2A64
+
+### Upload package to testing PPA
+cd ..
+dput tle poproofread_0.1.3-1~ppa0_source.changes
