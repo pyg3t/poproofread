@@ -6,7 +6,7 @@
 poproofread-gtk.py
 This file is a part of PoProofRead.
 
-Copyright (C) 2011-2013 Kenneth Nielsen <k.nielsen81@gmail.com>
+Copyright (C) 2011-2012 Kenneth Nielsen <k.nielsen81@gmail.com>
 
 PoProofRead is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -39,7 +39,7 @@ from settings import Settings
 from custom_exceptions import FileError
 from dialogs_gtk import ErrorDialogOK, WarningDialogOK, SaveAsDialog, \
     OpenDialog, AboutDialog, JumpToDialog
-from debug import level1, level2, level3
+from debug import level1, level2
 import __init__
 import i18n
 
@@ -50,15 +50,12 @@ class PoProofReadGtkGUI:
     def __init__(self, debug=0):
         # Set debug functions
         self.level = debug
-        if self.level > 0:
-            # Make sure debugging starts on a new line
-            print
 
         # Get settings
         self.settings = Settings()
 
         # Initiate core
-        self.ppr = PoProofRead(debug)
+        self.ppr = PoProofRead()
 
         # Load gui and connect signals
         self.builder = gtk.Builder()
@@ -233,12 +230,10 @@ class PoProofReadGtkGUI:
 
     ########################################
     # Help menu
-    @level1
     def on_mnu_about(self, widget):  # pylint: disable=R0201
         """ Callback for "about" menu item """
         AboutDialog().run()
 
-    @level1
     def on_mnu_help_activate(self, widget):  # pylint: disable=R0201
         """ Callback for "help" menu item """
         process = subprocess.Popen('which yelp > /dev/null', shell=True)
@@ -257,20 +252,17 @@ class PoProofReadGtkGUI:
         """ Convinience method to get gui widget """
         return self.builder.get_object(name)
 
-    @level3
     def write_to_textbuffer(self, textbuffer_name, text):
         """ Deletes anything in textbuffer and replaces it with text """
         startiter, enditer = self.gui(textbuffer_name).get_bounds()
         self.gui(textbuffer_name).delete(startiter, enditer)
         self.gui(textbuffer_name).insert(startiter, text)
 
-    @level3
     def read_comment(self):
         """ Return the content of the comment window """
         startiter, enditer = self.gui('textbuffer_comment').get_bounds()
         return self.gui('textbuffer_comment').get_text(startiter, enditer)
 
-    @level1
     def settings_to_gui(self):
         """ Update the gui according to the settings """
         pangofont = pango.FontDescription(
@@ -278,7 +270,6 @@ class PoProofReadGtkGUI:
         self.gui('textview_diff').modify_font(pangofont)
         self.gui('textview_comment').modify_font(pangofont)
 
-    @level1
     def reset_gui(self):
         """ Reset the gui to start up mode """
         welcome = _('Welcome to PoProofRead version {0}\n\n'
@@ -314,7 +305,6 @@ class PoProofReadGtkGUI:
         self.toggle_active_and_set_filename(False)
         self.update_inline_gui(False)
 
-    @level2
     def update_gui(self):
         """ update the gui from current poproofread state """
         if not self.ppr.active:
@@ -357,7 +347,6 @@ class PoProofReadGtkGUI:
 
         self.update_bookmark()
 
-    @level3
     def update_inline_gui(self, inline):
         """ Update the gui to the current inline status
         sw is short for scrolled window, sw1 is for diff and sw2 is for comment
@@ -380,14 +369,12 @@ class PoProofReadGtkGUI:
             self.gui('sw2').set_size_request(-1, 100)
             self.gui('vbox').set_child_packing(self.gui('sw2'), False, *par2)
 
-    @level3
     def update_bookmark(self):
         """ Update the book mark field """
         bookmark = str(self.ppr.get_bookmark() + 1)\
             if self.ppr.get_bookmark() is not None else 'N/A'
         self.gui('lab_current_bookmark').set_text(bookmark)
 
-    @level3
     def update_status_line(self, current_pos='-', total='-', percentage='-',
                            comments='-'):
         """ Update the statue line part of the gui. The '-' strings are used
@@ -396,7 +383,6 @@ class PoProofReadGtkGUI:
         for name in ['current_pos', 'total', 'percentage', 'comments']:
             self.gui('lab_{0}'.format(name)).set_text(locals()[name])
 
-    @level3
     def set_sensitive_nav_buttons(self, statuses):
         """ Sets the sensitivity of the navigation buttons in accordance with
         the position. statuses are ['first', 'previous', 'next', 'last']
@@ -404,7 +390,6 @@ class PoProofReadGtkGUI:
         for num, name in enumerate(['first', 'previous', 'next', 'last']):
             self.gui('btn_{0}'.format(name)).set_sensitive(statuses[num])
 
-    @level2
     def check_for_new_comment_and_save(self):
         """ Check if the comment text buffer has been modified and if it has
         update the comment with the new content. The return value indicates
@@ -433,7 +418,6 @@ class PoProofReadGtkGUI:
         except FileError as error:
             ErrorDialogOK(error.title, error.msg).run()
 
-    @level1
     def get_textbuffer_with_selection(self):
         """ Return the text buffer with an active text selection """
         if self.gui('textbuffer_diff').get_has_selection():
@@ -443,7 +427,6 @@ class PoProofReadGtkGUI:
         else:
             return None
 
-    @level1
     def toggle_active_and_set_filename(self, active, filename=None):
         """ Set filename in title and activate buttons and statusline """
         title = 'PoProofRead {0}'.format(__init__.__version__)
@@ -465,7 +448,7 @@ def main():
     file_option_str = 'Path to one file that should be opened'
     n_arguments_str = ('incorrect number of arguments: {0}. 0 or 1 filenames '
                        'allowed.')
-    debug_str = 'debug level 0-3. Default 0 means debug off'
+    debug_str = 'debug level 0-2. Default 0 means debug off'
     version_str = '%prog {0}'.format(__init__.__version__)
     filename = None
 

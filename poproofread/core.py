@@ -4,7 +4,7 @@
 core.py
 This file is a part of PoProofRead.
 
-Copyright (C) 2011-2013 Kenneth Nielsen <k.nielsen81@gmail.com>
+Copyright (C) 2011-2012 Kenneth Nielsen <k.nielsen81@gmail.com>
 
 PoProofRead is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -25,26 +25,21 @@ import os
 import StringIO
 from time import strftime
 from fileio import FileIO
-from debug import level1, level2, level3
 
 
-class PoProofRead:
+class PoProofRead():
     """ Main functionality for PoProofRead. This class contains and controls
     all of the functionality of PoProodRead except for the GUI. All index for
     the diff part list are zero based from this class and downwards.
     """
 
-    def __init__(self, debug=0):
-        # Set debug functions
-        self.level = debug
-
-        self.fileio = FileIO(debug)
+    def __init__(self):
+        self.fileio = FileIO()
         self.active = False
         self.content = None
 
     ##############################
     ### "File operation" functions
-    @level1
     def open(self, filename):
         """ Open a file """
         text, enc, actual_file, warnings, ppr = self.fileio.read(filename)
@@ -57,7 +52,6 @@ class PoProofRead:
             self.content = self._parse_text(text, enc)
         return actual_file, warnings
 
-    @level1
     def import_from_text(self, text):
         """ Import text as the diff to be proofread """
         self.content = self._parse_text(text)
@@ -68,14 +62,12 @@ class PoProofRead:
         self.active = True
         return filename
 
-    @level1
     def close(self):
         """ Close or reset functionality """
-        self.fileio.__init__(self.level)
+        self.fileio.__init__()
         self.active = False
         self.content = None
 
-    @level1
     def save(self, clipboard=False):
         """ Save. If 'clipboard' the output is returned in 'text'
 
@@ -93,7 +85,6 @@ class PoProofRead:
                 self.content['encoding'] = 'utf-8'
         return charset_warning, text
 
-    @level1
     def set_new_save_location(self, filename):
         """ Set new save location. For "Save as" functionality """
         ok_to_save, actual_filename = \
@@ -102,7 +93,6 @@ class PoProofRead:
 
     #############################
     ### PoProofRead-ing functions
-    @level1
     def move(self, amount=None, goto=None):
         """ Move to a different diff part. Either by 'amount' or to 'goto' """
         if amount != None:
@@ -115,17 +105,14 @@ class PoProofRead:
         self.content['current'] = \
             max(0, min(requested, self.content['no_chunks'] - 1))
 
-    @level2
     def get_current_content(self):
         """ Return the current part """
         return self.content['text'][self.content['current']]
 
-    @level2
     def get_inline_status(self):
         """ Return the inline status of the current diff part """
         return self.content['text'][self.content['current']]['inline']
 
-    @level2
     def set_inline_status(self, inline):
         """ Set the inline status of the diff part and edit the comment
         accordingly.
@@ -139,7 +126,6 @@ class PoProofRead:
             content['comment'] = content['comment'].replace(
                 content['diff_chunk'], '').lstrip('\n')
 
-    @level3
     def get_status(self):
         """ Get the status, consisting of the current, total, percentage and
         number of comments. NOTE current is reported zero based and it is up
@@ -152,29 +138,24 @@ class PoProofRead:
                 'percentage': percentage,
                 'comments': self.__count_comments()}
 
-    @level2
     def update_comment(self, new_comment):
         """ Update the comment for the current diff part """
         self.content['text'][self.content['current']]['comment'] = new_comment
 
-    @level1
     def set_bookmark(self):
         """ Set the bookmark to the current diff part """
         self.content['bookmark'] = self.content['current']
 
-    @level3
     def get_bookmark(self):
         """ Return the bookmark """
         return self.content['bookmark']
 
-    @level1
     def get_no_chunks(self):
         """ Return the number of diff parts """
         return self.content['no_chunks']
 
     #####################
     ### Utility functions
-    @level3
     def __count_comments(self):
         """ Return the number of comments in the proofreading """
         number = 0
@@ -211,7 +192,6 @@ class PoProofRead:
         }
         return default_datastructure
 
-    @level1
     def _create_output_text(self):
         """ Create the output text in a StringIO buffer """
         file_ = StringIO.StringIO()

@@ -4,7 +4,7 @@
 fileio.py
 This file is a part of PoProofRead
 
-Copyright (C) 2011-2013 Kenneth Nielsen <k.nielsen81@gmail.com>
+Copyright (C) 2011-2012 Kenneth Nielsen <k.nielsen81@gmail.com>
 
 PoProofRead is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -25,20 +25,16 @@ import codecs
 import re
 from dialogs_gtk import EncodingDialogOK, QuestionWarningDialog
 from custom_exceptions import FileError, FileWarning, UnhandledException
-from debug import level1, level2, level3
 
 
 class FileIO():
     """ This class provides the file IO functionality """
 
-    def __init__(self, debug):
+    def __init__(self):
         """ Initiate variables """
-        # Set debug functions
-        self.level = debug
         self.ppr_file = None
         self.out_file = None
 
-    @level1
     def read(self, input_file):
         """ Read content dependent on filetype """
         warnings, ppr, enc = [], True, 'utf-8'
@@ -74,7 +70,6 @@ class FileIO():
                 print 'Loaded new diff'
         return text, enc, actual_file, warnings, ppr
 
-    @level1
     def __read_ppr(self, input_file):
         """ Read content from .ppr file """
         self._set_new_file_location(input_file, existing=True, ppr=True)
@@ -82,7 +77,6 @@ class FileIO():
             text = file_.read()
         return text
 
-    @level1
     def __read_new(self, input_file):
         """ Read content from new file """
         self._set_new_file_location(input_file, existing=False, ppr=False)
@@ -100,7 +94,6 @@ class FileIO():
 
         return text, encoding
 
-    @level1
     def check_and_set_new_file_location(self, filename, tmp=False):
         """ Check if file exists and then set new file locations. Save as. If
         tmp is true we only get a filename that needs to have a temporary save
@@ -131,7 +124,6 @@ class FileIO():
             return False, None
         return True, filename
 
-    @level3
     def _set_new_file_location(self, filename, existing, ppr):
         """ Set new file locations and check if they are usable """
         if ppr:
@@ -141,12 +133,10 @@ class FileIO():
         self.out_file = self.ppr_file + '.out'
         self.__check_ppr_and_out_file(self.ppr_file, self.out_file, existing)
 
-    @level1
     def get_file_locations(self):
         """ Return the save and out files """
         return self.ppr_file, self.out_file
 
-    @level3
     def __check_ppr_and_out_file(self, ppr_file, out_file, existing):
         """ Check file permissions """
         # Error messages on failed file tests
@@ -245,7 +235,6 @@ class FileIO():
                 if selected_enc is None:
                     raise FileError(input_file, aborted_text)
 
-    @level1
     def write(self, content_json_dump, text, encoding):
         """ Write content to ppr and out file
 
@@ -255,13 +244,11 @@ class FileIO():
         charset_warning = self.__write_to_out(text, encoding)
         return charset_warning
 
-    @level2
     def __write_to_ppr(self, content_json_dump):
         """ Write json representation of content to .ppr file """
         with open(self.ppr_file, 'w') as file_:
             file_.write(content_json_dump)
 
-    @level2
     def __write_to_out(self, text, encoding, override_encoding=False):
         """ Write out file
 
