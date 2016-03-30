@@ -2,7 +2,7 @@
 # pylint: disable-msg=W0613,R0903,R0201
 
 """
-poproofread-gtk.py
+poproofread-Gtk.py
 This file is a part of PoProofRead.
 
 Copyright (C) 2011-2012 Kenneth Nielsen <k.nielsen81@gmail.com>
@@ -24,9 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os
 import encodings
 import pkgutil
-import pygtk
-pygtk.require('2.0')
-import gtk
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk
 import __init__
 
 
@@ -56,7 +56,7 @@ class Dialog:
             layout_xml = xmlfile.read()
 
         # Form the dialog and assign it to a convenient name
-        self.builder = gtk.Builder()
+        self.builder = Gtk.Builder()
         self.builder.add_from_string(layout_xml)
         self.dialog = self.builder.get_object(object_name)
 
@@ -70,8 +70,8 @@ class MessageDialog(Dialog):
             Dialog.__init__(self, 'mes_dia_ok')
         self.dialog.set_property('text', text)
         self.dialog.set_property('secondary-text', sec_text)
-        # This can be used to set the type of message: gtk.MESSAGE_INFO,
-        # gtk.MESSAGE_WARNING, gtk.MESSAGE_QUESTION or gtk.MESSAGE_ERROR.
+        # This can be used to set the type of message: Gtk.MessageType.INFO,
+        # Gtk.MessageType.WARNING, Gtk.MessageType.QUESTION or Gtk.MessageType.ERROR.
         self.dialog.set_property('message-type', message_dialog_type)
 
     def run(self):
@@ -84,19 +84,19 @@ class MessageDialog(Dialog):
 class ErrorDialogOK(MessageDialog):
     """ Error dialog with on a OK button """
     def __init__(self, text, sec_text):
-        MessageDialog.__init__(self, gtk.MESSAGE_ERROR, text, sec_text)
+        MessageDialog.__init__(self, Gtk.MessageType.ERROR, text, sec_text)
 
 
 class WarningDialogOK(MessageDialog):
     """ Information dialog with on a OK button """
     def __init__(self, text, sec_text):
-        MessageDialog.__init__(self, gtk.MESSAGE_WARNING, text, sec_text)
+        MessageDialog.__init__(self, Gtk.MessageType.WARNING, text, sec_text)
 
 
 class QuestionWarningDialog(MessageDialog):
     """ Question dialog with ok and cancel buttons """
     def __init__(self, text, sec_text):
-        MessageDialog.__init__(self, gtk.MESSAGE_WARNING, text, sec_text,
+        MessageDialog.__init__(self, Gtk.MessageType.WARNING, text, sec_text,
             question=True)
 
     def run(self):

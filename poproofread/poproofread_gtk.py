@@ -29,10 +29,10 @@ try:
     import argparse
 except ImportError:
     import optparse
-import pygtk
-pygtk.require('2.0')
-import pango
-import gtk
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Pango
+from gi.repository import Gtk
 import glib
 from core import PoProofRead
 from settings import Settings
@@ -58,7 +58,7 @@ class PoProofReadGtkGUI:
         self.ppr = PoProofRead()
 
         # Load gui and connect signals
-        self.builder = gtk.Builder()
+        self.builder = Gtk.Builder()
         moduledir = os.path.dirname(__file__)
         gladefile = os.path.join(moduledir,
                                       'gui/poproofread_gtk_gui.glade')
@@ -73,12 +73,12 @@ class PoProofReadGtkGUI:
         self.builder.connect_signals(self)
         self.gui('poproofread').set_icon_from_file(iconfile)
 
-        self.clipboard = gtk.Clipboard()
+        self.clipboard = Gtk.Clipboard()
 
         # Color the background of the diff window grey
         self.gui('textview_diff').modify_base(
             self.gui('textview_diff').get_state(),
-            gtk.gdk.Color(red=58000, green=58000, blue=58000))
+            Gdk.Color(red=58000, green=58000, blue=58000))
 
         # Used for move callback, arguments for self.ppr.move()
         self.moves = {self.gui('btn_first'):    {'goto': 0},
@@ -197,7 +197,7 @@ class PoProofReadGtkGUI:
             self.check_for_new_comment_and_save()
 
         self.settings.write()
-        gtk.main_quit()
+        Gtk.main_quit()
 
     ########################################
     # Edit menu
@@ -265,7 +265,7 @@ class PoProofReadGtkGUI:
 
     def settings_to_gui(self):
         """ Update the gui according to the settings """
-        pangofont = pango.FontDescription(
+        pangofont = Pango.FontDescription(
             'Monospace {0}'.format(self.settings['font_size']))
         self.gui('textview_diff').modify_font(pangofont)
         self.gui('textview_comment').modify_font(pangofont)
@@ -481,7 +481,7 @@ def main():
     poproofread.gui("poproofread").show()
     if filename is not None:
         poproofread.open_file(filename)
-    gtk.main()
+    Gtk.main()
 
 if __name__ == "__main__":
     main()
