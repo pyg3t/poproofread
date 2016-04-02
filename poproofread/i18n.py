@@ -23,7 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os
 import locale
 import gettext
-import Gtk.glade
+
+# EXPERIMENT
+from gi.repository import Gtk
 
 DOMAIN = 'poproofread'
 LOCALEDIR = '%s/po/' % os.path.dirname(__file__)
@@ -33,5 +35,7 @@ gettext.textdomain(DOMAIN)
 TRANSLATION = gettext.translation(DOMAIN, LOCALEDIR, fallback=True)
 TRANSLATION.install(unicode=True)
 
-Gtk.glade.textdomain(DOMAIN)
-Gtk.glade.bindtextdomain(DOMAIN, LOCALEDIR)
+#Gtk.glade.textdomain(DOMAIN)
+#Gtk.glade.bindtextdomain(DOMAIN, LOCALEDIR)
+BUILDER = Gtk.Builder()
+BUILDER.set_translation_domain(DOMAIN)

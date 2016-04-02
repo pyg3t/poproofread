@@ -58,7 +58,8 @@ class PoProofReadGtkGUI:
         self.ppr = PoProofRead()
 
         # Load gui and connect signals
-        self.builder = Gtk.Builder()
+        #Was: self.builder = Gtk.Builder() experimental hack for i18n support
+        self.builder = i18n.BUILDER
         moduledir = os.path.dirname(__file__)
         gladefile = os.path.join(moduledir,
                                       'gui/poproofread_gtk_gui.glade')
