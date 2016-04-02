@@ -355,13 +355,13 @@ class PoProofReadGtkGUI:
         par2 are the last ([1:]) sw2 packaging parameters in vbox
         """
         par2 = self.gui('vbox').query_child_packing(self.gui('sw2'))[1:]
-        if inline and self.gui('sw1') in self.gui('vbox').children():
+        if inline and self.gui('sw1') in self.gui('vbox'):
             # If inline and not already in inline layout ...
             self.gui('vbox').remove(self.gui('hsep'))
             self.gui('vbox').remove(self.gui('sw1'))
             self.gui('sw2').set_size_request(-1, -1)
             self.gui('vbox').set_child_packing(self.gui('sw2'), True, *par2)
-        elif not (inline or self.gui('sw1') in self.gui('vbox').children()):
+        elif not (inline or self.gui('sw1') in self.gui('vbox')):
             # ... and vice versa
             self.gui('vbox').pack_start(self.gui('sw1'), True, True, 0)
             self.gui('vbox').reorder_child(self.gui('sw1'), 2)
