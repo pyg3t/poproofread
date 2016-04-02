@@ -30,6 +30,17 @@ from gi.repository import Gtk
 import __init__
 
 
+# FIXME
+# THIS IS A HACK. Gtk3 warns about dialogs not being transient of modal, untill
+# I figure out if I should ultimately fix this by combining all glade into one
+# file I will just set the parent globally instead of passing it as argument
+# everywhere
+PARENT=None
+def set_parent(parent):
+    global PARENT
+    PARENT = parent
+
+
 class Dialog:
     """ Abstract class for all dialogs that loads the gui and assigns the
     dialog to a variable
@@ -59,6 +70,7 @@ class Dialog:
         self.builder = Gtk.Builder()
         self.builder.add_from_string(layout_xml)
         self.dialog = self.builder.get_object(object_name)
+        self.dialog.set_transient_for(PARENT)
 
 
 class MessageDialog(Dialog):

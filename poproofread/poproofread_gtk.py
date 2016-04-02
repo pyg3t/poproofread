@@ -33,12 +33,13 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Pango
 from gi.repository import Gtk
+from gi.repository import Gdk
 import glib
 from core import PoProofRead
 from settings import Settings
 from custom_exceptions import FileError
 from dialogs_gtk import ErrorDialogOK, WarningDialogOK, SaveAsDialog, \
-    OpenDialog, AboutDialog, JumpToDialog
+    OpenDialog, AboutDialog, JumpToDialog, set_parent
 from debug import level1, level2
 import __init__
 import i18n
@@ -73,6 +74,7 @@ class PoProofReadGtkGUI:
 
         self.builder.connect_signals(self)
         self.gui('poproofread').set_icon_from_file(iconfile)
+        set_parent(self.gui('poproofread'))
 
         self.clipboard = Gtk.Clipboard()
 
