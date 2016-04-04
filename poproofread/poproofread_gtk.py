@@ -264,7 +264,8 @@ class PoProofReadGtkGUI:
     def read_comment(self):
         """ Return the content of the comment window """
         startiter, enditer = self.gui('textbuffer_comment').get_bounds()
-        return self.gui('textbuffer_comment').get_text(startiter, enditer)
+        return self.gui('textbuffer_comment').get_text(startiter, enditer,
+                                                       include_hidden_chars=False)
 
     def settings_to_gui(self):
         """ Update the gui according to the settings """
