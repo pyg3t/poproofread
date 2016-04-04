@@ -142,8 +142,10 @@ class EncodingDialogOK(Dialog):
         encs.difference_update(false_positives)
         encs = list(encs)
         encs.sort()
+
+        liststore = self.builder.get_object('liststore_encodings')
         for enc in encs:
-            self.combo.append_text(enc)
+            liststore.append((enc, ))
         self.combo.set_active(0)
 
         # Fill out the autodetect option or deactivate
@@ -154,7 +156,6 @@ class EncodingDialogOK(Dialog):
             self.builder.get_object('label_autodetect').set_text(
                 '{0} with {1:.0f}% confidence'.format(
                     autodetected, autodetect_confidence * 100))
-        self.dialog = self.builder.get_object('dialog_encodings')
         self.builder.connect_signals(self)
 
     def run(self):
