@@ -263,6 +263,11 @@ class JumpToDialog(Dialog):
         ans = self.dialog.run()
         ret = None
         if ans == 0:
+            # Pressing enter in this dialog actives the Ok button, without
+            # changing the value of the updating the value of the spinbutton.
+            # This does it manually.
+            self.spinbtn.update()
+            # Get the value
             ret = self.spinbtn.get_value_as_int()
         self.dialog.destroy()
         return ret
