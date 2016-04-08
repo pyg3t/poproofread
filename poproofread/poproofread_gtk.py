@@ -40,7 +40,6 @@ from settings import Settings
 from custom_exceptions import FileError
 from dialogs_gtk import ErrorDialogOK, WarningDialogOK, SaveAsDialog, \
     OpenDialog, AboutDialog, JumpToDialog, set_parent
-from debug import level1, level2
 import __init__
 import i18n
 
@@ -48,10 +47,7 @@ import i18n
 class PoProofReadGtkGUI:
     """ The GTK frontend class for PoProofRead """
 
-    def __init__(self, debug=0):
-        # Set debug functions
-        self.level = debug
-
+    def __init__(self):
         # Get settings
         self.settings = Settings()
 
@@ -93,34 +89,29 @@ class PoProofReadGtkGUI:
         self.reset_gui()
 
     # Mandatory gtk window handling
-    @level1
     def on_window_destroy(self, widget):
         """ Callback for "window destroy" event """
         self.on_mnu_quit(widget)
 
     ### GUI widgets
     # Buttons
-    @level1
     def on_btn_set_bookmark(self, widget):
         """ Callback for "set bookmark" button """
         self.ppr.set_bookmark()
         self.update_bookmark()
 
-    @level1
     def on_btn_jump_to_bookmark(self, widget):
         """ Callback for "jump to bookmark" button """
         self.check_for_new_comment_and_save()
         self.ppr.move(goto=self.ppr.get_bookmark())
         self.update_gui()
 
-    @level1
     def on_checkbutton_inline(self, widget):
         """ Callback for inline toggle button """
         self.check_for_new_comment_and_save()
         self.ppr.set_inline_status(widget.get_active())
         self.update_gui()
 
-    @level2
     def on_move(self, widget):
         """ Callback for all navigation buttons """
         self.check_for_new_comment_and_save()
@@ -128,7 +119,6 @@ class PoProofReadGtkGUI:
         self.ppr.move(**self.moves[widget])
         self.update_gui()
 
-    @level1
     def on_btn_jump_to(self, widget):
         """ Callback for "jump to" button """
         value = JumpToDialog(1, self.ppr.get_no_chunks()).run()
@@ -139,7 +129,6 @@ class PoProofReadGtkGUI:
 
     # Menus
     # File menu
-    @level1
     def on_mnu_open(self, widget):
         """ Callback for "open" menu item """
         filename, current_dir = OpenDialog(self.settings['current_dir']).run()
@@ -147,12 +136,10 @@ class PoProofReadGtkGUI:
             self.settings['current_dir'] = current_dir
             self.open_file(filename)
 
-    @level1
     def on_mnu_save(self, widget):
         """ Callback for "save" menu item. Insensitive if inactive """
         self.check_for_new_comment_and_save()
 
-    @level1
     def on_mnu_save_as(self, widget):
         """ Callback for "save as" menu item. Insensitive if inactive """
         new_filename, current_dir = \
@@ -166,7 +153,6 @@ class PoProofReadGtkGUI:
                 self.toggle_active_and_set_filename(True, actual_filename)
                 self.check_for_new_comment_and_save()
 
-    @level1
     def on_mnu_close(self, widget):
         """ Callback for "close" menu item """
         if self.ppr.active:
@@ -174,7 +160,6 @@ class PoProofReadGtkGUI:
             self.ppr.close()
             self.reset_gui()
 
-    @level1
     def on_mnu_import_clipboard(self, widget):
         """ Import the contents of the clipboard """
         # The method below converts into utf-8 which means that character
@@ -187,13 +172,11 @@ class PoProofReadGtkGUI:
             self.toggle_active_and_set_filename(True, filename)
             self.update_gui()
 
-    @level1
     def on_mnu_export_clipboard(self, widget):
         """ Callback for "Export to clipoard" menu item """
         text = self.ppr.save(clipboard=True)[1]
         self.clipboard.set_text(text)
 
-    @level1
     def on_mnu_quit(self, widget):
         """ Callback for "quit" menu item """
         if self.ppr.active:
@@ -204,27 +187,23 @@ class PoProofReadGtkGUI:
 
     ########################################
     # Edit menu
-    @level1
     def on_mnu_copy(self, widget):
         """ Callback for "copy" menu item """
         tb_with_selection = self.get_textbuffer_with_selection()
         if tb_with_selection is not None:
             tb_with_selection.copy_clipboard(self.clipboard)
 
-    @level1
     def on_mnu_paste(self, widget):
         """ Callback for "paste" menu item """
         self.gui('textbuffer_comment').\
             paste_clipboard(self.clipboard, None, True)
 
-    @level1
     def on_mnu_cut(self, widget):
         """ Callback for "cut" menu item """
         if self.get_textbuffer_with_selection() is\
                 self.gui('textbuffer_comment'):
             self.gui('textbuffer_comment').cut_clipboard(self.clipboard, True)
 
-    @level1
     def on_mnu_delete(self, widget):
         """ Callback for "delete" menu item """
         if self.get_textbuffer_with_selection() is\
@@ -409,7 +388,6 @@ class PoProofReadGtkGUI:
         if warning is not None:
             WarningDialogOK(warning.title, warning.msg).run()
 
-    @level1
     def open_file(self, filename):
         """ Open file logic, factored out for use both from gui and cli """
         self.on_mnu_close(None)
@@ -455,7 +433,6 @@ def main():
     file_option_str = 'Path to one file that should be opened'
     n_arguments_str = ('incorrect number of arguments: {0}. 0 or 1 filenames '
                        'allowed.')
-    debug_str = 'debug level 0-2. Default 0 means debug off'
     version_str = '%prog {0}'.format(__init__.__version__)
     filename = None
 
@@ -467,24 +444,20 @@ def main():
                             help=file_option_str)
         parser.add_argument('--version', action='version',
                             version=__init__.__version__)
-        parser.add_argument('--debug', default=0, type=int, help=debug_str)
         args = parser.parse_args()
-        debug = args.debug
         filename = args.filename
     else:
         parser = optparse.OptionParser(usage=usage,
                                        description=description,
                                        version=version_str)
-        parser.add_option('-d', '--debug', default=0, help=debug_str)
         options, args = parser.parse_args()  # parse_args gives (options, args)
-        debug = options.debug
         if len(args) == 1:
             filename = args[0]
         elif len(args) > 1:
             parser.error(n_arguments_str.format(len(args)))
 
     # Initiate program
-    poproofread = PoProofReadGtkGUI(debug)
+    poproofread = PoProofReadGtkGUI()
     poproofread.gui("poproofread").show()
     if filename is not None:
         poproofread.open_file(filename)
