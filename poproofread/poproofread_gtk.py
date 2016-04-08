@@ -308,11 +308,14 @@ class PoProofReadGtkGUI:
         self.update_status_line()
         self.toggle_active_and_set_filename(False)
         self.update_inline_gui(False)
+        self.gui('mnu_close').set_sensitive(False)
 
     def update_gui(self):
         """ update the gui from current poproofread state """
         if not self.ppr.active:
+            self.gui('mnu_close').set_sensitive(False)
             return
+        self.gui('mnu_close').set_sensitive(True)
 
         # Read inline status from ppr and update checkbutton accordingly
         inline = self.ppr.get_inline_status()
